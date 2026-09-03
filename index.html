@@ -12,5 +12,28 @@
 <div id="systems"></div>
 
 <script src="script.js"></script>
+<button onclick="testSend()" style="margin-top:20px;padding:10px 20px;">
+    تست ارسال اطلاعات
+</button>
+
+<script>
+function testSend() {
+  fetch("https://gamenet-server.onrender.com/update/hamid01", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      system1: {
+        active: true,
+        elapsed: "00:12:30",
+        cost: 5000,
+        note: "PUBG"
+      }
+    })
+  })
+  .then(r => r.text())
+  .then(t => alert("نتیجه سرور: " + t))
+  .catch(e => alert("خطا: " + e));
+}
+</script>
 </body>
 </html>
