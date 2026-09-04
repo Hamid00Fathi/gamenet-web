@@ -1,39 +1,58 @@
 <!DOCTYPE html>
 <html lang="fa">
 <head>
-    <meta charset="UTF-8">
-    <title>گیم‌نت حمید</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>گیم‌نت حمید</title>
+<style>
+body {
+    font-family: sans-serif;
+    background: #f5f5f5;
+    direction: rtl;
+    padding: 20px;
+}
+.card {
+    background: white;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px #ccc;
+}
+</style>
 </head>
 <body>
 
-<h1>وضعیت سیستم‌ها</h1>
-
+<h2>وضعیت سیستم‌ها</h2>
 <div id="systems"></div>
 
-<script src="script.js"></script>
-<button onclick="testSend()" style="margin-top:20px;padding:10px 20px;">
-    تست ارسال اطلاعات
-</button>
-
 <script>
-function testSend() {
-  fetch("https://gamenet-server.onrender.com/update/hamid01", {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({
-      system1: {
-        active: true,
-        elapsed: "00:12:30",
-        cost: 5000,
-        note: "PUBG"
-      }
+function loadStatus() {
+    fetch("https://gamenet-server.onrender.com/status/hamid01")
+    .then(r => r.json())
+    .then(data => {
+        let box = document.getElementById("systems");
+        box.innerHTML = "";
+
+        Object.keys(data).forEach(key => {
+            let s = data[key];
+            box.innerHTML += `
+                <div class="card">
+                    <h3>${key}</h3>
+                    <p>فعال: ${s.active}</p>
+                    <p>زمان: ${s.elapsed}</p>
+                    <p>هزینه: ${s.cost}</p>
+                    <p>یادداشت: ${s.note}</p>
+                </div>
+            `;
+        });
     })
-  })
-  .then(r => r.text())
-  .then(t => alert("نتیجه سرور: " + t))
-  .catch(e => alert("خطا: " + e));
+    .catch(err => {
+        console.log("خطا:", err);
+    });
 }
+
+setInterval(loadStatus, 3000);
+loadStatus();
 </script>
+
 </body>
 </html>
