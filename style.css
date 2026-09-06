@@ -12,7 +12,7 @@ body {
 
 /* نام کاربری */
 #username {
-    font-size: 22px;
+    font-size: 24px;
     font-weight: bold;
     margin-bottom: 10px;
     color: #ffffff;
@@ -20,32 +20,50 @@ body {
 
 /* آخرین آپدیت */
 #lastUpdate {
-    font-size: 16px;
+    font-size: 18px;
     margin-bottom: 20px;
     color: #bbbbbb;
 }
 
-/* موبایل و تبلت: فقط یک کارت در هر ردیف */
+/* موبایل و تبلت: فقط یک کارت در هر ردیف + فونت بزرگ */
 @media (max-width: 1200px) {
 
-    /* خاموش کردن کامل گرید */
     #systems {
         display: block !important;
         width: 100% !important;
     }
 
-    /* هر کارت یک ردیف کامل */
     .card {
         display: block !important;
         width: 100% !important;
         min-width: 0 !important;
         max-width: 100% !important;
+        margin-bottom: 25px !important;
+        padding: 22px !important; /* بزرگ‌تر */
+    }
 
-        margin: 0 0 20px 0 !important;
+    /* فونت‌های موبایل */
+    .card h2 {
+        font-size: 24px !important;
+    }
 
-        /* جلوگیری از کنار هم قرار گرفتن */
-        float: none !important;
-        clear: both !important;
+    .card p {
+        font-size: 18px !important;
+        line-height: 1.7 !important;
+    }
+
+    .card h3 {
+        font-size: 20px !important;
+        margin-top: 18px !important;
+    }
+
+    .snack-item {
+        font-size: 18px !important;
+    }
+
+    .customer-box {
+        font-size: 18px !important;
+        padding: 14px !important;
     }
 }
 
@@ -89,7 +107,7 @@ body {
     unicode-bidi: bidi-override;
     padding: 4px 0;
     border-bottom: 1px dashed #333;
-    font-size: 14px;
+    font-size: 15px;
     color: #cccccc;
 }
 
@@ -98,7 +116,7 @@ body {
     padding: 10px;
     border-radius: 8px;
     margin-top: 10px;
-    font-size: 14px;
+    font-size: 15px;
     color: #e0e0e0;
     direction: rtl;
     text-align: right;
@@ -107,12 +125,12 @@ body {
 .card h3 {
     margin-top: 15px;
     margin-bottom: 8px;
-    font-size: 16px;
+    font-size: 17px;
     color: #bbbbbb;
 }
 
 .card p {
     margin: 6px 0;
-    font-size: 15px;
+    font-size: 16px;
     color: #dddddd;
 }
