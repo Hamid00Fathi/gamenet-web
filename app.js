@@ -13,22 +13,57 @@ function renderSystems(data) {
     const container = document.getElementById("systems");
     container.innerHTML = "";
 
-    Object.keys(data).forEach(key => {
+    for (let key in data) {
         const sys = data[key];
 
-        const card = document.createElement("div");
-        card.className = "card";
+        let foodsHTML = "";
+        let foodsTotal = 0;
 
-        card.innerHTML = `
-            <h3>${sys.name}</h3>
-            <p>وضعیت: ${sys.active}</p>
+        if (sys.foods && sys.foods.length > 0) {
+            sys.foods.forEach(f => {
+                foodsHTML += `
+                    <div class="food-item">
+                        <span>${f.name}</span>
+                        <span>${f.count} × ${f.price} تومان</span>
+                    </div>
+                `;
+            });
+            foodsTotal = sys.foods_total || 0;
+        }
+
+        const finalTotal = sys.final_total || (sys.cost + foodsTotal);
+
+        const customerHTML = sys.customer ? `
+            <div class="customer-box">
+                <p>مشتری: ${sys.customer.name}</p>
+                <p>کد ملی: ${sys.customer.national_id}</p>
+                <p>اعتبار: ${sys.customer.balance} تومان</p>
+                <p>بدهی: ${sys.customer.debt} تومان</p>
+            </div>
+        ` : `<p>بدون حساب مشتری</p>`;
+
+        const div = document.createElement("div");
+        div.className = "card " + (sys.active ? "active" : "free");
+
+        div.innerHTML = `
+            <h2>${key}</h2>
+            <p>وضعیت: ${sys.active ? "فعال" : "آزاد"}</p>
             <p>زمان: ${sys.elapsed}</p>
-            <p>هزینه: ${sys.cost}</p>
-            <p>مشتری: ${sys.customer}</p>
+            <p>هزینه زمان: ${sys.cost} تومان</p>
+
+            <h3>خوراکی‌ها:</h3>
+            ${foodsHTML || "<p>بدون خوراکی</p>"}
+
+            <p>جمع خوراکی‌ها: ${foodsTotal} تومان</p>
+            <p><strong>هزینه نهایی: ${finalTotal} تومان</strong></p>
+
+            <h3>مشتری:</h3>
+            ${customerHTML}
         `;
 
-        container.appendChild(card);
-    });
+        container.appendChild(div);
+    }
+}
 
     document.getElementById("lastUpdate").innerText =
         "آخرین آپدیت: " + new Date().toLocaleTimeString();
