@@ -3,7 +3,7 @@ const username = new URLSearchParams(window.location.search).get("user");
 document.getElementById("username").innerText = "کاربر: " + username;
 
 function loadStatus() {
-    fetch(`https://gamenet-server.onrender.com/status/${username}`)
+    fetch(`https://gamenet-server.onrender.com/status/$<username>`)
         .then(r => r.json())
         .then(data => renderSystems(data))
         .catch(err => console.log("خطا:", err));
