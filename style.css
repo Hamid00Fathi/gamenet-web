@@ -25,24 +25,21 @@ body {
     color: #bbbbbb;
 }
 
-/* موبایل: فقط یک کارت در هر ردیف */
-@media (max-width: 600px) {
-
-    /* خاموش کردن کامل گرید */
+/* موبایل و تبلت: فقط یک کارت در هر ردیف */
+@media (max-width: 900px) {
     #systems {
-        display: block !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 20px !important;
+        width: 100% !important;
     }
 
-    /* هر کارت یک ردیف کامل */
     .card {
+        display: block !important;
         width: 100% !important;
         min-width: 0 !important;
         max-width: 100% !important;
-
-        margin-bottom: 20px !important;
-
-        /* جلوگیری از کنار هم قرار گرفتن */
-        display: block !important;
+        margin: 0 !important;
     }
 }
 
