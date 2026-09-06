@@ -1,16 +1,14 @@
-/* دارک مود کامل */
 body {
     direction: rtl;
     unicode-bidi: bidi-override;
     text-align: right;
     font-family: Vazirmatn, Tahoma, sans-serif;
-    background: #121212;
-    color: #e0e0e0;
+    background: #0d0d0d;
+    color: #e6e6e6;
     margin: 0;
     padding: 20px;
 }
 
-/* عنوان یوزرنیم */
 #username {
     font-size: 22px;
     font-weight: bold;
@@ -18,7 +16,6 @@ body {
     color: #ffffff;
 }
 
-/* کانتینر کارت‌ها */
 #systems {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -27,9 +24,8 @@ body {
     direction: rtl;
 }
 
-/* کارت سیستم */
 .card {
-    background: #1e1e1e;
+    background: #1a1a1a;
     padding: 18px;
     border-radius: 12px;
     box-shadow: 0 3px 10px rgba(255,255,255,0.05);
@@ -38,24 +34,20 @@ body {
     text-align: right;
 }
 
-/* کارت فعال */
 .card.active {
     border-right: 5px solid #4caf50;
 }
 
-/* کارت آزاد */
 .card.free {
     border-right: 5px solid #f44336;
 }
 
-/* عنوان سیستم */
 .card h2 {
     margin: 0 0 10px 0;
     font-size: 20px;
     color: #ffffff;
 }
 
-/* خوراکی‌ها */
 .snack-item {
     display: flex;
     justify-content: space-between;
@@ -67,9 +59,8 @@ body {
     color: #cccccc;
 }
 
-/* باکس مشتری */
 .customer-box {
-    background: #2a2a2a;
+    background: #262626;
     padding: 10px;
     border-radius: 8px;
     margin-top: 10px;
@@ -79,7 +70,6 @@ body {
     text-align: right;
 }
 
-/* تیترهای کوچک */
 .card h3 {
     margin-top: 15px;
     margin-bottom: 8px;
@@ -87,7 +77,6 @@ body {
     color: #bbbbbb;
 }
 
-/* متن‌ها */
 .card p {
     margin: 6px 0;
     font-size: 15px;
