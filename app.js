@@ -23,7 +23,12 @@ function renderSystems(data) {
     const container = document.getElementById("systems");
     container.innerHTML = "";
 
-    for (let key in data) {
+    // مرتب‌سازی سیستم‌ها بر اساس نام
+    const sortedKeys = Object.keys(data).sort((a, b) => {
+        return data[a].name.localeCompare(data[b].name, "fa");
+    });
+
+    for (let key of sortedKeys) {
         const sys = data[key];
 
         // خوراکی‌ها
@@ -57,9 +62,6 @@ function renderSystems(data) {
             customerHTML = "<p>بدون مشتری</p>";
         }
 
-        // هزینه نهایی
-        const finalTotal = sys.final_total || (sys.cost + snacksTotal);
-
         // ساخت کارت
         const div = document.createElement("div");
         div.className = "card " + (sys.active ? "active" : "free");
@@ -68,18 +70,22 @@ function renderSystems(data) {
             <h2>${sys.name}</h2>
             <p>وضعیت: ${sys.active ? "فعال" : "آزاد"}</p>
             <p>زمان: ${sys.elapsed}</p>
-            <p>هزینه زمان: ${sys.cost} تومان</p>
+            <p>هزینه زمان: ${sys.time_cost} تومان</p>
 
             <h3>خوراکی‌ها:</h3>
             ${snacksHTML}
 
-            <p>جمع خوراکی‌ها: ${snacksTotal} تومان</p>
-            <p><strong>هزینه نهایی: ${finalTotal} تومان</strong></p>
+            <p>جمع خوراکی‌ها: ${sys.snacks_total} تومان</p>
+            <p><strong>هزینه نهایی: ${sys.final_total} تومان</strong></p>
 
             <h3>مشتری:</h3>
             ${customerHTML}
 
             <p>یادداشت: ${sys.note || "—"}</p>
+
+            <p style="margin-top:10px; font-size:13px; color:#bbb;">
+                آخرین آپدیت: ${sys.last_update}
+            </p>
         `;
 
         container.appendChild(div);
