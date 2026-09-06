@@ -1,30 +1,79 @@
 body {
-    background: #121212;
-    color: white;
-    font-family: sans-serif;
+    direction: rtl;
+    text-align: right;
+    font-family: Vazirmatn, Tahoma, sans-serif;
+    background: #f5f5f5;
     margin: 0;
     padding: 20px;
 }
 
-header {
-    display: flex;
-    justify-content: space-between;
+/* عنوان یوزرنیم */
+#username {
+    font-size: 22px;
+    font-weight: bold;
     margin-bottom: 20px;
 }
 
-.grid {
+/* کانتینر کارت‌ها */
+#systems {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 20px;
 }
 
+/* کارت سیستم */
 .card {
-    background: #1e1e1e;
-    padding: 20px;
+    background: white;
+    padding: 18px;
     border-radius: 12px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    border-right: 5px solid #ccc;
 }
 
+/* کارت فعال */
+.card.active {
+    border-right: 5px solid #28a745;
+}
+
+/* کارت آزاد */
+.card.free {
+    border-right: 5px solid #dc3545;
+}
+
+/* عنوان سیستم */
+.card h2 {
+    margin: 0 0 10px 0;
+    font-size: 20px;
+}
+
+/* بخش خوراکی‌ها */
+.snack-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    border-bottom: 1px dashed #ddd;
+    font-size: 14px;
+}
+
+/* بخش مشتری */
+.customer-box {
+    background: #f0f0f0;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+/* تیترهای کوچک */
 .card h3 {
-    margin-top: 0;
+    margin-top: 15px;
+    margin-bottom: 8px;
+    font-size: 16px;
+    color: #444;
+}
+
+/* متن‌ها */
+.card p {
+    margin: 6px 0;
+    font-size: 15px;
 }
