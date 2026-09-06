@@ -7,11 +7,20 @@ async function loadStatus() {
         return;
     }
 
-    document.getElementById("username").innerText = username;
+    // نمایش نام کاربری
+    document.getElementById("username").innerText = "نام کاربری: " + username;
 
     try {
         const res = await fetch(`https://gamenet-server.onrender.com/status/${username}`);
         const data = await res.json();
+
+        // نمایش آخرین آپدیت فقط یک بار
+        const firstKey = Object.keys(data)[0];
+        if (firstKey) {
+            document.getElementById("lastUpdate").innerText =
+                "آخرین آپدیت: " + data[firstKey].last_update;
+        }
+
         renderSystems(data);
 
     } catch (err) {
@@ -82,10 +91,6 @@ function renderSystems(data) {
             ${customerHTML}
 
             <p>یادداشت: ${sys.note || "—"}</p>
-
-            <p style="margin-top:10px; font-size:13px; color:#bbb;">
-                آخرین آپدیت: ${sys.last_update}
-            </p>
         `;
 
         container.appendChild(div);
