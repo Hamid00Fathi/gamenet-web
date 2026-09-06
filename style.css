@@ -1,3 +1,4 @@
+/* راست‌چین کردن کل سایت */
 body {
     direction: rtl;
     text-align: right;
@@ -19,6 +20,9 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 20px;
+
+    /* مهم: کارت‌ها از راست شروع شوند */
+    justify-content: start;
 }
 
 /* کارت سیستم */
@@ -27,7 +31,13 @@ body {
     padding: 18px;
     border-radius: 12px;
     box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+
+    /* مهم: نوار رنگی سمت راست باشد */
     border-right: 5px solid #ccc;
+
+    /* مهم: محتوا راست‌چین */
+    direction: rtl;
+    text-align: right;
 }
 
 /* کارت فعال */
@@ -49,7 +59,13 @@ body {
 /* بخش خوراکی‌ها */
 .snack-item {
     display: flex;
+
+    /* مهم: فاصلهٔ درست بین نام و قیمت */
     justify-content: space-between;
+
+    /* مهم: راست‌چین */
+    direction: rtl;
+
     padding: 4px 0;
     border-bottom: 1px dashed #ddd;
     font-size: 14px;
@@ -62,6 +78,10 @@ body {
     border-radius: 8px;
     margin-top: 10px;
     font-size: 14px;
+
+    /* راست‌چین */
+    direction: rtl;
+    text-align: right;
 }
 
 /* تیترهای کوچک */
