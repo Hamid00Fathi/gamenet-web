@@ -1,3 +1,4 @@
+/* دارک مود کامل */
 body {
     direction: rtl;
     unicode-bidi: bidi-override;
@@ -16,6 +17,14 @@ body {
     color: #ffffff;
 }
 
+/* موبایل: سیستم‌ها زیر هم */
+@media (max-width: 600px) {
+    #systems {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* دسکتاپ */
 #systems {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
