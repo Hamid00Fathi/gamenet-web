@@ -1,12 +1,22 @@
-const username = new URLSearchParams(window.location.search).get("user");
+async function loadStatus() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get("user");
 
-document.getElementById("username").innerText = "کاربر: " + username;
+    if (!username) {
+        alert("یوزرنیم در URL مشخص نشده!");
+        return;
+    }
 
-function loadStatus() {
-    fetch(`https://gamenet-server.onrender.com/status/${username}`)
-        .then(r => r.json())
-        .then(data => renderSystems(data))
-        .catch(err => console.log("خطا:", err));
+    document.getElementById("username").innerText = username;
+
+    try {
+        const res = await fetch(`https://gamenet-server.onrender.com/status/${username}`);
+        const data = await res.json();
+        renderSystems(data);
+
+    } catch (err) {
+        console.error("خطا در دریافت اطلاعات:", err);
+    }
 }
 
 function renderSystems(data) {
@@ -16,58 +26,66 @@ function renderSystems(data) {
     for (let key in data) {
         const sys = data[key];
 
-        let foodsHTML = "";
-        let foodsTotal = 0;
+        // خوراکی‌ها
+        let snacksHTML = "";
+        let snacksTotal = sys.snacks_total || 0;
 
-        if (sys.foods && sys.foods.length > 0) {
-            sys.foods.forEach(f => {
-                foodsHTML += `
-                    <div class="food-item">
-                        <span>${f.name}</span>
-                        <span>${f.count} × ${f.price} تومان</span>
+        if (sys.snacks && sys.snacks.length > 0) {
+            sys.snacks.forEach(sn => {
+                snacksHTML += `
+                    <div class="snack-item">
+                        <span>${sn.name}</span>
+                        <span>${sn.qty} × ${sn.price} تومان</span>
                     </div>
                 `;
             });
-            foodsTotal = sys.foods_total || 0;
+        } else {
+            snacksHTML = "<p>بدون خوراکی</p>";
         }
 
-        const finalTotal = sys.final_total || (sys.cost + foodsTotal);
+        // مشتری
+        let customerHTML = "";
+        if (sys.customer) {
+            customerHTML = `
+                <div class="customer-box">
+                    <p>نام مشتری: ${sys.customer.name}</p>
+                    <p>کد: ${sys.customer.code}</p>
+                    <p>اعتبار: ${sys.customer.balance} تومان</p>
+                </div>
+            `;
+        } else {
+            customerHTML = "<p>بدون مشتری</p>";
+        }
 
-        const customerHTML = sys.customer ? `
-            <div class="customer-box">
-                <p>مشتری: ${sys.customer.name}</p>
-                <p>کد ملی: ${sys.customer.national_id}</p>
-                <p>اعتبار: ${sys.customer.balance} تومان</p>
-                <p>بدهی: ${sys.customer.debt} تومان</p>
-            </div>
-        ` : `<p>بدون حساب مشتری</p>`;
+        // هزینه نهایی
+        const finalTotal = sys.final_total || (sys.cost + snacksTotal);
 
+        // ساخت کارت
         const div = document.createElement("div");
         div.className = "card " + (sys.active ? "active" : "free");
 
         div.innerHTML = `
-            <h2>${key}</h2>
+            <h2>${sys.name}</h2>
             <p>وضعیت: ${sys.active ? "فعال" : "آزاد"}</p>
             <p>زمان: ${sys.elapsed}</p>
             <p>هزینه زمان: ${sys.cost} تومان</p>
 
             <h3>خوراکی‌ها:</h3>
-            ${foodsHTML || "<p>بدون خوراکی</p>"}
+            ${snacksHTML}
 
-            <p>جمع خوراکی‌ها: ${foodsTotal} تومان</p>
+            <p>جمع خوراکی‌ها: ${snacksTotal} تومان</p>
             <p><strong>هزینه نهایی: ${finalTotal} تومان</strong></p>
 
             <h3>مشتری:</h3>
             ${customerHTML}
+
+            <p>یادداشت: ${sys.note || "—"}</p>
         `;
 
         container.appendChild(div);
     }
 }
 
-    document.getElementById("lastUpdate").innerText =
-        "آخرین آپدیت: " + new Date().toLocaleTimeString();
-}
-
+// آپدیت هر ۵ ثانیه
 loadStatus();
 setInterval(loadStatus, 5000);
