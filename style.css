@@ -10,17 +10,27 @@ body {
     padding: 20px;
 }
 
+/* نام کاربری */
 #username {
     font-size: 22px;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     color: #ffffff;
+}
+
+/* آخرین آپدیت */
+#lastUpdate {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #bbbbbb;
 }
 
 /* موبایل: سیستم‌ها زیر هم */
 @media (max-width: 600px) {
     #systems {
-        grid-template-columns: 1fr !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 20px !important;
     }
 }
 
