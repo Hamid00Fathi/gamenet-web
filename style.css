@@ -39,57 +39,57 @@ body {
         min-width: 0 !important;
         max-width: 100% !important;
 
-        margin-bottom: 35px !important;
-        padding: 32px !important;
+        margin-bottom: 30px !important;
+        padding: 26px !important;
 
-        border-radius: 24px !important;
-        box-shadow: 0 0 28px rgba(255,255,255,0.10) !important;
+        border-radius: 20px !important;
+        box-shadow: 0 0 24px rgba(255,255,255,0.08) !important;
     }
 
     /* عنوان سیستم */
     .card h2 {
-        font-size: 34px !important;
-        font-weight: 900 !important;
-        margin-bottom: 25px !important;
+        font-size: 28px !important;
+        font-weight: 800 !important;
+        margin-bottom: 18px !important;
     }
 
     /* متن‌های معمولی */
     .card p {
-        font-size: 28px !important;
-        line-height: 1.9 !important;
-        margin-bottom: 14px !important;
+        font-size: 22px !important;
+        line-height: 1.8 !important;
+        margin-bottom: 12px !important;
     }
 
     /* تیترهای بخش‌ها */
     .card h3 {
-        font-size: 30px !important;
-        margin-top: 28px !important;
-        margin-bottom: 18px !important;
-        font-weight: 800 !important;
+        font-size: 24px !important;
+        margin-top: 24px !important;
+        margin-bottom: 14px !important;
+        font-weight: 700 !important;
     }
 
     /* خوراکی‌ها */
     .snack-item {
-        font-size: 28px !important;
-        padding: 12px 0 !important;
+        font-size: 22px !important;
+        padding: 10px 0 !important;
     }
 
     /* باکس مشتری */
     .customer-box {
-        font-size: 28px !important;
-        padding: 22px !important;
-        border-radius: 20px !important;
+        font-size: 22px !important;
+        padding: 18px !important;
+        border-radius: 18px !important;
         background: #1f1f1f !important;
-        margin-top: 25px !important;
+        margin-top: 20px !important;
     }
 
     /* نام کاربری و آپدیت */
     #username {
-        font-size: 36px !important;
+        font-size: 30px !important;
     }
 
     #lastUpdate {
-        font-size: 30px !important;
+        font-size: 24px !important;
     }
 }
 
