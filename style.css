@@ -1,4 +1,4 @@
-/* دارک مود کامل */
+/* دارک مود */
 body {
     direction: rtl;
     unicode-bidi: bidi-override;
@@ -25,19 +25,24 @@ body {
     color: #bbbbbb;
 }
 
-/* موبایل: هر سیستم یک ردیف کامل */
+/* موبایل: فقط یک کارت در هر ردیف */
 @media (max-width: 600px) {
+
+    /* خاموش کردن کامل گرید */
     #systems {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 20px !important;
-        width: 100% !important;
+        display: block !important;
     }
 
+    /* هر کارت یک ردیف کامل */
     .card {
         width: 100% !important;
-        min-width: 0 !important;   /* خیلی مهم */
-        margin: 0 !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+
+        margin-bottom: 20px !important;
+
+        /* جلوگیری از کنار هم قرار گرفتن */
+        display: block !important;
     }
 }
 
