@@ -1,58 +1,19 @@
 <!DOCTYPE html>
 <html lang="fa">
 <head>
-<meta charset="UTF-8">
-<title>GameNetManager</title>
-<style>
-body {
-    font-family: sans-serif;
-    background: #f5f5f5;
-    direction: rtl;
-    padding: 20px;
-}
-.card {
-    background: white;
-    padding: 15px;
-    margin-bottom: 10px;
-    border-radius: 8px;
-    box-shadow: 0 0 5px #ccc;
-}
-</style>
+    <meta charset="UTF-8">
+    <title>داشبورد گیم‌نت</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h2>وضعیت سیستم‌ها</h2>
-<div id="systems"></div>
+    <header>
+        <h2 id="username"></h2>
+        <span id="lastUpdate"></span>
+    </header>
 
-<script>
-function loadStatus() {
-    fetch("https://gamenet-server.onrender.com/status/hamid01")
-    .then(r => r.json())
-    .then(data => {
-        let box = document.getElementById("systems");
-        box.innerHTML = "";
+    <div id="systems" class="grid"></div>
 
-        Object.keys(data).forEach(key => {
-            let s = data[key];
-            box.innerHTML += `
-                <div class="card">
-                    <h3>${key}</h3>
-                    <p>فعال: ${s.active}</p>
-                    <p>زمان: ${s.elapsed}</p>
-                    <p>هزینه: ${s.cost}</p>
-                    <p>یادداشت: ${s.note}</p>
-                </div>
-            `;
-        });
-    })
-    .catch(err => {
-        console.log("خطا:", err);
-    });
-}
-
-setInterval(loadStatus, 3000);
-loadStatus();
-</script>
-
+    <script src="app.js"></script>
 </body>
 </html>
