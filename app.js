@@ -28,6 +28,10 @@ async function loadStatus() {
     }
 }
 
+function formatPrice(num) {
+    return num.toLocaleString("fa-IR");
+}
+
 function renderSystems(data) {
     const container = document.getElementById("systems");
     container.innerHTML = "";
@@ -49,7 +53,7 @@ function renderSystems(data) {
                 snacksHTML += `
                     <div class="snack-item">
                         <span>${sn.name}</span>
-                        <span>${sn.qty} × ${sn.price} تومان</span>
+                        <span>${formatPrice(sn.qty)} × ${formatPrice(sn.price)} تومان</span>
                     </div>
                 `;
             });
@@ -64,7 +68,7 @@ function renderSystems(data) {
                 <div class="customer-box">
                     <p>نام مشتری: ${sys.customer.name}</p>
                     <p>کد: ${sys.customer.code}</p>
-                    <p>اعتبار: ${sys.customer.balance} تومان</p>
+                    <p>اعتبار: ${formatPrice(sys.customer.balance)} تومان</p>
                 </div>
             `;
         } else {
@@ -79,13 +83,13 @@ function renderSystems(data) {
             <h2>${sys.name}</h2>
             <p>وضعیت: ${sys.active ? "فعال" : "آزاد"}</p>
             <p>زمان: ${sys.elapsed}</p>
-            <p>هزینه زمان: ${sys.time_cost} تومان</p>
+            <p>هزینه زمان: ${formatPrice(sys.time_cost)} تومان</p>
 
             <h3>خوراکی‌ها:</h3>
             ${snacksHTML}
 
-            <p>جمع خوراکی‌ها: ${sys.snacks_total} تومان</p>
-            <p><strong>هزینه نهایی: ${sys.final_total} تومان</strong></p>
+            <p>جمع خوراکی‌ها: ${formatPrice(sys.snacks_total)} تومان</p>
+            <p><strong>هزینه نهایی: ${formatPrice(sys.final_total)} تومان</strong></p>
 
             <h3>مشتری:</h3>
             ${customerHTML}
