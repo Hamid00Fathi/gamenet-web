@@ -25,12 +25,18 @@ body {
     color: #bbbbbb;
 }
 
-/* موبایل: سیستم‌ها زیر هم */
+/* موبایل: هر سیستم یک ردیف کامل */
 @media (max-width: 600px) {
     #systems {
         display: flex !important;
         flex-direction: column !important;
         gap: 20px !important;
+        width: 100% !important;
+    }
+
+    .card {
+        width: 100% !important;
+        margin: 0 !important;
     }
 }
 
