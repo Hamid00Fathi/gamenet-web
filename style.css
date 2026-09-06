@@ -1,6 +1,7 @@
-/* راست‌چین کردن کل سایت */
+/* کل سایت راست‌چین واقعی */
 body {
     direction: rtl;
+    unicode-bidi: bidi-override;   /* مهم: جهت واقعی متن */
     text-align: right;
     font-family: Vazirmatn, Tahoma, sans-serif;
     background: #f5f5f5;
@@ -22,7 +23,10 @@ body {
     gap: 20px;
 
     /* مهم: کارت‌ها از راست شروع شوند */
-    justify-content: start;
+    justify-content: flex-start;
+
+    /* مهم: ترتیب RTL */
+    direction: rtl;
 }
 
 /* کارت سیستم */
@@ -32,10 +36,10 @@ body {
     border-radius: 12px;
     box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 
-    /* مهم: نوار رنگی سمت راست باشد */
+    /* نوار رنگی سمت راست */
     border-right: 5px solid #ccc;
 
-    /* مهم: محتوا راست‌چین */
+    /* محتوا راست‌چین */
     direction: rtl;
     text-align: right;
 }
@@ -56,22 +60,23 @@ body {
     font-size: 20px;
 }
 
-/* بخش خوراکی‌ها */
+/* خوراکی‌ها */
 .snack-item {
     display: flex;
 
-    /* مهم: فاصلهٔ درست بین نام و قیمت */
+    /* فاصله درست بین نام و قیمت */
     justify-content: space-between;
 
-    /* مهم: راست‌چین */
+    /* مهم: RTL واقعی */
     direction: rtl;
+    unicode-bidi: bidi-override;
 
     padding: 4px 0;
     border-bottom: 1px dashed #ddd;
     font-size: 14px;
 }
 
-/* بخش مشتری */
+/* باکس مشتری */
 .customer-box {
     background: #f0f0f0;
     padding: 10px;
@@ -79,7 +84,6 @@ body {
     margin-top: 10px;
     font-size: 14px;
 
-    /* راست‌چین */
     direction: rtl;
     text-align: right;
 }
