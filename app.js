@@ -11,9 +11,12 @@ async function loadStatus() {
     document.getElementById("usernameLabel").innerText = "گیم‌نت: " + username;
 
     try {
-        // فقط سیستم‌ها را می‌گیریم (پسورد قبلاً برای ذخیره استفاده شده)
         const res = await fetch(`https://gamenet-server-mongo.onrender.com/status/${username}`);
-        const systems = await res.json();
+        const data = await res.json();
+
+        // ساختار جدید سرور:
+        // { username, password, systems, lastUpdate }
+        const systems = data.systems ? data.systems : data;
 
         if (!systems || Object.keys(systems).length === 0) {
             document.getElementById("lastUpdate").innerText = "آخرین آپدیت: —";
@@ -21,10 +24,8 @@ async function loadStatus() {
             return;
         }
 
-        // فرض: هر سیستم داخلش last_update دارد
-        const firstKey = Object.keys(systems)[0];
         document.getElementById("lastUpdate").innerText =
-            "آخرین آپدیت: " + (systems[firstKey].last_update || "—");
+            "آخرین آپدیت: " + (data.lastUpdate || "—");
 
         renderSystems(systems);
 
