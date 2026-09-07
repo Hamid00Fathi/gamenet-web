@@ -8,7 +8,7 @@ async function loadStatus() {
         return;
     }
 
-    document.getElementById("usernameLabel").innerText = "گیم‌نت: " + username;
+    document.getElementById("username").innerText = "گیم‌نت: " + username;
 
     try {
         const res = await fetch(`https://gamenet-server-mongo.onrender.com/status/${username}`);
