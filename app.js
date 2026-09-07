@@ -16,22 +16,25 @@ async function loadStatus() {
 
         const systems = data.systems || {};
 
-        // 🔥 تبدیل زمان ISO به زمان خوانا
+        // 🔥 تبدیل زمان UTC به زمان ایران + فرمت خوانا
         function formatDateTime(isoString) {
             if (!isoString) return "—";
+
             const d = new Date(isoString);
 
-            const year = d.getFullYear();
-            const month = String(d.getMonth() + 1).padStart(2, "0");
-            const day = String(d.getDate()).padStart(2, "0");
-            const hour = String(d.getHours()).padStart(2, "0");
-            const min = String(d.getMinutes()).padStart(2, "0");
-            const sec = String(d.getSeconds()).padStart(2, "0");
+            // تبدیل UTC به زمان ایران
+            const local = new Date(d.getTime() + (3.5 * 60 * 60 * 1000));
+
+            const year = local.getFullYear();
+            const month = String(local.getMonth() + 1).padStart(2, "0");
+            const day = String(local.getDate()).padStart(2, "0");
+            const hour = String(local.getHours()).padStart(2, "0");
+            const min = String(local.getMinutes()).padStart(2, "0");
+            const sec = String(local.getSeconds()).padStart(2, "0");
 
             return `${year}-${month}-${day} ${hour}:${min}:${sec}`;
         }
 
-        // 🔥 نمایش زمان خوانا
         document.getElementById("lastUpdate").innerText =
             "آخرین آپدیت: " + formatDateTime(data.lastUpdate);
 
@@ -40,80 +43,6 @@ async function loadStatus() {
     } catch (err) {
         console.error("خطا در دریافت اطلاعات:", err);
         document.getElementById("lastUpdate").innerText = "خطا در ارتباط با سرور";
-    }
-}
-
-function formatPrice(num) {
-    return num.toLocaleString("fa-IR");
-}
-
-function renderSystems(data) {
-    const container = document.getElementById("systems");
-    container.innerHTML = "";
-
-    const keys = Object.keys(data);
-
-    if (keys.length === 0) {
-        container.innerHTML = "<p>هیچ سیستمی ثبت نشده است.</p>";
-        return;
-    }
-
-    const sortedKeys = keys.sort((a, b) => {
-        return data[a].name.localeCompare(data[b].name, "fa");
-    });
-
-    for (let key of sortedKeys) {
-        const sys = data[key];
-
-        let snacksHTML = "";
-        if (sys.snacks && sys.snacks.length > 0) {
-            sys.snacks.forEach(sn => {
-                snacksHTML += `
-                    <div class="snack-item">
-                        <span>${sn.name}</span>
-                        <span>${formatPrice(sn.qty)} × ${formatPrice(sn.price)} تومان</span>
-                    </div>
-                `;
-            });
-        } else {
-            snacksHTML = "<p>بدون خوراکی</p>";
-        }
-
-        let customerHTML = "";
-        if (sys.customer) {
-            customerHTML = `
-                <div class="customer-box">
-                    <p>نام مشتری: ${sys.customer.name}</p>
-                    <p>کد: ${sys.customer.code}</p>
-                    <p>اعتبار: ${formatPrice(sys.customer.balance)} تومان</p>
-                </div>
-            `;
-        } else {
-            customerHTML = "<p>بدون مشتری</p>";
-        }
-
-        const div = document.createElement("div");
-        div.className = "card " + (sys.active ? "active" : "free");
-
-        div.innerHTML = `
-            <h2>${sys.name}</h2>
-            <p>وضعیت: ${sys.active ? "فعال" : "آزاد"}</p>
-            <p>زمان: ${sys.elapsed}</p>
-            <p>هزینه زمان: ${formatPrice(sys.time_cost)} تومان</p>
-
-            <h3>خوراکی‌ها:</h3>
-            ${snacksHTML}
-
-            <p>جمع خوراکی‌ها: ${formatPrice(sys.snacks_total)} تومان</p>
-            <p><strong>هزینه نهایی: ${formatPrice(sys.final_total)} تومان</strong></p>
-
-            <h3>مشتری:</h3>
-            ${customerHTML}
-
-            <p>یادداشت: ${sys.note || "—"}</p>
-        `;
-
-        container.appendChild(div);
     }
 }
 
