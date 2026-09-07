@@ -46,21 +46,18 @@ body {
         box-shadow: 0 0 24px rgba(255,255,255,0.08) !important;
     }
 
-    /* عنوان سیستم */
     .card h2 {
         font-size: 28px !important;
         font-weight: 800 !important;
         margin-bottom: 18px !important;
     }
 
-    /* متن‌های معمولی */
     .card p {
         font-size: 22px !important;
         line-height: 1.8 !important;
         margin-bottom: 12px !important;
     }
 
-    /* تیترهای بخش‌ها */
     .card h3 {
         font-size: 24px !important;
         margin-top: 24px !important;
@@ -68,13 +65,11 @@ body {
         font-weight: 700 !important;
     }
 
-    /* خوراکی‌ها */
     .snack-item {
         font-size: 22px !important;
         padding: 10px 0 !important;
     }
 
-    /* باکس مشتری */
     .customer-box {
         font-size: 22px !important;
         padding: 18px !important;
@@ -83,7 +78,6 @@ body {
         margin-top: 20px !important;
     }
 
-    /* نام کاربری و آپدیت */
     #username {
         font-size: 30px !important;
     }
@@ -114,13 +108,11 @@ body {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* افکت Hover */
 .card:hover {
     transform: translateY(-5px);
     box-shadow: 0 0 30px rgba(255,255,255,0.08);
 }
 
-/* رنگ وضعیت */
 .card.active {
     border-right: 7px solid #4caf50;
 }
@@ -129,14 +121,12 @@ body {
     border-right: 7px solid #f44336;
 }
 
-/* عنوان سیستم */
 .card h2 {
     margin: 0 0 15px 0;
     font-size: 26px;
     color: #ffffff;
 }
 
-/* خوراکی‌ها */
 .snack-item {
     display: flex;
     justify-content: space-between;
@@ -148,7 +138,6 @@ body {
     color: #dddddd;
 }
 
-/* باکس مشتری */
 .customer-box {
     background: #202020;
     padding: 15px;
@@ -160,7 +149,6 @@ body {
     text-align: right;
 }
 
-/* تیترهای کوچک */
 .card h3 {
     margin-top: 20px;
     margin-bottom: 10px;
@@ -168,7 +156,6 @@ body {
     color: #bbbbbb;
 }
 
-/* متن‌ها */
 .card p {
     margin: 8px 0;
     font-size: 18px;
