@@ -24,6 +24,7 @@ async function loadStatus() {
             return;
         }
 
+        // ✔ آخرین آپدیت از داکیومنت اصلی
         document.getElementById("lastUpdate").innerText =
             "آخرین آپدیت: " + (data.lastUpdate || "—");
 
