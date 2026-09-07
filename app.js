@@ -1,26 +1,27 @@
 async function loadStatus() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const username = urlParams.get("user");
+    const username = localStorage.getItem("username");
+    const password = localStorage.getItem("password");
 
-    if (!username) {
-        alert("یوزرنیم در URL مشخص نشده!");
+    if (!username || !password) {
+        alert("ابتدا باید وارد شوید.");
+        window.location.href = "login.html";
         return;
     }
 
-    document.getElementById("username").innerText = "نام کاربری: " + username;
+    document.getElementById("usernameLabel").innerText = "گیم‌نت: " + username;
 
     try {
+        // فقط سیستم‌ها را می‌گیریم (پسورد قبلاً برای ذخیره استفاده شده)
         const res = await fetch(`https://gamenet-server-mongo.onrender.com/status/${username}`);
         const systems = await res.json();
 
-        // اگر Mongo خالی بود
         if (!systems || Object.keys(systems).length === 0) {
             document.getElementById("lastUpdate").innerText = "آخرین آپدیت: —";
             renderSystems({});
             return;
         }
 
-        // نمایش آخرین آپدیت (از یکی از سیستم‌ها)
+        // فرض: هر سیستم داخلش last_update دارد
         const firstKey = Object.keys(systems)[0];
         document.getElementById("lastUpdate").innerText =
             "آخرین آپدیت: " + (systems[firstKey].last_update || "—");
@@ -29,6 +30,7 @@ async function loadStatus() {
 
     } catch (err) {
         console.error("خطا در دریافت اطلاعات:", err);
+        document.getElementById("lastUpdate").innerText = "خطا در ارتباط با سرور";
     }
 }
 
@@ -40,7 +42,14 @@ function renderSystems(data) {
     const container = document.getElementById("systems");
     container.innerHTML = "";
 
-    const sortedKeys = Object.keys(data).sort((a, b) => {
+    const keys = Object.keys(data);
+
+    if (keys.length === 0) {
+        container.innerHTML = "<p>هیچ سیستمی ثبت نشده است.</p>";
+        return;
+    }
+
+    const sortedKeys = keys.sort((a, b) => {
         return data[a].name.localeCompare(data[b].name, "fa");
     });
 
