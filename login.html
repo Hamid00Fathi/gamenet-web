@@ -2,23 +2,27 @@
 <html lang="fa">
 <head>
   <meta charset="UTF-8">
-  <title>ورود به گیم‌نت</title>
+  <title>ورود به پنل گیم‌نت</title>
+  <style>
+    body { font-family: sans-serif; direction: rtl; text-align: center; margin-top: 80px; }
+    input { padding: 10px; width: 250px; margin: 10px; font-size: 16px; }
+    button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+  </style>
 </head>
 <body>
+
   <h2>ورود به پنل گیم‌نت</h2>
 
-  <div>
-    <input id="username" placeholder="یوزرنیم گیم‌نت">
-  </div>
-  <div>
-    <input id="password" placeholder="پسورد گیم‌نت" type="password">
-  </div>
+  <input id="username" placeholder="یوزرنیم گیم‌نت">
+  <br>
+  <input id="password" placeholder="پسورد گیم‌نت" type="password">
+  <br>
   <button onclick="login()">ورود</button>
 
   <p id="error" style="color:red;"></p>
 
   <script>
-    async function login() {
+    function login() {
       const username = document.getElementById("username").value.trim();
       const password = document.getElementById("password").value.trim();
       const errorEl = document.getElementById("error");
@@ -28,7 +32,7 @@
         return;
       }
 
-      // ذخیره در localStorage
+      // ذخیره در مرورگر
       localStorage.setItem("username", username);
       localStorage.setItem("password", password);
 
@@ -36,5 +40,6 @@
       window.location.href = "dashboard.html";
     }
   </script>
+
 </body>
 </html>
