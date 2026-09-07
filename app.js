@@ -16,13 +16,13 @@ async function loadStatus() {
 
         const systems = data.systems || {};
 
-        // 🔥 تبدیل زمان UTC به زمان ایران + فرمت خوانا
+        // 🔥 تبدیل زمان ISO به زمان خوانا
         function formatDateTime(isoString) {
             if (!isoString) return "—";
 
             const d = new Date(isoString);
 
-            // تبدیل UTC به زمان ایران
+            // تبدیل UTC به زمان ایران (UTC+3:30)
             const local = new Date(d.getTime() + (3.5 * 60 * 60 * 1000));
 
             const year = local.getFullYear();
@@ -35,6 +35,7 @@ async function loadStatus() {
             return `${year}-${month}-${day} ${hour}:${min}:${sec}`;
         }
 
+        // 🔥 نمایش زمان خوانا
         document.getElementById("lastUpdate").innerText =
             "آخرین آپدیت: " + formatDateTime(data.lastUpdate);
 
