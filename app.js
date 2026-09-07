@@ -10,7 +10,7 @@ async function loadStatus() {
     document.getElementById("username").innerText = "نام کاربری: " + username;
 
     try {
-        const res = await fetch(`https://gamenet-mongo.onrender.com/status/${username}`);
+        const res = await fetch(`https://gamenet-server-mongo.onrender.com/status/${username}`);
         const systems = await res.json();
 
         // اگر Mongo خالی بود
