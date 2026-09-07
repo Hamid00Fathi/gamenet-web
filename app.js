@@ -14,19 +14,26 @@ async function loadStatus() {
         const res = await fetch(`https://gamenet-server-mongo.onrender.com/status/${username}`);
         const data = await res.json();
 
-        // ساختار جدید سرور:
-        // { username, password, systems, lastUpdate }
-        const systems = data.systems ? data.systems : data;
+        const systems = data.systems || {};
 
-        if (!systems || Object.keys(systems).length === 0) {
-            document.getElementById("lastUpdate").innerText = "آخرین آپدیت: —";
-            renderSystems({});
-            return;
+        // 🔥 تبدیل زمان ISO به زمان خوانا
+        function formatDateTime(isoString) {
+            if (!isoString) return "—";
+            const d = new Date(isoString);
+
+            const year = d.getFullYear();
+            const month = String(d.getMonth() + 1).padStart(2, "0");
+            const day = String(d.getDate()).padStart(2, "0");
+            const hour = String(d.getHours()).padStart(2, "0");
+            const min = String(d.getMinutes()).padStart(2, "0");
+            const sec = String(d.getSeconds()).padStart(2, "0");
+
+            return `${year}-${month}-${day} ${hour}:${min}:${sec}`;
         }
 
-        // ✔ آخرین آپدیت از داکیومنت اصلی
+        // 🔥 نمایش زمان خوانا
         document.getElementById("lastUpdate").innerText =
-            "آخرین آپدیت: " + (data.lastUpdate || "—");
+            "آخرین آپدیت: " + formatDateTime(data.lastUpdate);
 
         renderSystems(systems);
 
