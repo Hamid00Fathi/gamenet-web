@@ -10,28 +10,11 @@ async function loadStatus() {
         const res = await fetch(`https://gamenet-server-mongo.onrender.com/status/${username}`);
         const data = await res.json();
 
-        // 🔥 تبدیل زمان ISO به زمان ایران
-        function formatDateTime(isoString) {
-            if (!isoString) return "—";
-
-            const d = new Date(isoString);
-            const local = new Date(d.getTime() + (3.5 * 60 * 60 * 1000));
-
-            const year = local.getFullYear();
-            const month = String(local.getMonth() + 1).padStart(2, "0");
-            const day = String(local.getDate()).padStart(2, "0");
-            const hour = String(local.getHours()).padStart(2, "0");
-            const min = String(local.getMinutes()).padStart(2, "0");
-            const sec = String(local.getSeconds()).padStart(2, "0");
-
-            return `${year}-${month}-${day} ${hour}:${min}:${sec}`;
-        }
-
-        // 🔥 نمایش آخرین آپدیت
+        // نمایش آخرین آپدیت
         document.getElementById("lastUpdate").innerText =
             "آخرین آپدیت: " + formatDateTime(data.lastUpdate);
 
-        // 🔥 نمایش سیستم‌ها
+        // نمایش سیستم‌ها
         renderSystems(data.systems);
 
     } catch (err) {
@@ -40,10 +23,22 @@ async function loadStatus() {
     }
 }
 
+/* تبدیل زمان UTC به زمان ایران */
+function formatDateTime(isoString) {
+    if (!isoString) return "—";
+
+    return new Date(isoString).toLocaleString("fa-IR", {
+        timeZone: "Asia/Tehran",
+        hour12: false
+    });
+}
+
+/* فرمت قیمت */
 function formatPrice(num) {
     return num.toLocaleString("fa-IR");
 }
 
+/* ساخت کارت سیستم‌ها */
 function renderSystems(systems) {
     const container = document.getElementById("systems");
     container.innerHTML = "";
@@ -58,32 +53,24 @@ function renderSystems(systems) {
     keys.forEach(key => {
         const sys = systems[key];
 
-        let snacksHTML = "";
-        if (sys.snacks && sys.snacks.length > 0) {
-            sys.snacks.forEach(sn => {
-                snacksHTML += `
-                    <div class="snack-item">
-                        <span>${sn.name}</span>
-                        <span>${formatPrice(sn.qty)} × ${formatPrice(sn.price)} تومان</span>
-                    </div>
-                `;
-            });
-        } else {
-            snacksHTML = "<p>بدون خوراکی</p>";
-        }
+        const snacksHTML = (sys.snacks && sys.snacks.length > 0)
+            ? sys.snacks.map(sn => `
+                <div class="snack-item">
+                    <span>${sn.name}</span>
+                    <span>${formatPrice(sn.qty)} × ${formatPrice(sn.price)} تومان</span>
+                </div>
+            `).join("")
+            : "<p>بدون خوراکی</p>";
 
-        let customerHTML = "";
-        if (sys.customer) {
-            customerHTML = `
+        const customerHTML = sys.customer
+            ? `
                 <div class="customer-box">
                     <p>نام مشتری: ${sys.customer.name}</p>
                     <p>کد: ${sys.customer.code}</p>
                     <p>اعتبار: ${formatPrice(sys.customer.balance)} تومان</p>
                 </div>
-            `;
-        } else {
-            customerHTML = "<p>بدون مشتری</p>";
-        }
+            `
+            : "<p>بدون مشتری</p>";
 
         const div = document.createElement("div");
         div.className = "card " + (sys.active ? "active" : "free");
