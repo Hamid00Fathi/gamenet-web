@@ -11,7 +11,7 @@ async function loadStatus() {
     document.getElementById("username").innerText = "نام کاربری: " + username;
 
     try {
-        const res = await fetch(`https://gamenet-server.onrender.com/status/${username}`);
+        const res = await fetch(`https://abcdxyzfathi_db_user.onrender.com/status/${username}`);
         const data = await res.json();
 
         // نمایش آخرین آپدیت فقط یک بار
