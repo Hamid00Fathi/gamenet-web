@@ -7,21 +7,25 @@ async function loadStatus() {
         return;
     }
 
-    // نمایش نام کاربری
     document.getElementById("username").innerText = "نام کاربری: " + username;
 
     try {
         const res = await fetch(`https://gamenet-mongo.onrender.com/status/${username}`);
-        const data = await res.json();
+        const systems = await res.json();
 
-        // نمایش آخرین آپدیت فقط یک بار
-        const firstKey = Object.keys(data)[0];
-        if (firstKey) {
-            document.getElementById("lastUpdate").innerText =
-                "آخرین آپدیت: " + data[firstKey].last_update;
+        // اگر Mongo خالی بود
+        if (!systems || Object.keys(systems).length === 0) {
+            document.getElementById("lastUpdate").innerText = "آخرین آپدیت: —";
+            renderSystems({});
+            return;
         }
 
-        renderSystems(data);
+        // نمایش آخرین آپدیت (از یکی از سیستم‌ها)
+        const firstKey = Object.keys(systems)[0];
+        document.getElementById("lastUpdate").innerText =
+            "آخرین آپدیت: " + (systems[firstKey].last_update || "—");
+
+        renderSystems(systems);
 
     } catch (err) {
         console.error("خطا در دریافت اطلاعات:", err);
@@ -36,7 +40,6 @@ function renderSystems(data) {
     const container = document.getElementById("systems");
     container.innerHTML = "";
 
-    // مرتب‌سازی سیستم‌ها بر اساس نام
     const sortedKeys = Object.keys(data).sort((a, b) => {
         return data[a].name.localeCompare(data[b].name, "fa");
     });
@@ -44,10 +47,7 @@ function renderSystems(data) {
     for (let key of sortedKeys) {
         const sys = data[key];
 
-        // خوراکی‌ها
         let snacksHTML = "";
-        let snacksTotal = sys.snacks_total || 0;
-
         if (sys.snacks && sys.snacks.length > 0) {
             sys.snacks.forEach(sn => {
                 snacksHTML += `
@@ -61,7 +61,6 @@ function renderSystems(data) {
             snacksHTML = "<p>بدون خوراکی</p>";
         }
 
-        // مشتری
         let customerHTML = "";
         if (sys.customer) {
             customerHTML = `
@@ -75,7 +74,6 @@ function renderSystems(data) {
             customerHTML = "<p>بدون مشتری</p>";
         }
 
-        // ساخت کارت
         const div = document.createElement("div");
         div.className = "card " + (sys.active ? "active" : "free");
 
@@ -101,6 +99,5 @@ function renderSystems(data) {
     }
 }
 
-// آپدیت هر ۵ ثانیه
 loadStatus();
 setInterval(loadStatus, 5000);
