@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>ورود به گیم‌نت</title>
+</head>
+<body>
+  <h2>ورود به پنل گیم‌نت</h2>
+
+  <div>
+    <input id="username" placeholder="یوزرنیم گیم‌نت">
+  </div>
+  <div>
+    <input id="password" placeholder="پسورد گیم‌نت" type="password">
+  </div>
+  <button onclick="login()">ورود</button>
+
+  <p id="error" style="color:red;"></p>
+
+  <script>
+    async function login() {
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const errorEl = document.getElementById("error");
+
+      if (!username || !password) {
+        errorEl.textContent = "یوزرنیم و پسورد را وارد کنید.";
+        return;
+      }
+
+      // ذخیره در localStorage
+      localStorage.setItem("username", username);
+      localStorage.setItem("password", password);
+
+      // انتقال به داشبورد
+      window.location.href = "dashboard.html";
+    }
+  </script>
+</body>
+</html>
