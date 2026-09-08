@@ -114,11 +114,15 @@ function openModalFull(sys) {
     modal.style.display = "block";
 }
 
-// بستن مودال
-document.getElementById("closeModal").onclick = () => {
-    const modal = document.getElementById("modal");
-    modal.style.display = "none";
-    modal.classList.remove("modal-active");
+// بستن مودال — بعد از لود کامل صفحه
+window.onload = () => {
+    const closeBtn = document.getElementById("closeModal");
+
+    closeBtn.onclick = () => {
+        const modal = document.getElementById("modal");
+        modal.style.display = "none";
+        modal.classList.remove("modal-active");
+    };
 };
 
 // اولین بار و بعد هر ۵ ثانیه وضعیت را بگیر
