@@ -100,7 +100,7 @@ body {
 
     .card {
         font-size: 29px !important;
-        padding: 5px !important;
+        padding: 15px !important;
     }
 
     .card h2 {
@@ -141,7 +141,7 @@ body {
 
 #modalContent {
     background: #1e1e1e;
-    padding: 40px;
+    padding: 15px;
     border-radius: 12px;
 }
 
