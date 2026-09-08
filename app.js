@@ -1,6 +1,10 @@
 async function loadStatus() {
     const username = localStorage.getItem("username");
 
+    // نمایش نام کاربری در پنل
+    document.getElementById("panelUsername").innerText =
+        "نام کاربری: " + (username || "تنظیم نشده");
+
     if (!username) {
         document.getElementById("lastUpdate").innerText = "یوزرنیم تنظیم نشده";
         return;
@@ -10,7 +14,7 @@ async function loadStatus() {
         const res = await fetch(`https://gamenet-server-mongo.onrender.com/status/${username}`);
         const data = await res.json();
 
-        // نمایش آخرین آپدیت
+        // نمایش آخرین آپدیت با تبدیل زمان ایران (نسخه قبلی)
         document.getElementById("lastUpdate").innerText =
             "آخرین آپدیت: " + formatDateTime(data.lastUpdate);
 
@@ -23,14 +27,23 @@ async function loadStatus() {
     }
 }
 
-/* تبدیل زمان UTC به زمان ایران */
+/* تبدیل زمان UTC به زمان ایران (نسخه قبلی که درست کار می‌کرد) */
 function formatDateTime(isoString) {
     if (!isoString) return "—";
 
-    return new Date(isoString).toLocaleString("fa-IR", {
-        timeZone: "Asia/Tehran",
-        hour12: false
-    });
+    const d = new Date(isoString);
+
+    // تبدیل UTC به زمان ایران (UTC+3:30)
+    const local = new Date(d.getTime() + (3.5 * 60 * 60 * 1000));
+
+    const year = local.getFullYear();
+    const month = String(local.getMonth() + 1).padStart(2, "0");
+    const day = String(local.getDate()).padStart(2, "0");
+    const hour = String(local.getHours()).padStart(2, "0");
+    const min = String(local.getMinutes()).padStart(2, "0");
+    const sec = String(local.getSeconds()).padStart(2, "0");
+
+    return `${year}-${month}-${day} ${hour}:${min}:${sec}`;
 }
 
 /* فرمت قیمت */
