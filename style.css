@@ -57,7 +57,9 @@ body {
 
 .snack-item {
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-start; /* از space-between به flex-start */
+    align-items: center;
+    gap: 10px; /* فاصلهٔ طبیعی بین اسم و قیمت */
     margin-bottom: 6px;
     font-size: 16px;
 }
