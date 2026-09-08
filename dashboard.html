@@ -6,8 +6,9 @@
 
     <style>
         body {
-            font-family: B Nazanin, sans-serif;
-            background: #f5f5f5;
+            font-family: Vazirmatn, sans-serif;
+            background: #121212;
+            color: #eaeaea;
             margin: 0;
             padding: 15px;
             direction: rtl;
@@ -17,54 +18,68 @@
             font-size: 20px;
             font-weight: bold;
             margin-bottom: 10px;
+            color: #00eaff;
         }
 
         #lastUpdate {
             font-size: 18px;
             margin-bottom: 20px;
+            color: #cccccc;
         }
 
+        /* کانتینر سیستم‌ها */
         #systems {
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
             gap: 20px;
         }
 
+        /* کارت سیستم */
         .card {
-            background: white;
+            background: #1e1e1e;
             padding: 15px;
-            border-radius: 10px;
-            width: 100%;
-            box-sizing: border-box;
-            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.4);
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: scale(1.02);
         }
 
         .active {
-            border-right: 5px solid #28a745;
+            border-right: 6px solid #00ff6a;
         }
 
         .free {
-            border-right: 5px solid #dc3545;
+            border-right: 6px solid #ff3b3b;
         }
 
         .card h2 {
             margin: 0 0 10px 0;
+            color: #00eaff;
         }
 
         .snack-item {
             display: flex;
             justify-content: space-between;
             margin-bottom: 5px;
+            color: #eaeaea;
         }
 
         .customer-box {
-            background: #eee;
+            background: #2a2a2a;
             padding: 10px;
             border-radius: 8px;
             margin-bottom: 10px;
         }
 
+        /* حالت موبایل */
         @media (max-width: 600px) {
+            #systems {
+                grid-template-columns: 1fr;
+            }
+
             body {
                 font-size: 18px;
             }
