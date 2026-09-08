@@ -74,7 +74,7 @@ body {
 /* موبایل (سایز بزرگ)     */
 /* ---------------------- */
 
-@media (max-width: 1200px) {
+@media (max-width: 1500px) {
 
     #systems {
         display: grid !important;
