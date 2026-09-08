@@ -35,25 +35,6 @@ body {
     box-shadow: 0 0 10px rgba(0,0,0,0.4);
     transition: transform 0.2s;
     cursor: pointer;
-    position: relative;
-    z-index: 1;
-}
-
-.card:hover {
-    transform: scale(1.02);
-}
-
-.active {
-    border-right: 6px solid #00ff6a;
-}
-
-.free {
-    border-right: 6px solid #ff3b3b;
-}
-
-.card h2 {
-    margin: 0 0 10px 0;
-    color: #00eaff;
 }
 
 /* خوراکی‌ها */
@@ -72,11 +53,13 @@ body {
     margin-bottom: 10px;
 }
 
-/* موبایل: دو ستون */
+/* موبایل: دو ستون واقعی */
 @media (max-width: 600px) {
 
     #systems {
+        display: grid !important;
         grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px !important;
     }
 
     .card {
@@ -106,7 +89,7 @@ body {
     padding: 20px;
     overflow-y: auto;
     display: none;
-    z-index: 9999; /* مهم‌ترین بخش */
+    z-index: 999999; /* مهم‌ترین بخش */
 }
 
 #modalContent {
