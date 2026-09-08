@@ -3,96 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>پنل مدیریت گیم‌نت</title>
-
-    <style>
-        body {
-            font-family: Vazirmatn, sans-serif;
-            background: #121212;
-            color: #eaeaea;
-            margin: 0;
-            padding: 15px;
-            direction: rtl;
-        }
-
-        #panelUsername {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #00eaff;
-        }
-
-        #lastUpdate {
-            font-size: 18px;
-            margin-bottom: 20px;
-            color: #cccccc;
-        }
-
-        /* کانتینر سیستم‌ها */
-        #systems {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        /* کارت سیستم */
-        .card {
-            background: #1e1e1e;
-            padding: 15px;
-            border-radius: 12px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.4);
-            transition: transform 0.2s;
-        }
-
-        .card:hover {
-            transform: scale(1.02);
-        }
-
-        .active {
-            border-right: 6px solid #00ff6a;
-        }
-
-        .free {
-            border-right: 6px solid #ff3b3b;
-        }
-
-        .card h2 {
-            margin: 0 0 10px 0;
-            color: #00eaff;
-        }
-
-        .snack-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
-            color: #eaeaea;
-        }
-
-        .customer-box {
-            background: #2a2a2a;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-        }
-
-        /* حالت موبایل */
-        @media (max-width: 600px) {
-            #systems {
-                grid-template-columns: 1fr;
-            }
-
-            body {
-                font-size: 18px;
-            }
-
-            .card h2 {
-                font-size: 22px;
-            }
-
-            .card p {
-                font-size: 18px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -101,6 +12,12 @@
     <p id="lastUpdate"></p>
 
     <div id="systems"></div>
+
+    <!-- مودال تمام‌صفحه -->
+    <div id="modal">
+        <button id="closeModal">بازگشت</button>
+        <div id="modalContent"></div>
+    </div>
 
     <script src="app.js"></script>
 </body>
