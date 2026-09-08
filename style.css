@@ -151,3 +151,37 @@ body {
     cursor: pointer;
     font-size: 60px;
 }
+
+/* وقتی سیستم انتخاب می‌شود و مودال فعال است */
+.modal-active #modalContent {
+    font-size: 40px !important;
+    line-height: 1.9 !important;
+}
+
+/* عنوان داخل مودال */
+.modal-active #modalContent h2 {
+    font-size: 55px !important;
+    margin-bottom: 30px !important;
+}
+
+/* متن‌های داخل مودال */
+.modal-active #modalContent p {
+    font-size: 40px !important;
+    margin-bottom: 20px !important;
+}
+
+/* خوراکی‌ها داخل مودال */
+.modal-active .snack-item {
+    display: block !important;
+    font-size: 40px !important;
+    padding: 15px 0 !important;
+    border-bottom: 2px solid #444;
+}
+
+/* باکس مشتری داخل مودال */
+.modal-active .customer-box {
+    background: #2f2f2f !important;
+    padding: 30px !important;
+    font-size: 40px !important;
+    border-radius: 20px !important;
+}
