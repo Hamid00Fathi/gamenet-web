@@ -13,6 +13,7 @@ async function loadStatus() {
         const res = await fetch(`https://gamenet-server-mongo.onrender.com/status/${username}`);
         const data = await res.json();
 
+        /* نمایش مستقیم زمان بدون تبدیل */
         document.getElementById("lastUpdate").innerText =
             "آخرین آپدیت: " + data.lastUpdate;
 
