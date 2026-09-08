@@ -78,33 +78,33 @@ body {
 
     #systems {
         display: grid !important;
-        grid-template-columns: repeat(1, 1fr) !important;
+        grid-template-columns: repeat(2, 1fr) !important;
         gap: 20px !important;
     }
 
     body {
-        font-size: 22px !important; /* فقط موبایل بزرگ */
+        font-size: 45px !important; /* فقط موبایل بزرگ */
     }
 
     .card {
-        font-size: 22px !important;
-        padding: 22px !important;
+        font-size: 38px !important;
+        padding: 38px !important;
     }
 
     .card h2 {
-        font-size: 26px !important;
+        font-size: 42px !important;
     }
 
     .card p {
-        font-size: 22px !important;
+        font-size: 38px !important;
     }
 
     .snack-item {
-        font-size: 22px !important;
+        font-size: 38px !important;
     }
 
     .customer-box {
-        font-size: 22px !important;
+        font-size: 38px !important;
     }
 }
 
@@ -137,5 +137,5 @@ body {
     border-radius: 10px;
     margin-bottom: 15px;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 40px;
 }
