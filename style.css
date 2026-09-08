@@ -1,4 +1,7 @@
-/* دسکتاپ (همه‌چیز همون قبلی) */
+/* ---------------------- */
+/* دسکتاپ (سایز کوچک)     */
+/* ---------------------- */
+
 body {
     font-family: Vazirmatn, sans-serif;
     background: #121212;
@@ -6,18 +9,18 @@ body {
     margin: 0;
     padding: 15px;
     direction: rtl;
-    font-size: 18px; /* سایز اصلی دسکتاپ */
+    font-size: 16px; /* دسکتاپ کوچک */
 }
 
 #panelUsername {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     margin-bottom: 10px;
     color: #00eaff;
 }
 
 #lastUpdate {
-    font-size: 18px;
+    font-size: 16px;
     margin-bottom: 20px;
     color: #cccccc;
 }
@@ -35,7 +38,7 @@ body {
     box-shadow: 0 0 10px rgba(0,0,0,0.4);
     transition: transform 0.2s;
     cursor: pointer;
-    font-size: 18px; /* سایز اصلی دسکتاپ */
+    font-size: 16px; /* دسکتاپ کوچک */
 }
 
 .active {
@@ -49,15 +52,14 @@ body {
 .card h2 {
     margin: 0 0 10px 0;
     color: #00eaff;
-    font-size: 22px; /* سایز اصلی دسکتاپ */
+    font-size: 20px; /* دسکتاپ */
 }
 
 .snack-item {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     margin-bottom: 6px;
-    font-size: 18px; /* دسکتاپ */
+    font-size: 16px;
 }
 
 .customer-box {
@@ -65,20 +67,23 @@ body {
     padding: 10px;
     border-radius: 8px;
     margin-bottom: 10px;
-    font-size: 18px; /* دسکتاپ */
+    font-size: 16px;
 }
 
-/* 🟩 موبایل: فقط اینجا فونت‌ها بزرگ می‌شن */
+/* ---------------------- */
+/* موبایل (سایز بزرگ)     */
+/* ---------------------- */
+
 @media (max-width: 600px) {
 
     #systems {
         display: grid !important;
         grid-template-columns: repeat(2, 1fr) !important;
-        gap: 18px !important;
+        gap: 20px !important;
     }
 
     body {
-        font-size: 22px !important; /* کل فونت گوشی بزرگ */
+        font-size: 22px !important; /* فقط موبایل بزرگ */
     }
 
     .card {
