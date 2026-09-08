@@ -23,7 +23,6 @@ async function loadStatus() {
     }
 }
 
-/* تبدیل زمان UTC به زمان ایران */
 function formatDateTime(isoString) {
     if (!isoString) return "—";
     const d = new Date(isoString);
@@ -53,16 +52,19 @@ function renderSystems(systems) {
             <p>وضعیت: ${sys.active ? "فعال" : "آزاد"}</p>
             <p>زمان: ${sys.elapsed}</p>
             <p>هزینه زمان: ${formatPrice(sys.time_cost)} تومان</p>
+
             <h3>خوراکی‌ها:</h3>
             ${renderSnacks(sys.snacks)}
+
             <p>جمع خوراکی‌ها: ${formatPrice(sys.snacks_total)} تومان</p>
             <p><strong>هزینه نهایی: ${formatPrice(sys.final_total)} تومان</strong></p>
+
             <h3>مشتری:</h3>
             ${renderCustomer(sys.customer)}
+
             <p>یادداشت: ${sys.note || "—"}</p>
         `;
 
-        /* کلیک روی کارت → مودال تمام‌صفحه */
         div.onclick = () => openModal(div.innerHTML);
 
         container.appendChild(div);
@@ -71,6 +73,7 @@ function renderSystems(systems) {
 
 function renderSnacks(snacks) {
     if (!snacks || snacks.length === 0) return "<p>بدون خوراکی</p>";
+
     return snacks.map(sn => `
         <div class="snack-item">
             <span>${sn.name}</span>
@@ -90,7 +93,6 @@ function renderCustomer(c) {
     `;
 }
 
-/* مودال */
 function openModal(html) {
     document.getElementById("modalContent").innerHTML = html;
     document.getElementById("modal").style.display = "block";
