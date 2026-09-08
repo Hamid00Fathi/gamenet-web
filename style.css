@@ -42,11 +42,11 @@ body {
 }
 
 .active {
-    border-right: 6px solid #00ff6a;
+    border-right: 12px solid #00ff6a;
 }
 
 .free {
-    border-right: 6px solid #ff3b3b;
+    border-right: 12px solid #ff3b3b;
 }
 
 .card h2 {
