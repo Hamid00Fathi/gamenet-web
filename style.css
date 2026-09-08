@@ -3,7 +3,7 @@
 /* ---------------------- */
 
 body {
-    font-family: B Titr, sans-serif;
+    font-family: B Nazanin, sans-serif;
     background: #121212;
     color: #eaeaea;
     margin: 0;
@@ -91,11 +91,11 @@ body {
     #systems {
         display: grid !important;
         grid-template-columns: repeat(2, 1fr) !important;
-        gap: 20px !important;
+        gap: 10px !important;
     }
 
     body {
-        font-size: 32px !important; /* فقط موبایل بزرگ */
+        font-size: 29px !important; /* فقط موبایل بزرگ */
     }
 
     .card {
@@ -104,7 +104,7 @@ body {
     }
 
     .card h2 {
-        font-size: 45px !important;
+        font-size: 48px !important;
     }
 
     .card p {
