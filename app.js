@@ -14,21 +14,13 @@ async function loadStatus() {
         const data = await res.json();
 
         document.getElementById("lastUpdate").innerText =
-            "آخرین آپدیت: " + formatDateTime(data.lastUpdate);
+            "آخرین آپدیت: " + data.lastUpdate;
 
         renderSystems(data.systems);
 
     } catch (err) {
         document.getElementById("lastUpdate").innerText = "خطا در ارتباط با سرور";
     }
-}
-
-function formatDateTime(isoString) {
-    if (!isoString) return "—";
-    const d = new Date(isoString);
-    const local = new Date(d.getTime() + (3.5 * 60 * 60 * 1000));
-    return `${local.getFullYear()}-${String(local.getMonth()+1).padStart(2,"0")}-${String(local.getDate()).padStart(2,"0")}
-            ${String(local.getHours()).padStart(2,"0")}:${String(local.getMinutes()).padStart(2,"0")}:${String(local.getSeconds()).padStart(2,"0")}`;
 }
 
 function formatPrice(num) {
@@ -65,7 +57,8 @@ function renderSystems(systems) {
             <p>یادداشت: ${sys.note || "—"}</p>
         `;
 
-        div.onclick = () => openModal(div.innerHTML);
+        /* کلیک روی کارت → مودال تمام‌صفحه */
+        div.addEventListener("click", () => openModal(div.innerHTML));
 
         container.appendChild(div);
     });
