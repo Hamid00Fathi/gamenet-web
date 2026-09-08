@@ -183,10 +183,10 @@ body {
     display: block !important;
     font-size: 50px !important;
     padding: 30px 0 !important;
-    border-bottom: 3px solid #444;
-    justify-content: flex-start; /* از space-between به flex-start */
-    align-items: center;
-    gap: 30px;
+    border-bottom: 3px solid #444 !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    gap: 60px !important;
 }
 
 /* باکس مشتری داخل مودال */
