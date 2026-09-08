@@ -54,12 +54,15 @@ body {
     color: #00eaff;
 }
 
+/* خوراکی‌ها */
 .snack-item {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 5px;
+    align-items: center;
+    margin-bottom: 6px;
 }
 
+/* مشتری */
 .customer-box {
     background: #2a2a2a;
     padding: 10px;
@@ -76,6 +79,8 @@ body {
 
     .card {
         font-size: 18px;
+        width: 100% !important;
+        min-width: 0 !important;
     }
 
     .card h2 {
