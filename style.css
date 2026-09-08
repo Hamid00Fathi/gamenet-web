@@ -7,6 +7,7 @@ body {
     direction: rtl;
 }
 
+/* نام کاربری و آخرین آپدیت */
 #panelUsername {
     font-size: 20px;
     font-weight: bold;
@@ -37,6 +38,24 @@ body {
     cursor: pointer;
 }
 
+/* رنگ‌ها */
+.active {
+    border-right: 6px solid #00ff6a;
+}
+
+.free {
+    border-right: 6px solid #ff3b3b;
+}
+
+.card:hover {
+    transform: scale(1.02);
+}
+
+.card h2 {
+    margin: 0 0 10px 0;
+    color: #00eaff;
+}
+
 /* خوراکی‌ها */
 .snack-item {
     display: flex;
@@ -60,12 +79,16 @@ body {
         display: grid !important;
         grid-template-columns: repeat(2, 1fr) !important;
         gap: 12px !important;
+
+        /* جلوگیری از حالت انتخاب */
+        -webkit-user-select: none;
+        user-select: none;
     }
 
     .card {
-        font-size: 18px;
         width: 100% !important;
         min-width: 0 !important;
+        font-size: 18px;
     }
 
     .card h2 {
@@ -89,7 +112,7 @@ body {
     padding: 20px;
     overflow-y: auto;
     display: none;
-    z-index: 999999; /* مهم‌ترین بخش */
+    z-index: 999999;
 }
 
 #modalContent {
