@@ -80,11 +80,11 @@ body {
 
 
     #panelUsername {
-        font-size: 80px !important;
+        font-size: 70px !important;
     }
 
     #lastUpdate {
-        font-size: 80px !important;
+        font-size: 65px !important;
     }
 
 
@@ -95,28 +95,28 @@ body {
     }
 
     body {
-        font-size: 45px !important; /* فقط موبایل بزرگ */
+        font-size: 50px !important; /* فقط موبایل بزرگ */
     }
 
     .card {
-        font-size: 38px !important;
-        padding: 38px !important;
+        font-size: 44px !important;
+        padding: 44px !important;
     }
 
     .card h2 {
-        font-size: 42px !important;
+        font-size: 48px !important;
     }
 
     .card p {
-        font-size: 38px !important;
+        font-size: 44px !important;
     }
 
     .snack-item {
-        font-size: 38px !important;
+        font-size: 44px !important;
     }
 
     .customer-box {
-        font-size: 38px !important;
+        font-size: 44px !important;
     }
 }
 
@@ -149,5 +149,5 @@ body {
     border-radius: 10px;
     margin-bottom: 15px;
     cursor: pointer;
-    font-size: 40px;
+    font-size: 50px;
 }
