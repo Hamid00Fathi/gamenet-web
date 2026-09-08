@@ -9,14 +9,14 @@ body {
 
 /* نام کاربری و آخرین آپدیت */
 #panelUsername {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: bold;
     margin-bottom: 10px;
     color: #00eaff;
 }
 
 #lastUpdate {
-    font-size: 18px;
+    font-size: 20px;
     margin-bottom: 20px;
     color: #cccccc;
 }
@@ -31,7 +31,7 @@ body {
 /* کارت‌ها */
 .card {
     background: #1e1e1e;
-    padding: 15px;
+    padding: 18px;
     border-radius: 12px;
     box-shadow: 0 0 10px rgba(0,0,0,0.4);
     transition: transform 0.2s;
@@ -54,6 +54,7 @@ body {
 .card h2 {
     margin: 0 0 10px 0;
     color: #00eaff;
+    font-size: 22px;
 }
 
 /* خوراکی‌ها */
@@ -78,7 +79,7 @@ body {
     #systems {
         display: grid !important;
         grid-template-columns: repeat(2, 1fr) !important;
-        gap: 12px !important;
+        gap: 15px !important;
 
         /* جلوگیری از حالت انتخاب */
         -webkit-user-select: none;
@@ -88,15 +89,16 @@ body {
     .card {
         width: 100% !important;
         min-width: 0 !important;
-        font-size: 18px;
+        font-size: 20px !important;
+        padding: 20px !important;
     }
 
     .card h2 {
-        font-size: 22px;
+        font-size: 26px !important;
     }
 
     .card p {
-        font-size: 18px;
+        font-size: 20px !important;
     }
 }
 
