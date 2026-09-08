@@ -182,14 +182,17 @@ body {
 .modal-active .snack-item {
     display: block !important;
     font-size: 50px !important;
-    padding: 60px 0 !important;
-    border-bottom: 6px solid #444;
+    padding: 30px 0 !important;
+    border-bottom: 3px solid #444;
+    justify-content: flex-start; /* از space-between به flex-start */
+    align-items: center;
+    gap: 30px;
 }
 
 /* باکس مشتری داخل مودال */
 .modal-active .customer-box {
     background: #2f2f2f !important;
-    padding: 30px !important;
+    padding: 20px !important;
     font-size: 50px !important;
     border-radius: 20px !important;
 }
