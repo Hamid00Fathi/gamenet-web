@@ -1,3 +1,7 @@
+/* جلوگیری از کش موبایل */
+@charset "UTF-8";
+
+/* فونت پایه */
 body {
     font-family: Vazirmatn, sans-serif;
     background: #121212;
@@ -5,18 +9,19 @@ body {
     margin: 0;
     padding: 15px;
     direction: rtl;
+    font-size: 20px; /* بزرگ‌تر برای گوشی */
 }
 
 /* نام کاربری و آخرین آپدیت */
 #panelUsername {
-    font-size: 22px;
+    font-size: 24px;
     font-weight: bold;
     margin-bottom: 10px;
     color: #00eaff;
 }
 
 #lastUpdate {
-    font-size: 20px;
+    font-size: 22px;
     margin-bottom: 20px;
     color: #cccccc;
 }
@@ -25,36 +30,37 @@ body {
 #systems {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
+    gap: 18px;
 }
 
 /* کارت‌ها */
 .card {
     background: #1e1e1e;
-    padding: 18px;
-    border-radius: 12px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.4);
+    padding: 22px;
+    border-radius: 14px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.4);
     transition: transform 0.2s;
     cursor: pointer;
-}
-
-/* رنگ‌ها */
-.active {
-    border-right: 6px solid #00ff6a;
-}
-
-.free {
-    border-right: 6px solid #ff3b3b;
+    font-size: 20px;
 }
 
 .card:hover {
     transform: scale(1.02);
 }
 
+/* رنگ‌ها */
+.active {
+    border-right: 8px solid #00ff6a;
+}
+
+.free {
+    border-right: 8px solid #ff3b3b;
+}
+
 .card h2 {
-    margin: 0 0 10px 0;
+    margin: 0 0 12px 0;
     color: #00eaff;
-    font-size: 22px;
+    font-size: 26px;
 }
 
 /* خوراکی‌ها */
@@ -62,24 +68,26 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
+    font-size: 20px;
 }
 
 /* مشتری */
 .customer-box {
     background: #2a2a2a;
-    padding: 10px;
-    border-radius: 8px;
-    margin-bottom: 10px;
+    padding: 14px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    font-size: 20px;
 }
 
-/* موبایل: دو ستون واقعی */
+/* موبایل: دو ستون واقعی + فونت خیلی بزرگ */
 @media (max-width: 600px) {
 
     #systems {
         display: grid !important;
         grid-template-columns: repeat(2, 1fr) !important;
-        gap: 15px !important;
+        gap: 20px !important;
 
         /* جلوگیری از حالت انتخاب */
         -webkit-user-select: none;
@@ -89,20 +97,28 @@ body {
     .card {
         width: 100% !important;
         min-width: 0 !important;
-        font-size: 20px !important;
-        padding: 20px !important;
+        font-size: 24px !important;
+        padding: 26px !important;
     }
 
     .card h2 {
-        font-size: 26px !important;
+        font-size: 30px !important;
     }
 
     .card p {
-        font-size: 20px !important;
+        font-size: 24px !important;
+    }
+
+    .snack-item {
+        font-size: 24px !important;
+    }
+
+    .customer-box {
+        font-size: 24px !important;
     }
 }
 
-/* مودال تمام‌صفحه */
+/* مودال */
 #modal {
     position: fixed;
     top: 0;
@@ -127,9 +143,9 @@ body {
     background: #ff3b3b;
     color: white;
     border: none;
-    padding: 10px 15px;
-    border-radius: 8px;
+    padding: 12px 18px;
+    border-radius: 10px;
     margin-bottom: 15px;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 22px;
 }
