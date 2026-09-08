@@ -1,7 +1,7 @@
 async function loadStatus() {
     const username = localStorage.getItem("username");
 
-    // نمایش نام کاربری در پنل
+    // نمایش نام کاربری
     document.getElementById("panelUsername").innerText =
         "نام کاربری: " + (username || "تنظیم نشده");
 
@@ -14,26 +14,23 @@ async function loadStatus() {
         const res = await fetch(`https://gamenet-server-mongo.onrender.com/status/${username}`);
         const data = await res.json();
 
-        // نمایش آخرین آپدیت با تبدیل زمان ایران (نسخه قبلی)
+        // نمایش آخرین آپدیت
         document.getElementById("lastUpdate").innerText =
             "آخرین آپدیت: " + formatDateTime(data.lastUpdate);
 
-        // نمایش سیستم‌ها
         renderSystems(data.systems);
 
     } catch (err) {
-        console.log("خطا در دریافت اطلاعات:", err);
+        console.log("خطا:", err);
         document.getElementById("lastUpdate").innerText = "خطا در ارتباط با سرور";
     }
 }
 
-/* تبدیل زمان UTC به زمان ایران (نسخه قبلی که درست کار می‌کرد) */
+/* تبدیل زمان UTC به زمان ایران */
 function formatDateTime(isoString) {
     if (!isoString) return "—";
 
     const d = new Date(isoString);
-
-    // تبدیل UTC به زمان ایران (UTC+3:30)
     const local = new Date(d.getTime() + (3.5 * 60 * 60 * 1000));
 
     const year = local.getFullYear();
@@ -46,12 +43,10 @@ function formatDateTime(isoString) {
     return `${year}-${month}-${day} ${hour}:${min}:${sec}`;
 }
 
-/* فرمت قیمت */
 function formatPrice(num) {
     return num.toLocaleString("fa-IR");
 }
 
-/* ساخت کارت سیستم‌ها */
 function renderSystems(systems) {
     const container = document.getElementById("systems");
     container.innerHTML = "";
