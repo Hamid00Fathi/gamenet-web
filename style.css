@@ -95,28 +95,28 @@ body {
     }
 
     body {
-        font-size: 60px !important; /* فقط موبایل بزرگ */
+        font-size: 30px !important; /* فقط موبایل بزرگ */
     }
 
     .card {
-        font-size: 54px !important;
-        padding: 54px !important;
+        font-size: 27px !important;
+        padding: 27px !important;
     }
 
     .card h2 {
-        font-size: 58px !important;
+        font-size: 29px !important;
     }
 
     .card p {
-        font-size: 54px !important;
+        font-size: 27px !important;
     }
 
     .snack-item {
-        font-size: 54px !important;
+        font-size: 27px !important;
     }
 
     .customer-box {
-        font-size: 54px !important;
+        font-size: 27px !important;
     }
 }
 
