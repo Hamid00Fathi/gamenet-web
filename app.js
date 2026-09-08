@@ -92,6 +92,8 @@ function openModal(html) {
     const content = document.getElementById("modalContent");
 
     content.innerHTML = html;
+
+    modal.classList.add("modal-active");
     modal.style.display = "block";
 }
 
