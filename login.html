@@ -13,16 +13,20 @@
 
   <h2>ورود به پنل گیم‌نت</h2>
 
-  <input id="username" placeholder="یوزرنیم گیم‌نت">
-  <br>
-  <input id="password" placeholder="پسورد گیم‌نت" type="password">
-  <br>
-  <button onclick="login()">ورود</button>
+  <form id="loginForm">
+    <input id="username" type="text" placeholder="یوزرنیم گیم‌نت">
+    <br>
+    <input id="password" type="password" placeholder="پسورد گیم‌نت">
+    <br>
+    <button type="submit">ورود</button>
+  </form>
 
   <p id="error" style="color:red;"></p>
 
   <script>
-    function login() {
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault(); // جلوگیری از رفتار عجیب روی گوشی
+
       const username = document.getElementById("username").value.trim();
       const password = document.getElementById("password").value.trim();
       const errorEl = document.getElementById("error");
@@ -32,13 +36,13 @@
         return;
       }
 
-      // ذخیره در مرورگر
+      // ذخیره در مرورگر (روی گوشی ۱۰۰٪ کار می‌کند)
       localStorage.setItem("username", username);
       localStorage.setItem("password", password);
 
       // انتقال به داشبورد
-      window.location.href = "dashboard.html";
-    }
+      window.location.href = "dashboard.html?v=2";
+    });
   </script>
 
 </body>
