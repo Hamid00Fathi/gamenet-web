@@ -105,26 +105,26 @@ body {
 
     .card h2 {
         font-size: 48px !important;
-        margin-bottom: 5px
-        line-height: 1.3
+        margin-bottom: 5px !important;
+        line-height: 1.3 !important;
     }
 
     .card p {
         font-size: 29px !important;
-        margin-bottom: 5px
-        line-height: 1.3
+        margin-bottom: 5px !important;
+        line-height: 1.3 !important;
     }
 
     .snack-item {
         font-size: 29px !important;
-        margin-bottom: 5px
-        line-height: 1.3
+        margin-bottom: 5px !important;
+        line-height: 1.3 !important;
     }
 
     .customer-box {
         font-size: 29px !important;
-        margin-bottom: 5px
-        line-height:1.3
+        margin-bottom: 5px !important;
+        line-height:1.3 !important;
     }
 }
 
