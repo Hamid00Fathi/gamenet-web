@@ -91,7 +91,7 @@ body {
     #systems {
         display: grid !important;
         grid-template-columns: repeat(2, 1fr) !important;
-        gap: 10px !important;
+        gap: 5px !important;
     }
 
     body {
@@ -100,23 +100,27 @@ body {
 
     .card {
         font-size: 29px !important;
-        padding: 29px !important;
+        padding: 5px !important;
     }
 
     .card h2 {
         font-size: 48px !important;
+        margin-bottom: 10px
     }
 
     .card p {
         font-size: 29px !important;
+        margin-bottom: 10px
     }
 
     .snack-item {
         font-size: 29px !important;
+        margin-bottom: 10px
     }
 
     .customer-box {
         font-size: 29px !important;
+        margin-bottom: 10px
     }
 }
 
