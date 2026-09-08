@@ -100,7 +100,7 @@ body {
 
     .card {
         font-size: 29px !important;
-        padding: 15px !important;
+        padding: 20px !important;
     }
 
     .card h2 {
@@ -121,11 +121,11 @@ body {
         line-height: 1.3 !important;
     }
 
-    .customer-box {
+    /*.customer-box {
         font-size: 29px !important;
         margin-bottom: 6px !important;
         line-height:1.3 !important;
-    }
+    }*/
 }
 
 /* مودال */
@@ -143,6 +143,7 @@ body {
     z-index: 999999;
 }
 
+
 #modalContent {
     background: #1e1e1e;
     padding: 15px;
@@ -157,7 +158,7 @@ body {
     border-radius: 10px;
     margin-bottom: 15px;
     cursor: pointer;
-    font-size: 60px;
+    font-size: 50px;
 }
 
 /* وقتی سیستم انتخاب می‌شود و مودال فعال است */
