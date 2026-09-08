@@ -95,12 +95,12 @@ body {
     }
 
     body {
-        font-size: 34px !important; /* فقط موبایل بزرگ */
+        font-size: 32px !important; /* فقط موبایل بزرگ */
     }
 
     .card {
-        font-size: 31px !important;
-        padding: 31px !important;
+        font-size: 29px !important;
+        padding: 29px !important;
     }
 
     .card h2 {
@@ -108,15 +108,15 @@ body {
     }
 
     .card p {
-        font-size: 31px !important;
+        font-size: 29px !important;
     }
 
     .snack-item {
-        font-size: 31px !important;
+        font-size: 29px !important;
     }
 
     .customer-box {
-        font-size: 31px !important;
+        font-size: 29px !important;
     }
 }
 
@@ -166,22 +166,22 @@ body {
 
 /* متن‌های داخل مودال */
 .modal-active #modalContent p {
-    font-size: 45px !important;
+    font-size: 50px !important;
     margin-bottom: 20px !important;
 }
 
 /* خوراکی‌ها داخل مودال */
 .modal-active .snack-item {
     display: block !important;
-    font-size: 45px !important;
-    padding: 15px 0 !important;
-    border-bottom: 2px solid #444;
+    font-size: 50px !important;
+    padding: 30px 0 !important;
+    border-bottom: 3px solid #444;
 }
 
 /* باکس مشتری داخل مودال */
 .modal-active .customer-box {
     background: #2f2f2f !important;
     padding: 30px !important;
-    font-size: 45px !important;
+    font-size: 50px !important;
     border-radius: 20px !important;
 }
