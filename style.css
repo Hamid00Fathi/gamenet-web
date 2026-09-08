@@ -78,6 +78,16 @@ body {
 
 @media (max-width: 1800px) {
 
+
+    #panelUsername {
+        font-size: 26px !important;
+    }
+
+    #lastUpdate {
+        font-size: 24px !important;
+    }
+
+}
     #systems {
         display: grid !important;
         grid-template-columns: repeat(1, 1fr) !important;
