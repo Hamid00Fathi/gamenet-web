@@ -13,7 +13,7 @@ async function loadStatus() {
         const res = await fetch(`https://gamenet-server-mongo.onrender.com/status/${username}`);
         const data = await res.json();
 
-        /* نمایش مستقیم زمان بدون تبدیل */
+        // نمایش مستقیم زمان بدون تبدیل
         document.getElementById("lastUpdate").innerText =
             "آخرین آپدیت: " + data.lastUpdate;
 
@@ -88,8 +88,11 @@ function renderCustomer(c) {
 }
 
 function openModal(html) {
-    document.getElementById("modalContent").innerHTML = html;
-    document.getElementById("modal").style.display = "block";
+    const modal = document.getElementById("modal");
+    const content = document.getElementById("modalContent");
+
+    content.innerHTML = html;
+    modal.style.display = "block";
 }
 
 document.getElementById("closeModal").onclick = () => {
