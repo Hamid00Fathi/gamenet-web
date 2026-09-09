@@ -24,6 +24,45 @@
     #dashboard {
         display: none;
     }
+
+    #systems {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+        margin-top: 20px;
+    }
+
+    .card {
+        background: #1e1e1e;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.4);
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .card:hover {
+        transform: scale(1.03);
+    }
+
+    .active {
+        border-right: 12px solid #00ff6a;
+    }
+
+    .free {
+        border-right: 12px solid #ff3b3b;
+    }
+
+    .card h2 {
+        margin: 0 0 10px 0;
+        color: #00eaff;
+        font-size: 22px;
+    }
+
+    .card p {
+        margin: 0;
+        font-size: 18px;
+    }
 </style>
 </head>
 
@@ -34,8 +73,9 @@
 <div id="dashboard">
     <h2>داشبورد گیم‌نت</h2>
     <p>خوش آمدی <span id="panelUsername"></span></p>
+    <p>آخرین بروزرسانی: <span id="lastUpdate"></span></p>
 
-    <!-- اینجا ادامه داشبورد تو قرار می‌گیرد -->
+    <div id="systems"></div>
 </div>
 
 <script>
@@ -57,6 +97,13 @@ async function checkSubscription(username) {
     return data.active;
 }
 
+// گرفتن سیستم‌ها از سرور
+async function loadSystems() {
+    const res = await fetch(`${BASE_URL}/status/${username}`);
+    const data = await res.json();
+    return data;
+}
+
 // اجرای چک اشتراک قبل از نمایش داشبورد
 (async () => {
     const active = await checkSubscription(username);
@@ -67,11 +114,38 @@ async function checkSubscription(username) {
         return;
     }
 
-    // اگر اشتراک فعال بود → داشبورد را نمایش بده
-    document.getElementById("loading").style.display = "none";
-    document.getElementById("dashboard").style.display = "block";
+    // اشتراک فعال است → حالا سیستم‌ها را بگیر
+    const data = await loadSystems();
 
     document.getElementById("panelUsername").innerText = username;
+    document.getElementById("lastUpdate").innerText = data.lastUpdate || "نامشخص";
+
+    const systemsDiv = document.getElementById("systems");
+    systemsDiv.innerHTML = ""; // پاکسازی
+
+    const systems = data.systems || {};
+
+    // ساخت کارت‌ها
+    Object.keys(systems).forEach(key => {
+        const status = systems[key]; // online/offline/free/active
+
+        const card = document.createElement("div");
+        card.classList.add("card");
+
+        if (status === "online") card.classList.add("active");
+        if (status === "offline") card.classList.add("free");
+
+        card.innerHTML = `
+            <h2>${key}</h2>
+            <p>وضعیت: ${status}</p>
+        `;
+
+        systemsDiv.appendChild(card);
+    });
+
+    // نمایش داشبورد
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("dashboard").style.display = "block";
 })();
 </script>
 
