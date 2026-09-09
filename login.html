@@ -44,10 +44,6 @@
       color: white;
     }
 
-    input::placeholder {
-      color: #ddd;
-    }
-
     button {
       width: 95%;
       padding: 12px;
@@ -64,18 +60,16 @@
       color: white;
     }
 
-    #loginBtn:hover {
-      background: #43a047;
-    }
-
     #registerBtn {
       background: #2196f3;
       color: white;
-      display: none;
+      opacity: 0.5;
+      pointer-events: none;
     }
 
-    #registerBtn:hover {
-      background: #1e88e5;
+    #registerBtn.active {
+      opacity: 1;
+      pointer-events: auto;
     }
 
     #error {
@@ -120,8 +114,8 @@
       const checkData = await checkRes.json();
 
       if (!checkData.exists) {
-        errorEl.textContent = "این یوزرنیم وجود ندارد. روی ثبت‌نام کلیک کنید.";
-        registerBtn.style.display = "block";
+        errorEl.textContent = "این یوزرنیم وجود ندارد. برای ساخت حساب روی ثبت‌نام کلیک کنید.";
+        registerBtn.classList.add("active");
         return;
       }
 
@@ -151,6 +145,8 @@
 
     // دکمه ثبت‌نام
     registerBtn.onclick = async () => {
+      if (!registerBtn.classList.contains("active")) return;
+
       const username = document.getElementById("username").value.trim();
       const password = document.getElementById("password").value.trim();
 
