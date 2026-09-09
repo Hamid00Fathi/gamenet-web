@@ -79,7 +79,6 @@
             font-size: 20px;
         }
 
-        /* موبایل */
         @media (max-width: 1200px) {
             body { font-size: 40px; }
             #panelUsername { font-size: 65px; }
@@ -248,7 +247,9 @@
                         "آزاد"
                     }</p>
                     <p>زمان: ${sys.elapsed}</p>
-                    <p>هزینه نهایی: ${sys.final_total.toLocaleString()} تومان</p>
+                    <p>هزینه نهایی: ${
+                        sys.final_total ? sys.final_total.toLocaleString() : "0"
+                    } تومان</p>
                 `;
 
                 card.onclick = () => openModal(sys);
@@ -273,7 +274,7 @@
                     div.className = "snack-item";
                     div.innerHTML = `
                         <span>${item.name} × ${item.qty}</span>
-                        <span>${item.price.toLocaleString()} تومان</span>
+                        <span>${item.price ? item.price.toLocaleString() : 0} تومان</span>
                     `;
                     snacksDiv.appendChild(div);
                 });
@@ -289,7 +290,11 @@
                     <div class="customer-box">
                         <div>نام مشتری: ${sys.customer.name}</div>
                         <div>کد: ${sys.customer.code}</div>
-                        <div>اعتبار: ${sys.customer.balance.toLocaleString()} تومان</div>
+                        <div>اعتبار: ${
+                            sys.customer.balance
+                                ? sys.customer.balance.toLocaleString()
+                                : 0
+                        } تومان</div>
                     </div>
                 `;
             } else {
@@ -302,7 +307,9 @@
                     زمان سپری‌شده: ${sys.elapsed}
                 </div>
                 <div class="customer-box">
-                    هزینه زمان: ${sys.time_cost.toLocaleString()} تومان
+                    هزینه زمان: ${
+                        sys.time_cost ? sys.time_cost.toLocaleString() : 0
+                    } تومان
                 </div>
             `;
 
