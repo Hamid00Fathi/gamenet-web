@@ -1,29 +1,79 @@
 <!DOCTYPE html>
 <html lang="fa">
 <head>
-    <meta charset="UTF-8">
-    <title>پنل مدیریت گیم‌نت</title>
+<meta charset="UTF-8">
+<title>داشبورد گیم‌نت</title>
 
-    <!-- ضدکش برای گوشی -->
-    <link rel="stylesheet" href="style.css?v=999">
+<style>
+    body {
+        font-family: sans-serif;
+        direction: rtl;
+        background: #121212;
+        color: #eaeaea;
+        margin: 0;
+        padding: 20px;
+    }
+
+    #loading {
+        text-align: center;
+        margin-top: 100px;
+        font-size: 25px;
+        color: #00eaff;
+    }
+
+    #dashboard {
+        display: none;
+    }
+</style>
 </head>
 
 <body>
 
-    <!-- نام کاربری و آخرین آپدیت -->
-    <p id="panelUsername"></p>
-    <p id="lastUpdate"></p>
+<div id="loading">در حال بررسی اشتراک...</div>
 
-    <!-- لیست سیستم‌ها -->
-    <div id="systems"></div>
+<div id="dashboard">
+    <h2>داشبورد گیم‌نت</h2>
+    <p>خوش آمدی <span id="panelUsername"></span></p>
 
-    <!-- مودال تمام‌صفحه برای نمایش یک سیستم -->
-    <div id="modal">
-        <button id="closeModal">بازگشت</button>
-        <div id="modalContent"></div>
-    </div>
+    <!-- اینجا ادامه داشبورد تو قرار می‌گیرد -->
+</div>
 
-    <!-- اسکریپت اصلی داشبورد (ضدکش) -->
-    <script src="app.js?v=1000"></script>
+<script>
+const BASE_URL = "https://gamenet-server-mongo.onrender.com";
+
+// گرفتن یوزرنیم از localStorage
+const username = localStorage.getItem("username");
+
+// اگر یوزرنیم نبود → کاربر وارد نشده
+if (!username) {
+    alert("ابتدا وارد حساب شوید");
+    window.location.href = "login.html";
+}
+
+// تابع چک اشتراک
+async function checkSubscription(username) {
+    const res = await fetch(`${BASE_URL}/subscription/${username}`);
+    const data = await res.json();
+    return data.active;
+}
+
+// اجرای چک اشتراک قبل از نمایش داشبورد
+(async () => {
+    const active = await checkSubscription(username);
+
+    if (!active) {
+        alert("اشتراک شما فعال نیست یا تمام شده است.");
+        window.location.href = "login.html";
+        return;
+    }
+
+    // اگر اشتراک فعال بود → داشبورد را نمایش بده
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("dashboard").style.display = "block";
+
+    document.getElementById("panelUsername").innerText = username;
+})();
+</script>
+
 </body>
 </html>
