@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8">
+<title>مدیریت اشتراک گیم‌نت</title>
+
+<style>
+    body {
+        font-family: 'IRANSans', sans-serif;
+        direction: rtl;
+        background: #121212;
+        color: white;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .box {
+        background: #1e1e1e;
+        padding: 25px;
+        border-radius: 15px;
+        max-width: 500px;
+        margin: auto;
+        box-shadow: 0 0 20px rgba(0,0,0,0.4);
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        color: #00eaff;
+    }
+
+    p {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px;
+        font-size: 18px;
+        border-radius: 10px;
+        border: none;
+        margin-bottom: 15px;
+        background: #2a2a2a;
+        color: white;
+    }
+
+    button {
+        width: 100%;
+        padding: 15px;
+        font-size: 20px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        margin-top: 10px;
+        background: #00eaff;
+        color: black;
+        font-weight: bold;
+    }
+
+    button:hover {
+        background: #00c7d6;
+    }
+
+    #statusBox {
+        background: #2a2a2a;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        font-size: 20px;
+    }
+
+    #daysLeft {
+        font-size: 22px;
+        color: #00ff6a;
+        margin-top: 10px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="box">
+    <h2>مدیریت اشتراک گیم‌نت</h2>
+
+    <div id="statusBox">
+        <p id="expireText">در حال بارگذاری...</p>
+        <p id="daysLeft"></p>
+    </div>
+
+    <label>تاریخ جدید اشتراک:</label>
+    <input type="date" id="newExpire">
+
+    <button id="saveBtn">ثبت تاریخ جدید</button>
+</div>
+
+<script>
+const BASE_URL = "https://gamenet-server-mongo.onrender.com";
+const username = localStorage.getItem("username");
+
+if (!username) {
+    alert("ابتدا وارد حساب شوید");
+    window.location.href = "login.html";
+}
+
+const expireText = document.getElementById("expireText");
+const daysLeft = document.getElementById("daysLeft");
+const saveBtn = document.getElementById("saveBtn");
+const newExpire = document.getElementById("newExpire");
+
+// محاسبه روزهای باقی‌مانده
+function calcDaysLeft(expireDate) {
+    const now = new Date();
+    const exp = new Date(expireDate);
+    const diff = exp - now;
+
+    if (diff <= 0) return 0;
+
+    return Math.ceil(diff / (1000 * 60 * 60 * 24));
+}
+
+// بارگذاری وضعیت اشتراک
+async function loadSubscription() {
+    const res = await fetch(`${BASE_URL}/subscription/${username}`);
+    const data = await res.json();
+
+    if (!data.expireDate) {
+        expireText.innerText = "اشتراک فعال نیست";
+        daysLeft.innerText = "";
+        return;
+    }
+
+    expireText.innerText = "تاریخ پایان اشتراک: " + data.expireDate;
+
+    const d = calcDaysLeft(data.expireDate);
+
+    if (d <= 0) {
+        daysLeft.innerText = "اشتراک شما تمام شده است";
+        daysLeft.style.color = "#ff3b3b";
+    } else {
+        daysLeft.innerText = `روزهای باقی‌مانده: ${d}`;
+        daysLeft.style.color = "#00ff6a";
+    }
+}
+
+// ثبت تاریخ جدید اشتراک
+saveBtn.onclick = async () => {
+    const date = newExpire.value;
+
+    if (!date) {
+        alert("لطفاً تاریخ را وارد کنید");
+        return;
+    }
+
+    await fetch(`${BASE_URL}/subscription/update/${username}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ expireDate: date })
+    });
+
+    alert("اشتراک با موفقیت بروزرسانی شد");
+    loadSubscription();
+};
+
+// اجرای اولیه
+loadSubscription();
+</script>
+
+</body>
+</html>
