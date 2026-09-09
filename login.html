@@ -6,7 +6,8 @@
   <style>
     body { font-family: sans-serif; direction: rtl; text-align: center; margin-top: 80px; }
     input { padding: 10px; width: 250px; margin: 10px; font-size: 16px; }
-    button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+    button { padding: 10px 20px; font-size: 16px; cursor: pointer; margin-top: 10px; }
+    #registerBtn { display: none; background: green; color: white; }
   </style>
 </head>
 <body>
@@ -21,27 +22,91 @@
     <button type="submit">ورود</button>
   </form>
 
+  <button id="registerBtn">ثبت‌نام</button>
+
   <p id="error" style="color:red;"></p>
 
   <script>
-    document.getElementById("loginForm").addEventListener("submit", function(e) {
-      e.preventDefault(); // جلوگیری از رفتار عجیب روی گوشی
+    const errorEl = document.getElementById("error");
+    const registerBtn = document.getElementById("registerBtn");
+
+    // دکمه ثبت‌نام
+    registerBtn.onclick = async () => {
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      const res = await fetch(`https://gamenet-server-mongo.onrender.com/status/${username}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          password,
+          systems: {},
+          lastUpdate: new Date().toISOString()
+        })
+      });
+
+      const data = await res.json();
+
+      if (data.ok) {
+        localStorage.setItem("username", username);
+        localStorage.setItem("password", password);
+        window.location.href = "dashboard.html";
+      }
+    };
+
+    // دکمه ورود
+    document.getElementById("loginForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
 
       const username = document.getElementById("username").value.trim();
       const password = document.getElementById("password").value.trim();
-      const errorEl = document.getElementById("error");
 
       if (!username || !password) {
         errorEl.textContent = "یوزرنیم و پسورد را وارد کنید.";
         return;
       }
 
-      // ذخیره در مرورگر (روی گوشی ۱۰۰٪ کار می‌کند)
+      // چک وجود داشتن کاربر
+      const checkRes = await fetch(`https://gamenet-server-mongo.onrender.com/check/${username}`);
+      const checkData = await checkRes.json();
+
+      if (!checkData.exists) {
+        errorEl.textContent = "این یوزرنیم وجود ندارد. برای ساخت حساب روی ثبت‌نام کلیک کنید.";
+        registerBtn.style.display = "inline-block";
+        return;
+      }
+
+      // اگر کاربر وجود دارد → چک پسورد
+      const statusRes = await fetch(`https://gamenet-server-mongo.onrender.com/status/${username}`);
+      const statusData = await statusRes.json();
+
+      // پسورد را از دیتابیس می‌گیریم
+      const dbUserRes = await fetch(`https://gamenet-server-mongo.onrender.com/check/${username}`);
+      const dbUser = await dbUserRes.json();
+
+      // پسورد اشتباه؟
+      // (چون سرور تو پسورد را در status ذخیره می‌کند، باید از مسیر POST چک کنیم)
+      const loginTry = await fetch(`https://gamenet-server-mongo.onrender.com/status/${username}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          password,
+          systems: statusData.systems,
+          lastUpdate: new Date().toISOString()
+        })
+      });
+
+      const loginData = await loginTry.json();
+
+      if (loginData.error === "Wrong password") {
+        errorEl.textContent = "پسورد اشتباه است.";
+        return;
+      }
+
+      // ورود موفق
       localStorage.setItem("username", username);
       localStorage.setItem("password", password);
-
-      // انتقال به داشبورد
-      window.location.href = "dashboard.html?v=2";
+      window.location.href = "dashboard.html";
     });
   </script>
 
