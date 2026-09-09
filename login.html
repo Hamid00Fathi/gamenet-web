@@ -3,32 +3,151 @@
 <head>
   <meta charset="UTF-8">
   <title>ورود به پنل گیم‌نت</title>
+
   <style>
-    body { font-family: sans-serif; direction: rtl; text-align: center; margin-top: 80px; }
-    input { padding: 10px; width: 250px; margin: 10px; font-size: 16px; }
-    button { padding: 10px 20px; font-size: 16px; cursor: pointer; margin-top: 10px; }
-    #registerBtn { display: none; background: green; color: white; }
+    body {
+      font-family: 'IRANSans', sans-serif;
+      direction: rtl;
+      background: linear-gradient(135deg, #1e1e2f, #2a2a40);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+    }
+
+    .login-box {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 30px;
+      width: 320px;
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(0,0,0,0.4);
+      backdrop-filter: blur(10px);
+      animation: fadeIn 0.8s ease;
+      text-align: center;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    input {
+      width: 90%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: none;
+      font-size: 15px;
+      outline: none;
+      background: rgba(255,255,255,0.15);
+      color: white;
+    }
+
+    input::placeholder {
+      color: #ddd;
+    }
+
+    button {
+      width: 95%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: 0.3s;
+    }
+
+    #loginBtn {
+      background: #4caf50;
+      color: white;
+    }
+
+    #loginBtn:hover {
+      background: #43a047;
+    }
+
+    #registerBtn {
+      background: #2196f3;
+      color: white;
+      display: none;
+    }
+
+    #registerBtn:hover {
+      background: #1e88e5;
+    }
+
+    #error {
+      margin-top: 10px;
+      color: #ff6b6b;
+      font-size: 14px;
+    }
   </style>
 </head>
+
 <body>
 
-  <h2>ورود به پنل گیم‌نت</h2>
+  <div class="login-box">
+    <h2>ورود به پنل گیم‌نت</h2>
 
-  <form id="loginForm">
     <input id="username" type="text" placeholder="یوزرنیم گیم‌نت">
-    <br>
     <input id="password" type="password" placeholder="پسورد گیم‌نت">
-    <br>
-    <button type="submit">ورود</button>
-  </form>
 
-  <button id="registerBtn">ثبت‌نام</button>
+    <button id="loginBtn">ورود</button>
+    <button id="registerBtn">ثبت‌نام</button>
 
-  <p id="error" style="color:red;"></p>
+    <p id="error"></p>
+  </div>
 
   <script>
-    const errorEl = document.getElementById("error");
+    const loginBtn = document.getElementById("loginBtn");
     const registerBtn = document.getElementById("registerBtn");
+    const errorEl = document.getElementById("error");
+
+    // دکمه ورود
+    loginBtn.onclick = async () => {
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      if (!username || !password) {
+        errorEl.textContent = "یوزرنیم و پسورد را وارد کنید";
+        return;
+      }
+
+      // چک وجود داشتن کاربر
+      const checkRes = await fetch(`https://gamenet-server-mongo.onrender.com/check/${username}`);
+      const checkData = await checkRes.json();
+
+      if (!checkData.exists) {
+        errorEl.textContent = "این یوزرنیم وجود ندارد. روی ثبت‌نام کلیک کنید.";
+        registerBtn.style.display = "block";
+        return;
+      }
+
+      // تلاش برای ورود
+      const loginTry = await fetch(`https://gamenet-server-mongo.onrender.com/status/${username}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          password,
+          systems: {},
+          lastUpdate: new Date().toISOString()
+        })
+      });
+
+      const loginData = await loginTry.json();
+
+      if (loginData.error === "Wrong password") {
+        errorEl.textContent = "پسورد اشتباه است";
+        return;
+      }
+
+      // ورود موفق
+      localStorage.setItem("username", username);
+      localStorage.setItem("password", password);
+      window.location.href = "dashboard.html";
+    };
 
     // دکمه ثبت‌نام
     registerBtn.onclick = async () => {
@@ -53,61 +172,6 @@
         window.location.href = "dashboard.html";
       }
     };
-
-    // دکمه ورود
-    document.getElementById("loginForm").addEventListener("submit", async function(e) {
-      e.preventDefault();
-
-      const username = document.getElementById("username").value.trim();
-      const password = document.getElementById("password").value.trim();
-
-      if (!username || !password) {
-        errorEl.textContent = "یوزرنیم و پسورد را وارد کنید.";
-        return;
-      }
-
-      // چک وجود داشتن کاربر
-      const checkRes = await fetch(`https://gamenet-server-mongo.onrender.com/check/${username}`);
-      const checkData = await checkRes.json();
-
-      if (!checkData.exists) {
-        errorEl.textContent = "این یوزرنیم وجود ندارد. برای ساخت حساب روی ثبت‌نام کلیک کنید.";
-        registerBtn.style.display = "inline-block";
-        return;
-      }
-
-      // اگر کاربر وجود دارد → چک پسورد
-      const statusRes = await fetch(`https://gamenet-server-mongo.onrender.com/status/${username}`);
-      const statusData = await statusRes.json();
-
-      // پسورد را از دیتابیس می‌گیریم
-      const dbUserRes = await fetch(`https://gamenet-server-mongo.onrender.com/check/${username}`);
-      const dbUser = await dbUserRes.json();
-
-      // پسورد اشتباه؟
-      // (چون سرور تو پسورد را در status ذخیره می‌کند، باید از مسیر POST چک کنیم)
-      const loginTry = await fetch(`https://gamenet-server-mongo.onrender.com/status/${username}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          password,
-          systems: statusData.systems,
-          lastUpdate: new Date().toISOString()
-        })
-      });
-
-      const loginData = await loginTry.json();
-
-      if (loginData.error === "Wrong password") {
-        errorEl.textContent = "پسورد اشتباه است.";
-        return;
-      }
-
-      // ورود موفق
-      localStorage.setItem("username", username);
-      localStorage.setItem("password", password);
-      window.location.href = "dashboard.html";
-    });
   </script>
 
 </body>
