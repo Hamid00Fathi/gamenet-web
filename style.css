@@ -60,6 +60,7 @@ body {
     justify-content: space-between;
     margin-bottom: 6px;
     font-size: 20px;
+    border-bottom: 2px solid #444;
 }
 
 .customer-box {
