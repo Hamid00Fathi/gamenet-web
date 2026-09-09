@@ -333,9 +333,9 @@
 
             document.getElementById("panelUsername").innerText = `گیم‌نت: ${username}`;
             document.getElementById("lastUpdate").innerText =
-                `آخرین بروزرسانی: ${new Date().toLocaleTimeString("fa-IR")}`;
+                `آخرین بروزرسانی: ${data.lastUpdate}`;
 
-            renderSystems(data);
+            renderSystems(data.systems);
 
             document.getElementById("loading").style.display = "none";
             document.getElementById("dashboard").style.display = "block";
