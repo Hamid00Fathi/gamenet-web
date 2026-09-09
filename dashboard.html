@@ -5,10 +5,6 @@
     <title>داشبورد گیم‌نت</title>
 
     <style>
-        /* ---------------------- */
-        /* استایل پایه دسکتاپ     */
-        /* ---------------------- */
-
         body {
             font-family: B Nazanin, sans-serif;
             background: #121212;
@@ -83,105 +79,18 @@
             font-size: 20px;
         }
 
-        /* ---------------------- */
-        /* مودال دسکتاپ           */
-        /* ---------------------- */
-
-        #modal {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 100%;
-            background: #000000dd;
-            backdrop-filter: blur(5px);
-            padding: 20px;
-            overflow-y: auto;
-            display: none;
-            z-index: 999999;
-        }
-
-        #modalContent {
-            background: #1e1e1e;
-            padding: 20px;
-            border-radius: 12px;
-            max-width: 700px;
-            margin: auto;
-            font-size: 20px;
-            line-height: 1.6;
-        }
-
-        #modalContent h2 {
-            font-size: 28px;
-            margin-bottom: 15px;
-        }
-
-        #modalContent p {
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-
-        #closeModal {
-            background: #ff3b3b;
-            color: white;
-            border: none;
-            padding: 12px 18px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            cursor: pointer;
-            font-size: 20px;
-            display: block;
-            width: 100%;
-        }
-
-        /* ---------------------- */
-        /* موبایل (سایز بزرگ)     */
-        /* ---------------------- */
-
+        /* موبایل */
         @media (max-width: 1200px) {
+            body { font-size: 40px; }
+            #panelUsername { font-size: 65px; }
+            #lastUpdate { font-size: 50px; }
+            #systems { grid-template-columns: repeat(2, 1fr); }
+            .card { font-size: 40px; padding: 20px; }
+            .card h2 { font-size: 54px; margin-bottom: 6px; }
+            .card p { font-size: 40px; margin-bottom: 6px; }
+            .snack-item { font-size: 40px; margin-bottom: 6px; }
+            .customer-box { font-size: 40px; margin-bottom: 6px; }
 
-            body {
-                font-size: 40px;
-            }
-
-            #panelUsername {
-                font-size: 65px;
-            }
-
-            #lastUpdate {
-                font-size: 50px;
-            }
-
-            #systems {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .card {
-                font-size: 40px;
-                padding: 20px;
-            }
-
-            .card h2 {
-                font-size: 54px;
-                margin-bottom: 6px;
-            }
-
-            .card p {
-                font-size: 40px;
-                margin-bottom: 6px;
-            }
-
-            .snack-item {
-                font-size: 40px;
-                margin-bottom: 6px;
-            }
-
-            .customer-box {
-                font-size: 40px;
-                margin-bottom: 6px;
-            }
-
-            /* مودال موبایل */
             #modalContent {
                 max-width: 100%;
                 font-size: 45px;
@@ -219,12 +128,48 @@
             }
         }
 
-        /* متن لودینگ */
         #loading {
             text-align: center;
             margin-top: 80px;
             font-size: 22px;
             color: #00eaff;
+        }
+
+        #modal {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: #000000dd;
+            backdrop-filter: blur(5px);
+            padding: 20px;
+            overflow-y: auto;
+            display: none;
+            z-index: 999999;
+        }
+
+        #modalContent {
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 12px;
+            max-width: 700px;
+            margin: auto;
+            font-size: 20px;
+            line-height: 1.6;
+        }
+
+        #closeModal {
+            background: #ff3b3b;
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            font-size: 20px;
+            display: block;
+            width: 100%;
         }
     </style>
 </head>
@@ -264,8 +209,6 @@
 
     <script>
         const BASE_URL = "https://gamenet-server-mongo.onrender.com";
-
-        // گرفتن یوزرنیم از localStorage
         const username = localStorage.getItem("username");
 
         if (!username) {
@@ -273,72 +216,64 @@
             window.location.href = "login.html";
         }
 
-        // چک اشتراک
         async function checkSubscription(username) {
             const res = await fetch(`${BASE_URL}/subscription/${username}`);
             const data = await res.json();
             return data.active;
         }
 
-        // گرفتن وضعیت و سیستم‌ها از سرور
         async function loadStatus() {
             const res = await fetch(`${BASE_URL}/status/${username}`);
-            const data = await res.json();
-            return data;
+            return await res.json();
         }
 
-        // ساخت کارت‌ها
         function renderSystems(systemsObj) {
             const systemsDiv = document.getElementById("systems");
             systemsDiv.innerHTML = "";
 
             Object.keys(systemsObj).forEach(key => {
-                const systemData = systemsObj[key];
-                const status = systemData.status || systemData; // اگر فقط رشته باشد
+                const sys = systemsObj[key];
 
                 const card = document.createElement("div");
                 card.className = "card";
 
-                if (status === "online" || status === "active") {
-                    card.classList.add("active");
-                }
-                if (status === "offline" || status === "free") {
-                    card.classList.add("free");
-                }
+                if (sys.active === 1) card.classList.add("active");
+                else card.classList.add("free");
 
                 card.innerHTML = `
-                    <h2>${key}</h2>
-                    <p>وضعیت: ${status}</p>
+                    <h2>${sys.name}</h2>
+                    <p>وضعیت: ${
+                        sys.active === 1 ? "فعال" :
+                        sys.active === 2 ? "مکث" :
+                        "آزاد"
+                    }</p>
+                    <p>زمان: ${sys.elapsed}</p>
+                    <p>هزینه نهایی: ${sys.final_total.toLocaleString()} تومان</p>
                 `;
 
-                card.onclick = () => openModal(key);
+                card.onclick = () => openModal(sys);
 
                 systemsDiv.appendChild(card);
             });
         }
 
-        // باز کردن مودال
-        async function openModal(systemName) {
-            const res = await fetch(`${BASE_URL}/status/${username}`);
-            const data = await res.json();
-
-            const systemData = data.systems[systemName];
-
-            document.getElementById("modalTitle").innerText = systemName;
+        function openModal(sys) {
+            document.getElementById("modalTitle").innerText = sys.name;
             document.getElementById("modalStatus").innerText =
-                systemData.status || "نامشخص";
+                sys.active === 1 ? "فعال" :
+                sys.active === 2 ? "مکث" :
+                "آزاد";
 
-            // خوراکی‌ها
             const snacksDiv = document.getElementById("modalSnacks");
             snacksDiv.innerHTML = "";
 
-            if (systemData.snacks && systemData.snacks.length > 0) {
-                systemData.snacks.forEach(item => {
+            if (sys.snacks.length > 0) {
+                sys.snacks.forEach(item => {
                     const div = document.createElement("div");
                     div.className = "snack-item";
                     div.innerHTML = `
-                        <span>${item.name}</span>
-                        <span>${item.price} تومان</span>
+                        <span>${item.name} × ${item.qty}</span>
+                        <span>${item.price.toLocaleString()} تومان</span>
                     `;
                     snacksDiv.appendChild(div);
                 });
@@ -346,45 +281,38 @@
                 snacksDiv.innerHTML = "<div>خوراکی ثبت نشده</div>";
             }
 
-            // مشتری
             const customerDiv = document.getElementById("modalCustomer");
             customerDiv.innerHTML = "";
 
-            if (systemData.customer) {
+            if (sys.customer) {
                 customerDiv.innerHTML = `
                     <div class="customer-box">
-                        <div>نام مشتری: ${systemData.customer.name}</div>
-                        <div>شماره: ${systemData.customer.phone}</div>
+                        <div>نام مشتری: ${sys.customer.name}</div>
+                        <div>کد: ${sys.customer.code}</div>
+                        <div>اعتبار: ${sys.customer.balance.toLocaleString()} تومان</div>
                     </div>
                 `;
             } else {
                 customerDiv.innerHTML = "<div class='customer-box'>مشتری ثبت نشده</div>";
             }
 
-            // زمان‌ها
             const timesDiv = document.getElementById("modalTimes");
-            timesDiv.innerHTML = "";
-
-            if (systemData.times && systemData.times.length > 0) {
-                systemData.times.forEach(t => {
-                    const div = document.createElement("div");
-                    div.className = "customer-box";
-                    div.innerText = `${t.start} → ${t.end}`;
-                    timesDiv.appendChild(div);
-                });
-            } else {
-                timesDiv.innerHTML = "<div class='customer-box'>زمانی ثبت نشده</div>";
-            }
+            timesDiv.innerHTML = `
+                <div class="customer-box">
+                    زمان سپری‌شده: ${sys.elapsed}
+                </div>
+                <div class="customer-box">
+                    هزینه زمان: ${sys.time_cost.toLocaleString()} تومان
+                </div>
+            `;
 
             document.getElementById("modal").style.display = "block";
         }
 
-        // بستن مودال
         document.getElementById("closeModal").onclick = () => {
             document.getElementById("modal").style.display = "none";
         };
 
-        // اجرای اولیه: چک اشتراک + گرفتن داده‌ها + ساخت داشبورد
         (async () => {
             const active = await checkSubscription(username);
 
@@ -398,9 +326,9 @@
 
             document.getElementById("panelUsername").innerText = `گیم‌نت: ${username}`;
             document.getElementById("lastUpdate").innerText =
-                `آخرین بروزرسانی: ${data.lastUpdate || "نامشخص"}`;
+                `آخرین بروزرسانی: ${new Date().toLocaleTimeString("fa-IR")}`;
 
-            renderSystems(data.systems || {});
+            renderSystems(data);
 
             document.getElementById("loading").style.display = "none";
             document.getElementById("dashboard").style.display = "block";
