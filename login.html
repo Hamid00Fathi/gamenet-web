@@ -14,6 +14,7 @@
       justify-content: center;
       align-items: center;
       color: white;
+      margin: 0;
     }
 
     .login-box {
@@ -44,6 +45,10 @@
       color: white;
     }
 
+    input::placeholder {
+      color: #ddd;
+    }
+
     button {
       width: 95%;
       padding: 12px;
@@ -58,6 +63,10 @@
     #loginBtn {
       background: #4caf50;
       color: white;
+    }
+
+    #loginBtn:hover {
+      background: #43a047;
     }
 
     #registerBtn {
@@ -76,6 +85,7 @@
       margin-top: 10px;
       color: #ff6b6b;
       font-size: 14px;
+      min-height: 20px;
     }
   </style>
 </head>
@@ -99,10 +109,14 @@
     const registerBtn = document.getElementById("registerBtn");
     const errorEl = document.getElementById("error");
 
+    const BASE_URL = "https://gamenet-server-mongo.onrender.com";
+
     // دکمه ورود
     loginBtn.onclick = async () => {
       const username = document.getElementById("username").value.trim();
       const password = document.getElementById("password").value.trim();
+
+      errorEl.textContent = "";
 
       if (!username || !password) {
         errorEl.textContent = "یوزرنیم و پسورد را وارد کنید";
@@ -110,7 +124,7 @@
       }
 
       // چک وجود داشتن کاربر
-      const checkRes = await fetch(`https://gamenet-server-mongo.onrender.com/check/${username}`);
+      const checkRes = await fetch(`${BASE_URL}/check/${username}`);
       const checkData = await checkRes.json();
 
       if (!checkData.exists) {
@@ -119,8 +133,17 @@
         return;
       }
 
-      // تلاش برای ورود
-      const loginTry = await fetch(`https://gamenet-server-mongo.onrender.com/status/${username}`, {
+      // چک وضعیت اشتراک
+      const subRes = await fetch(`${BASE_URL}/subscription/${username}`);
+      const subData = await subRes.json();
+
+      if (!subData.active) {
+        errorEl.textContent = "اشتراک شما فعال نیست یا تمام شده است.";
+        return;
+      }
+
+      // تلاش برای ورود (چک پسورد)
+      const loginTry = await fetch(`${BASE_URL}/status/${username}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -150,7 +173,12 @@
       const username = document.getElementById("username").value.trim();
       const password = document.getElementById("password").value.trim();
 
-      const res = await fetch(`https://gamenet-server-mongo.onrender.com/status/${username}`, {
+      if (!username || !password) {
+        errorEl.textContent = "برای ثبت‌نام، یوزرنیم و پسورد را وارد کنید.";
+        return;
+      }
+
+      const res = await fetch(`${BASE_URL}/status/${username}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -166,6 +194,8 @@
         localStorage.setItem("username", username);
         localStorage.setItem("password", password);
         window.location.href = "dashboard.html";
+      } else {
+        errorEl.textContent = "خطا در ثبت‌نام.";
       }
     };
   </script>
