@@ -3,70 +3,58 @@
 <head>
   <meta charset="UTF-8">
   <title>ورود به پنل گیم‌نت</title>
-
   <style>
     body {
-      font-family: 'IRANSans', sans-serif;
+      font-family: sans-serif;
       direction: rtl;
-      background: linear-gradient(135deg, #1e1e2f, #2a2a40);
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      margin: 0;
-    }
-
-    .login-box {
-      background: rgba(255, 255, 255, 0.08);
-      padding: 30px;
-      width: 320px;
-      border-radius: 15px;
-      box-shadow: 0 0 25px rgba(0,0,0,0.4);
-      backdrop-filter: blur(10px);
-      animation: fadeIn 0.8s ease;
       text-align: center;
+      margin-top: 80px;
+      background: #121212;
+      color: #eaeaea;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .box {
+      display: inline-block;
+      background: #1e1e1e;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      min-width: 280px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #00eaff;
     }
 
     input {
-      width: 90%;
-      padding: 12px;
-      margin: 10px 0;
+      padding: 10px;
+      width: 250px;
+      margin: 10px;
+      font-size: 16px;
       border-radius: 8px;
       border: none;
-      font-size: 15px;
       outline: none;
-      background: rgba(255,255,255,0.15);
-      color: white;
+      background: #2a2a2a;
+      color: #eaeaea;
     }
 
     input::placeholder {
-      color: #ddd;
+      color: #bbbbbb;
     }
 
     button {
-      width: 95%;
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
+      padding: 10px 20px;
       font-size: 16px;
       cursor: pointer;
-      margin-top: 10px;
-      transition: 0.3s;
+      border-radius: 8px;
+      border: none;
+      margin: 5px;
     }
 
     #loginBtn {
       background: #4caf50;
       color: white;
-    }
-
-    #loginBtn:hover {
-      background: #43a047;
     }
 
     #registerBtn {
@@ -82,21 +70,22 @@
     }
 
     #error {
-      margin-top: 10px;
       color: #ff6b6b;
-      font-size: 14px;
+      margin-top: 10px;
       min-height: 20px;
+      font-size: 14px;
     }
   </style>
 </head>
-
 <body>
 
-  <div class="login-box">
+  <div class="box">
     <h2>ورود به پنل گیم‌نت</h2>
 
     <input id="username" type="text" placeholder="یوزرنیم گیم‌نت">
+    <br>
     <input id="password" type="password" placeholder="پسورد گیم‌نت">
+    <br>
 
     <button id="loginBtn">ورود</button>
     <button id="registerBtn">ثبت‌نام</button>
@@ -105,11 +94,18 @@
   </div>
 
   <script>
+    const BASE_URL = "https://gamenet-server-mongo.onrender.com";
+
     const loginBtn = document.getElementById("loginBtn");
     const registerBtn = document.getElementById("registerBtn");
     const errorEl = document.getElementById("error");
 
-    const BASE_URL = "https://gamenet-server-mongo.onrender.com";
+    // تابع چک اشتراک از سرور
+    async function checkSubscription(username) {
+      const res = await fetch(`${BASE_URL}/subscription/${username}`);
+      const data = await res.json();
+      return data.active; // اگر true باشد یعنی اشتراک فعال است
+    }
 
     // دکمه ورود
     loginBtn.onclick = async () => {
@@ -119,51 +115,65 @@
       errorEl.textContent = "";
 
       if (!username || !password) {
-        errorEl.textContent = "یوزرنیم و پسورد را وارد کنید";
+        errorEl.textContent = "یوزرنیم و پسورد را وارد کنید.";
         return;
       }
 
-      // چک وجود داشتن کاربر
-      const checkRes = await fetch(`${BASE_URL}/check/${username}`);
-      const checkData = await checkRes.json();
+      // قدم ۱: چک وجود داشتن کاربر
+      try {
+        const checkRes = await fetch(`${BASE_URL}/check/${username}`);
+        const checkData = await checkRes.json();
 
-      if (!checkData.exists) {
-        errorEl.textContent = "این یوزرنیم وجود ندارد. برای ساخت حساب روی ثبت‌نام کلیک کنید.";
-        registerBtn.classList.add("active");
+        if (!checkData.exists) {
+          errorEl.textContent = "این یوزرنیم وجود ندارد. برای ساخت حساب روی ثبت‌نام کلیک کنید.";
+          registerBtn.classList.add("active");
+          return;
+        }
+      } catch (e) {
+        errorEl.textContent = "خطا در ارتباط با سرور (check).";
         return;
       }
 
-      // چک وضعیت اشتراک
-      const subRes = await fetch(`${BASE_URL}/subscription/${username}`);
-      const subData = await subRes.json();
+      // قدم ۲: چک اشتراک
+      let isActive = false;
+      try {
+        isActive = await checkSubscription(username);
+      } catch (e) {
+        errorEl.textContent = "خطا در ارتباط با سرور (subscription).";
+        return;
+      }
 
-      if (!subData.active) {
+      if (!isActive) {
         errorEl.textContent = "اشتراک شما فعال نیست یا تمام شده است.";
-        return;
+        return; // اجازه ورود نمی‌دهیم
       }
 
-      // تلاش برای ورود (چک پسورد)
-      const loginTry = await fetch(`${BASE_URL}/status/${username}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          password,
-          systems: {},
-          lastUpdate: new Date().toISOString()
-        })
-      });
+      // قدم ۳: تلاش برای ورود (چک پسورد)
+      try {
+        const loginTry = await fetch(`${BASE_URL}/status/${username}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            password,
+            systems: {},
+            lastUpdate: new Date().toISOString()
+          })
+        });
 
-      const loginData = await loginTry.json();
+        const loginData = await loginTry.json();
 
-      if (loginData.error === "Wrong password") {
-        errorEl.textContent = "پسورد اشتباه است";
-        return;
+        if (loginData.error === "Wrong password") {
+          errorEl.textContent = "پسورد اشتباه است.";
+          return;
+        }
+
+        // قدم ۴: ورود موفق
+        localStorage.setItem("username", username);
+        localStorage.setItem("password", password);
+        window.location.href = "dashboard.html";
+      } catch (e) {
+        errorEl.textContent = "خطا در ارتباط با سرور (login).";
       }
-
-      // ورود موفق
-      localStorage.setItem("username", username);
-      localStorage.setItem("password", password);
-      window.location.href = "dashboard.html";
     };
 
     // دکمه ثبت‌نام
@@ -178,24 +188,28 @@
         return;
       }
 
-      const res = await fetch(`${BASE_URL}/status/${username}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          password,
-          systems: {},
-          lastUpdate: new Date().toISOString()
-        })
-      });
+      try {
+        const res = await fetch(`${BASE_URL}/status/${username}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            password,
+            systems: {},
+            lastUpdate: new Date().toISOString()
+          })
+        });
 
-      const data = await res.json();
+        const data = await res.json();
 
-      if (data.ok) {
-        localStorage.setItem("username", username);
-        localStorage.setItem("password", password);
-        window.location.href = "dashboard.html";
-      } else {
-        errorEl.textContent = "خطا در ثبت‌نام.";
+        if (data.ok) {
+          localStorage.setItem("username", username);
+          localStorage.setItem("password", password);
+          window.location.href = "dashboard.html";
+        } else {
+          errorEl.textContent = "خطا در ثبت‌نام.";
+        }
+      } catch (e) {
+        errorEl.textContent = "خطا در ارتباط با سرور (register).";
       }
     };
   </script>
