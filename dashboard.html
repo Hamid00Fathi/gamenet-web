@@ -194,14 +194,16 @@
 
             <p><strong>وضعیت:</strong> <span id="modalStatus"></span></p>
 
+            <div id="modalTimes"></div>
+
             <h3>خوراکی‌ها:</h3>
             <div id="modalSnacks"></div>
 
             <h3>مشتری:</h3>
             <div id="modalCustomer"></div>
 
-            <h3>زمان‌ها:</h3>
-            <div id="modalTimes"></div>
+            <h3>یادداشت:</h3>
+            <div id="modalNote"></div>
 
         </div>
     </div>
@@ -236,7 +238,8 @@
                 const card = document.createElement("div");
                 card.className = "card";
 
-                if (sys.active === 1) card.classList.add("active");
+                // فعال یا مکث → سبز
+                if (sys.active === 1 || sys.active === 2) card.classList.add("active");
                 else card.classList.add("free");
 
                 card.innerHTML = `
@@ -250,6 +253,7 @@
                     <p>هزینه نهایی: ${
                         sys.final_total ? sys.final_total.toLocaleString() : "0"
                     } تومان</p>
+                    <p>یادداشت: ${sys.note || "—"}</p>
                 `;
 
                 card.onclick = () => openModal(sys);
@@ -265,6 +269,19 @@
                 sys.active === 2 ? "مکث" :
                 "آزاد";
 
+            // زمان + هزینه زمان
+            document.getElementById("modalTimes").innerHTML = `
+                <div class="customer-box">
+                    زمان سپری‌شده: ${sys.elapsed}
+                </div>
+                <div class="customer-box">
+                    هزینه زمان: ${
+                        sys.time_cost ? sys.time_cost.toLocaleString() : 0
+                    } تومان
+                </div>
+            `;
+
+            // خوراکی‌ها
             const snacksDiv = document.getElementById("modalSnacks");
             snacksDiv.innerHTML = "";
 
@@ -282,6 +299,25 @@
                 snacksDiv.innerHTML = "<div>خوراکی ثبت نشده</div>";
             }
 
+            // جمع خوراکی‌ها
+            snacksDiv.innerHTML += `
+                <div class="customer-box">
+                    جمع خوراکی‌ها: ${
+                        sys.snacks_total ? sys.snacks_total.toLocaleString() : 0
+                    } تومان
+                </div>
+            `;
+
+            // جمع نهایی
+            snacksDiv.innerHTML += `
+                <div class="customer-box">
+                    جمع نهایی: ${
+                        sys.final_total ? sys.final_total.toLocaleString() : 0
+                    } تومان
+                </div>
+            `;
+
+            // مشتری
             const customerDiv = document.getElementById("modalCustomer");
             customerDiv.innerHTML = "";
 
@@ -301,15 +337,10 @@
                 customerDiv.innerHTML = "<div class='customer-box'>مشتری ثبت نشده</div>";
             }
 
-            const timesDiv = document.getElementById("modalTimes");
-            timesDiv.innerHTML = `
+            // یادداشت
+            document.getElementById("modalNote").innerHTML = `
                 <div class="customer-box">
-                    زمان سپری‌شده: ${sys.elapsed}
-                </div>
-                <div class="customer-box">
-                    هزینه زمان: ${
-                        sys.time_cost ? sys.time_cost.toLocaleString() : 0
-                    } تومان
+                    ${sys.note || "—"}
                 </div>
             `;
 
