@@ -53,29 +53,48 @@ function formatPrice(num) {
 // ===============================
 //  رندر کردن کارت‌های سیستم‌ها
 // ===============================
-function renderSystems(systems) {
-    const container = document.getElementById("systems");
-    container.innerHTML = "";
+function renderSystems(systemsObj) {
+    const systemsDiv = document.getElementById("systems");
+    systemsDiv.innerHTML = "";
 
-    const keys = Object.keys(systems).sort();
+    // تبدیل شیء به آرایه
+    const systems = Object.values(systemsObj);
 
-    keys.forEach(key => {
-        const sys = systems[key];
-        if (!sys) return;
+    const sortedSystems = systems.sort((a, b) => {
+        // اگر فیلد عددی مشخص داری، اینجا بذار
+        // مثلاً اگر سرور فیلد number می‌فرسته:
+        // const numA = Number(a.number);
+        // const numB = Number(b.number);
 
-        const div = document.createElement("div");
-        div.className = "card " + (sys.active ? "active" : "free");
+        // فعلاً از name عدد استخراج می‌کنیم
+        const numA = Number(String(a.name).match(/\d+/)?.[0] || 0);
+        const numB = Number(String(b.name).match(/\d+/)?.[0] || 0);
 
-        div.innerHTML = `
-            <h2>${sys.name || "بدون نام"}</h2>
-            <p>زمان: ${sys.elapsed || "—"}</p>
-            <p>هزینه نهایی: ${formatPrice(sys.final_total)} تومان</p>
+        return numA - numB;
+    });
+
+    sortedSystems.forEach(sys => {
+        const card = document.createElement("div");
+        card.className = "card";
+
+        if (sys.active === 1 || sys.active === 2) card.classList.add("active");
+        else card.classList.add("free");
+
+        card.innerHTML = `
+            <h2>${sys.name}</h2>
+            <p>وضعیت: ${
+                sys.active === 1 ? "فعال" :
+                sys.active === 2 ? "مکث" :
+                "آزاد"
+            }</p>
+            <p>زمان: ${sys.elapsed}</p>
+            <p>هزینه نهایی: ${safeNum(sys.final_total)} تومان</p>
             <p>یادداشت: ${sys.note || "—"}</p>
         `;
 
-        div.addEventListener("click", () => openModalFull(sys));
+        card.onclick = () => openModal(sys);
 
-        container.appendChild(div);
+        systemsDiv.appendChild(card);
     });
 }
 
