@@ -16,12 +16,12 @@
         }
 
         /* ============================
-           منوی سه‌نقطه
+           منوی سه‌خط سمت راست
         ============================ */
         #menuButton {
             position: fixed;
             top: 15px;
-            left: 15px;
+            right: 15px;
             background: #1e1e1e;
             color: #00eaff;
             font-size: 32px;
@@ -35,9 +35,9 @@
         #menuDropdown {
             position: fixed;
             top: 65px;
-            left: 15px;
+            right: 15px;
             background: #1e1e1e;
-            width: 240px;
+            width: 260px;
             border-radius: 12px;
             padding: 10px;
             display: none;
@@ -46,7 +46,7 @@
         }
 
         .menuItem {
-            padding: 12px;
+            padding: 14px;
             font-size: 18px;
             color: #eaeaea;
             cursor: pointer;
@@ -61,7 +61,31 @@
         #menuDropdown hr {
             border: none;
             border-bottom: 1px solid #444;
-            margin: 8px 0;
+            margin: 10px 0;
+        }
+
+        /* ============================
+           حالت موبایل
+        ============================ */
+        @media (max-width: 1200px) {
+            #menuButton {
+                font-size: 60px;
+                padding: 20px 30px;
+                top: 25px;
+                right: 25px;
+            }
+
+            #menuDropdown {
+                top: 120px;
+                right: 25px;
+                width: 450px;
+                padding: 25px;
+            }
+
+            .menuItem {
+                font-size: 45px;
+                padding: 30px;
+            }
         }
 
         /* ============================
@@ -114,21 +138,19 @@
             font-size: 24px;
         }
 
-        .snack-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 6px;
-            gap: 50px;
-            font-size: 20px;
-            border-bottom: 2px solid #444;
-        }
+        @media (max-width: 1200px) {
+            #systems {
+                grid-template-columns: repeat(2, 1fr);
+            }
 
-        .customer-box {
-            background: #2a2a2a;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            font-size: 20px;
+            .card {
+                font-size: 40px;
+                padding: 25px;
+            }
+
+            .card h2 {
+                font-size: 55px;
+            }
         }
 
         #loading {
@@ -177,13 +199,26 @@
             display: block;
             width: 100%;
         }
+
+        @media (max-width: 1200px) {
+            #modalContent {
+                max-width: 100%;
+                font-size: 45px;
+                padding: 30px;
+            }
+
+            #closeModal {
+                font-size: 50px;
+                padding: 25px;
+            }
+        }
     </style>
 </head>
 
 <body>
 
-<!-- دکمه سه‌نقطه -->
-<div id="menuButton">⋮</div>
+<!-- دکمه سه‌خط -->
+<div id="menuButton">≡</div>
 
 <!-- منوی کشویی -->
 <div id="menuDropdown">
@@ -251,7 +286,7 @@ if (!username) {
 }
 
 /* ============================
-   منوی سه‌نقطه
+   منوی سه‌خط
 ============================ */
 document.getElementById("menuButton").onclick = () => {
     const menu = document.getElementById("menuDropdown");
