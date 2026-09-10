@@ -19,7 +19,7 @@
       padding: 25px;
       border-radius: 15px;
       box-shadow: 0 0 20px rgba(0,0,0,0.5);
-      min-width: 280px;
+      min-width: 300px;
     }
 
     h2 {
@@ -29,7 +29,7 @@
 
     input {
       padding: 10px;
-      width: 250px;
+      width: 260px;
       margin: 10px;
       font-size: 16px;
       border-radius: 8px;
@@ -50,6 +50,7 @@
       border-radius: 8px;
       border: none;
       margin: 5px;
+      transition: 0.2s;
     }
 
     #loginBtn {
@@ -60,13 +61,6 @@
     #registerBtn {
       background: #2196f3;
       color: white;
-      opacity: 0.5;
-      pointer-events: none;
-    }
-
-    #registerBtn.active {
-      opacity: 1;
-      pointer-events: auto;
     }
 
     #error {
@@ -75,20 +69,49 @@
       min-height: 20px;
       font-size: 14px;
     }
+
+    /* لودینگ */
+    #loading {
+      display: none;
+      margin-top: 15px;
+      font-size: 16px;
+      color: #00eaff;
+    }
+
+    .spinner {
+      width: 28px;
+      height: 28px;
+      border: 4px solid #00eaff;
+      border-top-color: transparent;
+      border-radius: 50%;
+      margin: 0 auto;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
   </style>
 </head>
 <body>
 
   <div class="box">
-    <h2>ورود به پنل گیم‌نت</h2>
+    <h2>ورود / ثبت‌نام</h2>
 
     <input id="username" type="text" placeholder="یوزرنیم گیم‌نت">
     <br>
     <input id="password" type="password" placeholder="پسورد گیم‌نت">
     <br>
+    <input id="confirmPassword" type="password" placeholder="تایید پسورد (برای ثبت‌نام)">
+    <br>
 
     <button id="loginBtn">ورود</button>
     <button id="registerBtn">ثبت‌نام</button>
+
+    <div id="loading">
+      <div class="spinner"></div>
+      <p>در حال انجام عملیات...</p>
+    </div>
 
     <p id="error"></p>
   </div>
@@ -99,15 +122,29 @@
     const loginBtn = document.getElementById("loginBtn");
     const registerBtn = document.getElementById("registerBtn");
     const errorEl = document.getElementById("error");
+    const loadingEl = document.getElementById("loading");
 
-    // تابع چک اشتراک از سرور
+    function showLoading() {
+      loadingEl.style.display = "block";
+      loginBtn.disabled = true;
+      registerBtn.disabled = true;
+    }
+
+    function hideLoading() {
+      loadingEl.style.display = "none";
+      loginBtn.disabled = false;
+      registerBtn.disabled = false;
+    }
+
     async function checkSubscription(username) {
       const res = await fetch(`${BASE_URL}/subscription/${username}`);
       const data = await res.json();
-      return data.active; // اگر true باشد یعنی اشتراک فعال است
+      return data.active;
     }
 
-    // دکمه ورود
+    // ============================
+    // ورود
+    // ============================
     loginBtn.onclick = async () => {
       const username = document.getElementById("username").value.trim();
       const password = document.getElementById("password").value.trim();
@@ -119,36 +156,38 @@
         return;
       }
 
-      // قدم ۱: چک وجود داشتن کاربر
+      showLoading();
+
       try {
         const checkRes = await fetch(`${BASE_URL}/check/${username}`);
         const checkData = await checkRes.json();
 
         if (!checkData.exists) {
+          hideLoading();
           errorEl.textContent = "این یوزرنیم وجود ندارد. برای ساخت حساب روی ثبت‌نام کلیک کنید.";
-          registerBtn.classList.add("active");
           return;
         }
-      } catch (e) {
+      } catch {
+        hideLoading();
         errorEl.textContent = "خطا در ارتباط با سرور (check).";
         return;
       }
 
-      // قدم ۲: چک اشتراک
       let isActive = false;
       try {
         isActive = await checkSubscription(username);
-      } catch (e) {
+      } catch {
+        hideLoading();
         errorEl.textContent = "خطا در ارتباط با سرور (subscription).";
         return;
       }
 
       if (!isActive) {
+        hideLoading();
         errorEl.textContent = "اشتراک شما فعال نیست یا تمام شده است.";
-        return; // اجازه ورود نمی‌دهیم
+        return;
       }
 
-      // قدم ۳: تلاش برای ورود (چک پسورد)
       try {
         const loginTry = await fetch(`${BASE_URL}/status/${username}`, {
           method: "POST",
@@ -163,30 +202,42 @@
         const loginData = await loginTry.json();
 
         if (loginData.error === "Wrong password") {
+          hideLoading();
           errorEl.textContent = "پسورد اشتباه است.";
           return;
         }
 
-        // قدم ۴: ورود موفق
         localStorage.setItem("username", username);
         localStorage.setItem("password", password);
+
         window.location.href = "dashboard.html";
-      } catch (e) {
+      } catch {
+        hideLoading();
         errorEl.textContent = "خطا در ارتباط با سرور (login).";
       }
     };
 
-    // دکمه ثبت‌نام
+    // ============================
+    // ثبت‌نام
+    // ============================
     registerBtn.onclick = async () => {
-      if (!registerBtn.classList.contains("active")) return;
-
       const username = document.getElementById("username").value.trim();
       const password = document.getElementById("password").value.trim();
+      const confirmPassword = document.getElementById("confirmPassword").value.trim();
 
-      if (!username || !password) {
-        errorEl.textContent = "برای ثبت‌نام، یوزرنیم و پسورد را وارد کنید.";
+      errorEl.textContent = "";
+
+      if (!username || !password || !confirmPassword) {
+        errorEl.textContent = "تمام فیلدها را وارد کنید.";
         return;
       }
+
+      if (password !== confirmPassword) {
+        errorEl.textContent = "پسورد و تایید پسورد یکسان نیستند.";
+        return;
+      }
+
+      showLoading();
 
       try {
         const res = await fetch(`${BASE_URL}/status/${username}`, {
@@ -208,9 +259,11 @@
         } else {
           errorEl.textContent = "خطا در ثبت‌نام.";
         }
-      } catch (e) {
+      } catch {
         errorEl.textContent = "خطا در ارتباط با سرور (register).";
       }
+
+      hideLoading();
     };
   </script>
 
