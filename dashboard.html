@@ -1,377 +1,167 @@
-<!DOCTYPE html>
-<html lang="fa">
-<head>
-    <meta charset="UTF-8">
-    <title>داشبورد گیم‌نت</title>
+<script>
+const BASE_URL = "https://gamenet-server-mongo.onrender.com";
+const username = localStorage.getItem("username");
 
-    <style>
-        body {
-            font-family: B Nazanin, sans-serif;
-            background: #121212;
-            color: #eaeaea;
-            margin: 0;
-            padding: 15px;
-            direction: rtl;
-            font-size: 16px;
-        }
+// ایمن‌سازی عدد
+function safeNum(n) {
+    return Number(n || 0).toLocaleString("fa-IR");
+}
 
-        #panelUsername {
-            font-size: 22px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #00eaff;
-        }
+if (!username) {
+    alert("ابتدا وارد حساب شوید");
+    window.location.href = "login.html";
+}
 
-        #lastUpdate {
-            font-size: 18px;
-            margin-bottom: 20px;
-            color: #cccccc;
-        }
+// چک اشتراک
+async function checkSubscription(username) {
+    try {
+        const res = await fetch(`${BASE_URL}/subscription/${username}`);
+        const data = await res.json();
+        return data.active;
+    } catch {
+        return false;
+    }
+}
 
-        #systems {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-        }
+// گرفتن وضعیت
+async function loadStatus() {
+    try {
+        const res = await fetch(`${BASE_URL}/status/${username}`);
+        return await res.json();
+    } catch (e) {
+        console.log("خطا در loadStatus:", e);
+        return null;
+    }
+}
 
-        .card {
-            background: #1e1e1e;
-            padding: 15px;
-            border-radius: 12px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.4);
-            transition: transform 0.2s;
-            cursor: pointer;
-            font-size: 20px;
-        }
+// رندر سیستم‌ها
+function renderSystems(systemsObj) {
+    const systemsDiv = document.getElementById("systems");
+    systemsDiv.innerHTML = "";
 
-        .card:hover {
-            transform: scale(1.03);
-        }
+    Object.keys(systemsObj).forEach(key => {
+        const sys = systemsObj[key];
 
-        .active {
-            border-right: 16px solid #00ff6a;
-        }
+        const card = document.createElement("div");
+        card.className = "card";
 
-        .free {
-            border-right: 16px solid #ff3b3b;
-        }
+        if (sys.active === 1 || sys.active === 2) card.classList.add("active");
+        else card.classList.add("free");
 
-        .card h2 {
-            margin: 0 0 10px 0;
-            color: #00eaff;
-            font-size: 24px;
-        }
-
-        .snack-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 6px;
-            gap: 50px;
-            font-size: 20px;
-            border-bottom: 2px solid #444;
-        }
-
-        .customer-box {
-            background: #2a2a2a;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            font-size: 20px;
-        }
-
-        @media (max-width: 1200px) {
-            body { font-size: 40px; }
-            #panelUsername { font-size: 65px; }
-            #lastUpdate { font-size: 50px; }
-            #systems { grid-template-columns: repeat(2, 1fr); }
-            .card { font-size: 40px; padding: 20px; }
-            .card h2 { font-size: 54px; margin-bottom: 6px; }
-            .card p { font-size: 40px; margin-bottom: 6px; }
-            .snack-item { font-size: 40px; margin-bottom: 6px; }
-            .customer-box { font-size: 40px; margin-bottom: 6px; }
-
-            #modalContent {
-                max-width: 100%;
-                font-size: 45px;
-                line-height: 1.9;
-                padding: 30px;
-            }
-
-            #modalContent h2 {
-                font-size: 65px;
-                margin-bottom: 30px;
-            }
-
-            #modalContent p {
-                font-size: 50px;
-                margin-bottom: 20px;
-            }
-
-            .snack-item {
-                gap: 50px;
-                font-size: 50px;
-                padding: 20px 0;
-                border-bottom: 2px solid #444;
-            }
-
-            .customer-box {
-                background: #2f2f2f;
-                padding: 20px;
-                font-size: 50px;
-                border-radius: 20px;
-            }
-
-            #closeModal {
-                font-size: 50px;
-                padding: 25px;
-            }
-        }
-
-        #loading {
-            text-align: center;
-            margin-top: 80px;
-            font-size: 22px;
-            color: #00eaff;
-        }
-
-        #modal {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 100%;
-            background: #000000dd;
-            backdrop-filter: blur(5px);
-            padding: 20px;
-            overflow-y: auto;
-            display: none;
-            z-index: 999999;
-        }
-
-        #modalContent {
-            background: #1e1e1e;
-            padding: 20px;
-            border-radius: 12px;
-            max-width: 700px;
-            margin: auto;
-            font-size: 20px;
-            line-height: 1.6;
-        }
-
-        #closeModal {
-            background: #ff3b3b;
-            color: white;
-            border: none;
-            padding: 12px 18px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            cursor: pointer;
-            font-size: 20px;
-            display: block;
-            width: 100%;
-        }
-    </style>
-</head>
-
-<body>
-
-    <div id="loading">در حال بررسی اشتراک و دریافت اطلاعات...</div>
-
-    <div id="dashboard" style="display:none;">
-        <div id="panelUsername"></div>
-        <div id="lastUpdate"></div>
-
-        <div id="systems"></div>
-    </div>
-
-    <!-- مودال -->
-    <div id="modal">
-        <div id="modalContent">
-
-            <button id="closeModal">بستن</button>
-
-            <h2 id="modalTitle"></h2>
-
-            <p><strong>وضعیت:</strong> <span id="modalStatus"></span></p>
-
-            <div id="modalTimes"></div>
-
-            <h3>خوراکی‌ها:</h3>
-            <div id="modalSnacks"></div>
-
-            <h3>مشتری:</h3>
-            <div id="modalCustomer"></div>
-
-            <h3>یادداشت:</h3>
-            <div id="modalNote"></div>
-
-        </div>
-    </div>
-
-    <script>
-        const BASE_URL = "https://gamenet-server-mongo.onrender.com";
-        const username = localStorage.getItem("username");
-
-        if (!username) {
-            alert("ابتدا وارد حساب شوید");
-            window.location.href = "login.html";
-        }
-
-        async function checkSubscription(username) {
-            const res = await fetch(`${BASE_URL}/subscription/${username}`);
-            const data = await res.json();
-            return data.active;
-        }
-
-        async function loadStatus() {
-            const res = await fetch(`${BASE_URL}/status/${username}`);
-            return await res.json();
-        }
-
-        function renderSystems(systemsObj) {
-            const systemsDiv = document.getElementById("systems");
-            systemsDiv.innerHTML = "";
-
-            Object.keys(systemsObj).forEach(key => {
-                const sys = systemsObj[key];
-
-                const card = document.createElement("div");
-                card.className = "card";
-
-                // فعال یا مکث → سبز
-                if (sys.active === 1 || sys.active === 2) card.classList.add("active");
-                else card.classList.add("free");
-
-                card.innerHTML = `
-                    <h2>${sys.name}</h2>
-                    <p>وضعیت: ${
-                        sys.active === 1 ? "فعال" :
-                        sys.active === 2 ? "مکث" :
-                        "آزاد"
-                    }</p>
-                    <p>زمان: ${sys.elapsed}</p>
-                    <p>هزینه نهایی: ${
-                        sys.final_total ? sys.final_total.toLocaleString() : "0"
-                    } تومان</p>
-                    <p>یادداشت: ${sys.note || "—"}</p>
-                `;
-
-                card.onclick = () => openModal(sys);
-
-                systemsDiv.appendChild(card);
-            });
-        }
-
-        function openModal(sys) {
-            document.getElementById("modalTitle").innerText = sys.name;
-            document.getElementById("modalStatus").innerText =
+        card.innerHTML = `
+            <h2>${sys.name}</h2>
+            <p>وضعیت: ${
                 sys.active === 1 ? "فعال" :
                 sys.active === 2 ? "مکث" :
-                "آزاد";
+                "آزاد"
+            }</p>
+            <p>زمان: ${sys.elapsed}</p>
+            <p>هزینه نهایی: ${safeNum(sys.final_total)} تومان</p>
+            <p>یادداشت: ${sys.note || "—"}</p>
+        `;
 
-            // زمان + هزینه زمان
-            document.getElementById("modalTimes").innerHTML = `
-                <div class="customer-box">
-                    زمان سپری‌شده: ${sys.elapsed}
-                </div>
-                <div class="customer-box">
-                    هزینه زمان: ${
-                        sys.time_cost ? sys.time_cost.toLocaleString() : 0
-                    } تومان
-                </div>
+        card.onclick = () => openModal(sys);
+
+        systemsDiv.appendChild(card);
+    });
+}
+
+// مودال
+function openModal(sys) {
+    document.getElementById("modalTitle").innerText = sys.name;
+    document.getElementById("modalStatus").innerText =
+        sys.active === 1 ? "فعال" :
+        sys.active === 2 ? "مکث" :
+        "آزاد";
+
+    document.getElementById("modalTimes").innerHTML = `
+        <div class="customer-box">
+            زمان سپری‌شده: ${sys.elapsed}
+        </div>
+        <div class="customer-box">
+            هزینه زمان: ${safeNum(sys.time_cost)} تومان
+        </div>
+    `;
+
+    const snacksDiv = document.getElementById("modalSnacks");
+    snacksDiv.innerHTML = "";
+
+    if (sys.snacks.length > 0) {
+        sys.snacks.forEach(item => {
+            const div = document.createElement("div");
+            div.className = "snack-item";
+            div.innerHTML = `
+                <span>${item.name} × ${item.qty}</span>
+                <span>${safeNum(item.price)} تومان</span>
             `;
+            snacksDiv.appendChild(div);
+        });
+    } else {
+        snacksDiv.innerHTML = "<div>خوراکی ثبت نشده</div>";
+    }
 
-            // خوراکی‌ها
-            const snacksDiv = document.getElementById("modalSnacks");
-            snacksDiv.innerHTML = "";
+    snacksDiv.innerHTML += `
+        <div class="customer-box">
+            جمع خوراکی‌ها: ${safeNum(sys.snacks_total)} تومان
+        </div>
+        <div class="customer-box">
+            جمع نهایی: ${safeNum(sys.final_total)} تومان
+        </div>
+    `;
 
-            if (sys.snacks.length > 0) {
-                sys.snacks.forEach(item => {
-                    const div = document.createElement("div");
-                    div.className = "snack-item";
-                    div.innerHTML = `
-                        <span>${item.name} × ${item.qty}</span>
-                        <span>${item.price ? item.price.toLocaleString() : 0} تومان</span>
-                    `;
-                    snacksDiv.appendChild(div);
-                });
-            } else {
-                snacksDiv.innerHTML = "<div>خوراکی ثبت نشده</div>";
-            }
+    const customerDiv = document.getElementById("modalCustomer");
+    customerDiv.innerHTML = "";
 
-            // جمع خوراکی‌ها
-            snacksDiv.innerHTML += `
-                <div class="customer-box">
-                    جمع خوراکی‌ها: ${
-                        sys.snacks_total ? sys.snacks_total.toLocaleString() : 0
-                    } تومان
-                </div>
-            `;
+    if (sys.customer) {
+        customerDiv.innerHTML = `
+            <div class="customer-box">
+                <div>نام مشتری: ${sys.customer.name}</div>
+                <div>کد: ${sys.customer.code}</div>
+                <div>اعتبار: ${safeNum(sys.customer.balance)} تومان</div>
+            </div>
+        `;
+    } else {
+        customerDiv.innerHTML = "<div class='customer-box'>مشتری ثبت نشده</div>";
+    }
 
-            // جمع نهایی
-            snacksDiv.innerHTML += `
-                <div class="customer-box">
-                    جمع نهایی: ${
-                        sys.final_total ? sys.final_total.toLocaleString() : 0
-                    } تومان
-                </div>
-            `;
+    document.getElementById("modalNote").innerHTML = `
+        <div class="customer-box">
+            ${sys.note || "—"}
+        </div>
+    `;
 
-            // مشتری
-            const customerDiv = document.getElementById("modalCustomer");
-            customerDiv.innerHTML = "";
+    document.getElementById("modal").style.display = "block";
+}
 
-            if (sys.customer) {
-                customerDiv.innerHTML = `
-                    <div class="customer-box">
-                        <div>نام مشتری: ${sys.customer.name}</div>
-                        <div>کد: ${sys.customer.code}</div>
-                        <div>اعتبار: ${
-                            sys.customer.balance
-                                ? sys.customer.balance.toLocaleString()
-                                : 0
-                        } تومان</div>
-                    </div>
-                `;
-            } else {
-                customerDiv.innerHTML = "<div class='customer-box'>مشتری ثبت نشده</div>";
-            }
+document.getElementById("closeModal").onclick = () => {
+    document.getElementById("modal").style.display = "none";
+};
 
-            // یادداشت
-            document.getElementById("modalNote").innerHTML = `
-                <div class="customer-box">
-                    ${sys.note || "—"}
-                </div>
-            `;
+// اجرای اولیه + آپدیت هر ۵ ثانیه
+(async () => {
+    const active = await checkSubscription(username);
 
-            document.getElementById("modal").style.display = "block";
-        }
+    if (!active) {
+        alert("اشتراک شما فعال نیست یا تمام شده است.");
+        window.location.href = "login.html";
+        return;
+    }
 
-        document.getElementById("closeModal").onclick = () => {
-            document.getElementById("modal").style.display = "none";
-        };
+    async function refresh() {
+        const data = await loadStatus();
+        if (!data) return;
 
-        (async () => {
-            const active = await checkSubscription(username);
+        document.getElementById("panelUsername").innerText = `گیم‌نت: ${username}`;
+        document.getElementById("lastUpdate").innerText =
+            `آخرین بروزرسانی: ${data.lastUpdate}`;
 
-            if (!active) {
-                alert("اشتراک شما فعال نیست یا تمام شده است.");
-                window.location.href = "login.html";
-                return;
-            }
+        renderSystems(data.systems);
 
-            const data = await loadStatus();
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("dashboard").style.display = "block";
+    }
 
-            document.getElementById("panelUsername").innerText = `گیم‌نت: ${username}`;
-            document.getElementById("lastUpdate").innerText =
-                `آخرین بروزرسانی: ${data.lastUpdate}`;
-
-            renderSystems(data.systems);
-
-            document.getElementById("loading").style.display = "none";
-            document.getElementById("dashboard").style.display = "block";
-        })();
-    </script>
-
-</body>
-</html>
+    refresh();
+    setInterval(refresh, 5000);
+})();
+</script>
