@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>ورود به پنل گیم‌نت</title>
+
   <style>
     body {
       font-family: sans-serif;
@@ -39,10 +40,6 @@
       color: #eaeaea;
     }
 
-    input::placeholder {
-      color: #bbbbbb;
-    }
-
     button {
       padding: 10px 20px;
       font-size: 16px;
@@ -50,7 +47,6 @@
       border-radius: 8px;
       border: none;
       margin: 5px;
-      transition: 0.2s;
     }
 
     #loginBtn {
@@ -58,7 +54,7 @@
       color: white;
     }
 
-    #registerBtn {
+    #goRegister {
       background: #2196f3;
       color: white;
     }
@@ -93,20 +89,19 @@
     }
   </style>
 </head>
+
 <body>
 
   <div class="box">
-    <h2>ورود / ثبت‌نام</h2>
+    <h2>ورود به پنل گیم‌نت</h2>
 
-    <input id="username" type="text" placeholder="یوزرنیم گیم‌نت">
+    <input id="username" type="text" placeholder="یوزرنیم">
     <br>
-    <input id="password" type="password" placeholder="پسورد گیم‌نت">
-    <br>
-    <input id="confirmPassword" type="password" placeholder="تایید پسورد (برای ثبت‌نام)">
+    <input id="password" type="password" placeholder="پسورد">
     <br>
 
     <button id="loginBtn">ورود</button>
-    <button id="registerBtn">ثبت‌نام</button>
+    <button id="goRegister">ثبت‌نام</button>
 
     <div id="loading">
       <div class="spinner"></div>
@@ -120,20 +115,20 @@
     const BASE_URL = "https://gamenet-server-mongo.onrender.com";
 
     const loginBtn = document.getElementById("loginBtn");
-    const registerBtn = document.getElementById("registerBtn");
+    const goRegister = document.getElementById("goRegister");
     const errorEl = document.getElementById("error");
     const loadingEl = document.getElementById("loading");
 
     function showLoading() {
       loadingEl.style.display = "block";
       loginBtn.disabled = true;
-      registerBtn.disabled = true;
+      goRegister.disabled = true;
     }
 
     function hideLoading() {
       loadingEl.style.display = "none";
       loginBtn.disabled = false;
-      registerBtn.disabled = false;
+      goRegister.disabled = false;
     }
 
     async function checkSubscription(username) {
@@ -142,9 +137,6 @@
       return data.active;
     }
 
-    // ============================
-    // ورود
-    // ============================
     loginBtn.onclick = async () => {
       const username = document.getElementById("username").value.trim();
       const password = document.getElementById("password").value.trim();
@@ -164,12 +156,12 @@
 
         if (!checkData.exists) {
           hideLoading();
-          errorEl.textContent = "این یوزرنیم وجود ندارد. برای ساخت حساب روی ثبت‌نام کلیک کنید.";
+          errorEl.textContent = "این یوزرنیم وجود ندارد.";
           return;
         }
       } catch {
         hideLoading();
-        errorEl.textContent = "خطا در ارتباط با سرور (check).";
+        errorEl.textContent = "خطا در ارتباط با سرور.";
         return;
       }
 
@@ -178,13 +170,13 @@
         isActive = await checkSubscription(username);
       } catch {
         hideLoading();
-        errorEl.textContent = "خطا در ارتباط با سرور (subscription).";
+        errorEl.textContent = "خطا در ارتباط با سرور.";
         return;
       }
 
       if (!isActive) {
         hideLoading();
-        errorEl.textContent = "اشتراک شما فعال نیست یا تمام شده است.";
+        errorEl.textContent = "اشتراک شما فعال نیست.";
         return;
       }
 
@@ -213,57 +205,12 @@
         window.location.href = "dashboard.html";
       } catch {
         hideLoading();
-        errorEl.textContent = "خطا در ارتباط با سرور (login).";
+        errorEl.textContent = "خطا در ارتباط با سرور.";
       }
     };
 
-    // ============================
-    // ثبت‌نام
-    // ============================
-    registerBtn.onclick = async () => {
-      const username = document.getElementById("username").value.trim();
-      const password = document.getElementById("password").value.trim();
-      const confirmPassword = document.getElementById("confirmPassword").value.trim();
-
-      errorEl.textContent = "";
-
-      if (!username || !password || !confirmPassword) {
-        errorEl.textContent = "تمام فیلدها را وارد کنید.";
-        return;
-      }
-
-      if (password !== confirmPassword) {
-        errorEl.textContent = "پسورد و تایید پسورد یکسان نیستند.";
-        return;
-      }
-
-      showLoading();
-
-      try {
-        const res = await fetch(`${BASE_URL}/status/${username}`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            password,
-            systems: {},
-            lastUpdate: new Date().toISOString()
-          })
-        });
-
-        const data = await res.json();
-
-        if (data.ok) {
-          localStorage.setItem("username", username);
-          localStorage.setItem("password", password);
-          window.location.href = "dashboard.html";
-        } else {
-          errorEl.textContent = "خطا در ثبت‌نام.";
-        }
-      } catch {
-        errorEl.textContent = "خطا در ارتباط با سرور (register).";
-      }
-
-      hideLoading();
+    goRegister.onclick = () => {
+      window.location.href = "register.html";
     };
   </script>
 
