@@ -1,10 +1,13 @@
-// گرفتن وضعیت از سرور و رندر کردن صفحه
+// ===============================
+//  دریافت وضعیت از سرور
+// ===============================
 async function loadStatus() {
     const username = localStorage.getItem("username");
 
     const panelUsernameEl = document.getElementById("panelUsername");
     const lastUpdateEl = document.getElementById("lastUpdate");
 
+    // نمایش نام کاربری
     panelUsernameEl.innerText = "نام کاربری: " + (username || "تنظیم نشده");
 
     if (!username) {
@@ -14,22 +17,42 @@ async function loadStatus() {
 
     try {
         const res = await fetch(`https://gamenet-server-mongo.onrender.com/status/${username}`);
+
+        // اگر سرور جواب نداد
+        if (!res.ok) {
+            lastUpdateEl.innerText = "خطا در ارتباط با سرور";
+            return;
+        }
+
         const data = await res.json();
 
-        lastUpdateEl.innerText = "آخرین آپدیت: " + data.lastUpdate;
+        // جلوگیری از کرش در صورت نبود lastUpdate
+        lastUpdateEl.innerText = "آخرین آپدیت: " + (data.lastUpdate || "—");
+
+        // جلوگیری از کرش در صورت نبود systems
+        if (!data.systems || typeof data.systems !== "object") {
+            console.log("سیستم‌ها دریافت نشدند یا ساختار اشتباه است");
+            return;
+        }
 
         renderSystems(data.systems);
+
     } catch (err) {
+        console.log("خطا در ارتباط با سرور:", err);
         lastUpdateEl.innerText = "خطا در ارتباط با سرور";
     }
 }
 
-// فرمت کردن عدد به تومان فارسی
+// ===============================
+//  فرمت کردن عدد به تومان فارسی
+// ===============================
 function formatPrice(num) {
-    return num.toLocaleString("fa-IR");
+    return Number(num || 0).toLocaleString("fa-IR");
 }
 
-// رندر کردن کارت‌ها در صفحه اصلی (نمای ساده)
+// ===============================
+//  رندر کردن کارت‌های سیستم‌ها
+// ===============================
 function renderSystems(systems) {
     const container = document.getElementById("systems");
     container.innerHTML = "";
@@ -38,26 +61,27 @@ function renderSystems(systems) {
 
     keys.forEach(key => {
         const sys = systems[key];
+        if (!sys) return;
 
         const div = document.createElement("div");
         div.className = "card " + (sys.active ? "active" : "free");
 
-        // نمای ساده: فقط زمان، هزینه نهایی، یادداشت
         div.innerHTML = `
-            <h2>${sys.name}</h2>
-            <p>زمان: ${sys.elapsed}</p>
+            <h2>${sys.name || "بدون نام"}</h2>
+            <p>زمان: ${sys.elapsed || "—"}</p>
             <p>هزینه نهایی: ${formatPrice(sys.final_total)} تومان</p>
             <p>یادداشت: ${sys.note || "—"}</p>
         `;
 
-        // کلیک روی کارت → نمایش کامل در مودال
         div.addEventListener("click", () => openModalFull(sys));
 
         container.appendChild(div);
     });
 }
 
-// رندر خوراکی‌ها برای مودال
+// ===============================
+//  رندر خوراکی‌ها در مودال
+// ===============================
 function renderSnacks(snacks) {
     if (!snacks || snacks.length === 0) {
         return "<p>بدون خوراکی</p>";
@@ -71,7 +95,9 @@ function renderSnacks(snacks) {
     `).join("");
 }
 
-// رندر اطلاعات مشتری برای مودال
+// ===============================
+//  رندر مشتری در مودال
+// ===============================
 function renderCustomer(c) {
     if (!c) {
         return "<p>بدون مشتری</p>";
@@ -86,7 +112,9 @@ function renderCustomer(c) {
     `;
 }
 
-// باز کردن مودال با اطلاعات کامل سیستم
+// ===============================
+//  باز کردن مودال کامل سیستم
+// ===============================
 function openModalFull(sys) {
     const modal = document.getElementById("modal");
     const content = document.getElementById("modalContent");
@@ -95,7 +123,7 @@ function openModalFull(sys) {
         <h2>${sys.name}</h2>
 
         <p>وضعیت: ${sys.active ? "فعال" : "آزاد"}</p>
-        <p>زمان: ${sys.elapsed}</p>
+        <p>زمان: ${sys.elapsed || "—"}</p>
         <p>هزینه زمان: ${formatPrice(sys.time_cost)} تومان</p>
 
         <h3>خوراکی‌ها:</h3>
@@ -114,7 +142,9 @@ function openModalFull(sys) {
     modal.style.display = "block";
 }
 
-// بستن مودال — بعد از لود کامل صفحه
+// ===============================
+//  بستن مودال
+// ===============================
 window.onload = () => {
     const closeBtn = document.getElementById("closeModal");
 
@@ -125,6 +155,8 @@ window.onload = () => {
     };
 };
 
-// اولین بار و بعد هر ۵ ثانیه وضعیت را بگیر
-loadStatus();
-setInterval(loadStatus, 5000);
+// ===============================
+//  اجرای اولیه + آپدیت هر ۵ ثانیه
+// ===============================
+loadStatus(); // اولین بار
+setInterval(loadStatus, 5000); // هر ۵ ثانیه
