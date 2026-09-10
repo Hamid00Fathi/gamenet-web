@@ -57,19 +57,22 @@ function renderSystems(systemsObj) {
     const systemsDiv = document.getElementById("systems");
     systemsDiv.innerHTML = "";
 
-    // تبدیل شیء به آرایه
-    const systems = Object.values(systemsObj);
+    // تبدیل شیء به آرایه همراه با کلید
+    const systems = Object.entries(systemsObj);
 
-    // مرتب‌سازی عددی واقعی
+    // مرتب‌سازی بر اساس عدد داخل کلید (system1, system2, ...)
     const sortedSystems = systems.sort((a, b) => {
-        // استخراج عدد از نام سیستم
-        const numA = Number(String(a.name).match(/\d+/)?.[0] || 9999);
-        const numB = Number(String(b.name).match(/\d+/)?.[0] || 9999);
+        const keyA = a[0]; // مثلا "system10"
+        const keyB = b[0]; // مثلا "system2"
+
+        const numA = Number(keyA.replace(/\D/g, "")); 
+        const numB = Number(keyB.replace(/\D/g, ""));
 
         return numA - numB;
     });
 
-    sortedSystems.forEach(sys => {
+    // ساخت کارت‌ها
+    sortedSystems.forEach(([key, sys]) => {
         const card = document.createElement("div");
         card.className = "card";
 
@@ -93,6 +96,7 @@ function renderSystems(systemsObj) {
         systemsDiv.appendChild(card);
     });
 }
+
 
 // ===============================
 //  رندر خوراکی‌ها در مودال
