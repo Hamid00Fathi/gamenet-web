@@ -18,7 +18,6 @@ async function loadStatus() {
     try {
         const res = await fetch(`https://gamenet-server-mongo.onrender.com/status/${username}`);
 
-        // اگر سرور جواب نداد
         if (!res.ok) {
             lastUpdateEl.innerText = "خطا در ارتباط با سرور";
             return;
@@ -26,10 +25,8 @@ async function loadStatus() {
 
         const data = await res.json();
 
-        // جلوگیری از کرش در صورت نبود lastUpdate
         lastUpdateEl.innerText = "آخرین آپدیت: " + (data.lastUpdate || "—");
 
-        // جلوگیری از کرش در صورت نبود systems
         if (!data.systems || typeof data.systems !== "object") {
             console.log("سیستم‌ها دریافت نشدند یا ساختار اشتباه است");
             return;
@@ -51,7 +48,7 @@ function formatPrice(num) {
 }
 
 // ===============================
-//  رندر کردن کارت‌های سیستم‌ها
+//  رندر کردن کارت‌های سیستم‌ها (نسخهٔ درست و نهایی)
 // ===============================
 function renderSystems(systemsObj) {
     const systemsDiv = document.getElementById("systems");
@@ -60,13 +57,14 @@ function renderSystems(systemsObj) {
     // تبدیل شیء به آرایه همراه با کلید
     const systems = Object.entries(systemsObj);
 
-    // مرتب‌سازی بر اساس عدد داخل کلید (system1, system2, ...)
+    // مرتب‌سازی بر اساس نام سیستم (pc1 → pc2 → pc10)
     const sortedSystems = systems.sort((a, b) => {
-        const keyA = a[0]; // مثلا "system10"
-        const keyB = b[0]; // مثلا "system2"
+        const nameA = a[1].name;
+        const nameB = b[1].name;
 
-        const numA = Number(keyA.replace(/\D/g, "")); 
-        const numB = Number(keyB.replace(/\D/g, ""));
+        // استخراج عدد از نام
+        const numA = parseInt(nameA.match(/\d+/)?.[0] || "9999", 10);
+        const numB = parseInt(nameB.match(/\d+/)?.[0] || "9999", 10);
 
         return numA - numB;
     });
@@ -87,53 +85,32 @@ function renderSystems(systemsObj) {
                 "آزاد"
             }</p>
             <p>زمان: ${sys.elapsed}</p>
-            <p>هزینه نهایی: ${safeNum(sys.final_total)} تومان</p>
+            <p>هزینه نهایی: ${formatPrice(sys.final_total)} تومان</p>
             <p>یادداشت: ${sys.note || "—"}</p>
         `;
 
-        card.onclick = () => openModal(sys);
+        card.onclick = () => openModalFull(sys);
 
         systemsDiv.appendChild(card);
     });
 }
-
 
 // ===============================
 //  رندر خوراکی‌ها در مودال
 // ===============================
-function renderSystems(systemsObj) {
-    const systemsDiv = document.getElementById("systems");
-    systemsDiv.innerHTML = "";
+function renderSnacks(snacks) {
+    if (!snacks || snacks.length === 0) {
+        return "<p>بدون خوراکی</p>";
+    }
 
-    // تبدیل به آرایه + مرتب‌سازی عددی
-    const sortedSystems = Object.values(systemsObj).sort((a, b) => {
-        return Number(a.name.replace(/\D/g, "")) - Number(b.name.replace(/\D/g, ""));
-    });
-
-    sortedSystems.forEach(sys => {
-        const card = document.createElement("div");
-        card.className = "card";
-
-        if (sys.active === 1 || sys.active === 2) card.classList.add("active");
-        else card.classList.add("free");
-
-        card.innerHTML = `
-            <h2>${sys.name}</h2>
-            <p>وضعیت: ${
-                sys.active === 1 ? "فعال" :
-                sys.active === 2 ? "مکث" :
-                "آزاد"
-            }</p>
-            <p>زمان: ${sys.elapsed}</p>
-            <p>هزینه نهایی: ${safeNum(sys.final_total)} تومان</p>
-            <p>یادداشت: ${sys.note || "—"}</p>
-        `;
-
-        card.onclick = () => openModal(sys);
-
-        systemsDiv.appendChild(card);
-    });
+    return snacks.map(sn => `
+        <div class="snack-item">
+            <span>${sn.name}</span>
+            <span>${sn.qty} × ${formatPrice(sn.price)} تومان</span>
+        </div>
+    `).join("");
 }
+
 // ===============================
 //  رندر مشتری در مودال
 // ===============================
@@ -195,7 +172,14 @@ window.onload = () => {
 };
 
 // ===============================
-//  اجرای اولیه + آپدیت هر ۵ ثانیه
+//  اجرای اولیه + رفرش خودکار تضمینی
 // ===============================
-loadStatus(); // اولین بار
-setInterval(loadStatus, 5000); // هر ۵ ثانیه
+async function startAutoRefresh() {
+    await loadStatus(); // اولین بار همیشه اجرا می‌شود
+
+    setInterval(() => {
+        loadStatus(); // هر ۵ ثانیه بدون توقف
+    }, 5000);
+}
+
+startAutoRefresh();
