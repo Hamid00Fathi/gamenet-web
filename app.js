@@ -82,19 +82,39 @@ function renderSystems(systems) {
 // ===============================
 //  رندر خوراکی‌ها در مودال
 // ===============================
-function renderSnacks(snacks) {
-    if (!snacks || snacks.length === 0) {
-        return "<p>بدون خوراکی</p>";
-    }
+function renderSystems(systemsObj) {
+    const systemsDiv = document.getElementById("systems");
+    systemsDiv.innerHTML = "";
 
-    return snacks.map(sn => `
-        <div class="snack-item">
-            <span>${sn.name}</span>
-            <span>${sn.qty} × ${formatPrice(sn.price)} تومان</span>
-        </div>
-    `).join("");
+    // تبدیل به آرایه + مرتب‌سازی عددی
+    const sortedSystems = Object.values(systemsObj).sort((a, b) => {
+        return Number(a.name.replace(/\D/g, "")) - Number(b.name.replace(/\D/g, ""));
+    });
+
+    sortedSystems.forEach(sys => {
+        const card = document.createElement("div");
+        card.className = "card";
+
+        if (sys.active === 1 || sys.active === 2) card.classList.add("active");
+        else card.classList.add("free");
+
+        card.innerHTML = `
+            <h2>${sys.name}</h2>
+            <p>وضعیت: ${
+                sys.active === 1 ? "فعال" :
+                sys.active === 2 ? "مکث" :
+                "آزاد"
+            }</p>
+            <p>زمان: ${sys.elapsed}</p>
+            <p>هزینه نهایی: ${safeNum(sys.final_total)} تومان</p>
+            <p>یادداشت: ${sys.note || "—"}</p>
+        `;
+
+        card.onclick = () => openModal(sys);
+
+        systemsDiv.appendChild(card);
+    });
 }
-
 // ===============================
 //  رندر مشتری در مودال
 // ===============================
