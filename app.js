@@ -60,15 +60,11 @@ function renderSystems(systemsObj) {
     // تبدیل شیء به آرایه
     const systems = Object.values(systemsObj);
 
+    // مرتب‌سازی عددی واقعی
     const sortedSystems = systems.sort((a, b) => {
-        // اگر فیلد عددی مشخص داری، اینجا بذار
-        // مثلاً اگر سرور فیلد number می‌فرسته:
-        // const numA = Number(a.number);
-        // const numB = Number(b.number);
-
-        // فعلاً از name عدد استخراج می‌کنیم
-        const numA = Number(String(a.name).match(/\d+/)?.[0] || 0);
-        const numB = Number(String(b.name).match(/\d+/)?.[0] || 0);
+        // استخراج عدد از نام سیستم
+        const numA = Number(String(a.name).match(/\d+/)?.[0] || 9999);
+        const numB = Number(String(b.name).match(/\d+/)?.[0] || 9999);
 
         return numA - numB;
     });
