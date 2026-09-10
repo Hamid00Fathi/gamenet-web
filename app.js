@@ -7,7 +7,6 @@ async function loadStatus() {
     const panelUsernameEl = document.getElementById("panelUsername");
     const lastUpdateEl = document.getElementById("lastUpdate");
 
-    // نمایش نام کاربری
     panelUsernameEl.innerText = "نام کاربری: " + (username || "تنظیم نشده");
 
     if (!username) {
@@ -16,7 +15,11 @@ async function loadStatus() {
     }
 
     try {
-        const res = await fetch(`https://gamenet-server-mongo.onrender.com/status/${username}`);
+        // جلوگیری از کش مرورگر
+        const res = await fetch(
+            `https://gamenet-server-mongo.onrender.com/status/${username}?t=${Date.now()}`,
+            { cache: "no-store" }
+        );
 
         if (!res.ok) {
             lastUpdateEl.innerText = "خطا در ارتباط با سرور";
@@ -27,11 +30,13 @@ async function loadStatus() {
 
         lastUpdateEl.innerText = "آخرین آپدیت: " + (data.lastUpdate || "—");
 
-        if (!data.systems || typeof data.systems !== "object") {
-            console.log("سیستم‌ها دریافت نشدند یا ساختار اشتباه است");
+        // اگر سیستم‌ها خالی بود، باز هم تلاش کن
+        if (!data.systems || Object.keys(data.systems).length === 0) {
+            console.log("سیستم‌ها خالی هستند، تلاش مجدد...");
             return;
         }
 
+        // اجرای رندر
         renderSystems(data.systems);
 
     } catch (err) {
