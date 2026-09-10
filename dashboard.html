@@ -15,37 +15,58 @@
             font-size: 16px;
         }
 
-        #topMenu {
+        /* ============================
+           منوی سه‌نقطه
+        ============================ */
+        #menuButton {
+            position: fixed;
+            top: 15px;
+            left: 15px;
             background: #1e1e1e;
-            padding: 15px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        #menuLeft span {
-            margin-left: 20px;
-            font-size: 18px;
             color: #00eaff;
-        }
-
-        .menuBtn {
-            background: #00eaff;
-            color: black;
-            border: none;
-            padding: 10px 15px;
-            margin-left: 10px;
+            font-size: 32px;
+            padding: 8px 14px;
             border-radius: 10px;
             cursor: pointer;
-            font-size: 16px;
+            z-index: 999999;
+            box-shadow: 0 0 10px #000;
         }
 
-        .menuBtn:hover {
-            background: #00c7d6;
+        #menuDropdown {
+            position: fixed;
+            top: 65px;
+            left: 15px;
+            background: #1e1e1e;
+            width: 240px;
+            border-radius: 12px;
+            padding: 10px;
+            display: none;
+            z-index: 999999;
+            box-shadow: 0 0 15px #000;
         }
 
+        .menuItem {
+            padding: 12px;
+            font-size: 18px;
+            color: #eaeaea;
+            cursor: pointer;
+            border-bottom: 1px solid #333;
+        }
+
+        .menuItem:hover {
+            background: #00eaff;
+            color: black;
+        }
+
+        #menuDropdown hr {
+            border: none;
+            border-bottom: 1px solid #444;
+            margin: 8px 0;
+        }
+
+        /* ============================
+           داشبورد اصلی
+        ============================ */
         #panelUsername {
             font-size: 22px;
             font-weight: bold;
@@ -110,54 +131,6 @@
             font-size: 20px;
         }
 
-        @media (max-width: 1200px) {
-            body { font-size: 40px; }
-            #panelUsername { font-size: 65px; }
-            #lastUpdate { font-size: 50px; }
-            #systems { grid-template-columns: repeat(2, 1fr); }
-            .card { font-size: 40px; padding: 20px; }
-            .card h2 { font-size: 54px; margin-bottom: 6px; }
-            .card p { font-size: 40px; margin-bottom: 6px; }
-            .snack-item { font-size: 40px; margin-bottom: 6px; }
-            .customer-box { font-size: 40px; margin-bottom: 6px; }
-
-            #modalContent {
-                max-width: 100%;
-                font-size: 45px;
-                line-height: 1.9;
-                padding: 30px;
-            }
-
-            #modalContent h2 {
-                font-size: 65px;
-                margin-bottom: 30px;
-            }
-
-            #modalContent p {
-                font-size: 50px;
-                margin-bottom: 20px;
-            }
-
-            .snack-item {
-                gap: 50px;
-                font-size: 50px;
-                padding: 20px 0;
-                border-bottom: 2px solid #444;
-            }
-
-            .customer-box {
-                background: #2f2f2f;
-                padding: 20px;
-                font-size: 50px;
-                border-radius: 20px;
-            }
-
-            #closeModal {
-                font-size: 50px;
-                padding: 25px;
-            }
-        }
-
         #loading {
             text-align: center;
             margin-top: 80px;
@@ -165,6 +138,9 @@
             color: #00eaff;
         }
 
+        /* ============================
+           مودال
+        ============================ */
         #modal {
             position: fixed;
             top: 0;
@@ -206,20 +182,25 @@
 
 <body>
 
-<div id="topMenu">
-    <div id="menuLeft">
-        <span id="menuUsername"></span>
-        <span id="menuExpire"></span>
-        <span id="menuDaysLeft"></span>
-    </div>
+<!-- دکمه سه‌نقطه -->
+<div id="menuButton">⋮</div>
 
-    <div id="menuRight">
-        <button class="menuBtn" onclick="openSettings()">تنظیمات</button>
-        <button class="menuBtn" onclick="openReports()">گزارش‌ها</button>
-        <button class="menuBtn" onclick="openCustomers()">مشتری‌ها</button>
-        <button class="menuBtn" onclick="openSnacks()">خوراکی‌ها</button>
-        <button class="menuBtn" onclick="logout()">خروج</button>
-    </div>
+<!-- منوی کشویی -->
+<div id="menuDropdown">
+    <div class="menuItem" id="menuUsername"></div>
+    <div class="menuItem" id="menuExpire"></div>
+    <div class="menuItem" id="menuDaysLeft"></div>
+
+    <hr>
+
+    <div class="menuItem" onclick="openSettings()">تنظیمات</div>
+    <div class="menuItem" onclick="openReports()">گزارش‌ها</div>
+    <div class="menuItem" onclick="openCustomers()">مشتری‌ها</div>
+    <div class="menuItem" onclick="openSnacks()">خوراکی‌ها</div>
+
+    <hr>
+
+    <div class="menuItem" onclick="logout()">خروج</div>
 </div>
 
 <div id="loading">در حال بررسی اشتراک و دریافت اطلاعات...</div>
@@ -269,20 +250,56 @@ if (!username) {
     window.location.href = "login.html";
 }
 
-// چک اشتراک
+/* ============================
+   منوی سه‌نقطه
+============================ */
+document.getElementById("menuButton").onclick = () => {
+    const menu = document.getElementById("menuDropdown");
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
+};
+
+async function loadSubscriptionInfo() {
+    const res = await fetch(`${BASE_URL}/subscription/${username}`);
+    const data = await res.json();
+
+    document.getElementById("menuUsername").innerText = `کاربر: ${username}`;
+
+    if (!data.expireDate) {
+        document.getElementById("menuExpire").innerText = "اشتراک: ندارد";
+        document.getElementById("menuDaysLeft").innerText = "";
+        return;
+    }
+
+    document.getElementById("menuExpire").innerText = `پایان اشتراک: ${data.expireDate}`;
+
+    const now = new Date();
+    const exp = new Date(data.expireDate);
+    const diff = exp - now;
+    const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+
+    document.getElementById("menuDaysLeft").innerText = `مانده: ${days} روز`;
+}
+
+/* ============================
+   چک اشتراک
+============================ */
 async function checkSubscription(username) {
     const res = await fetch(`${BASE_URL}/subscription/${username}`);
     const data = await res.json();
     return data.active;
 }
 
-// گرفتن وضعیت
+/* ============================
+   گرفتن وضعیت
+============================ */
 async function loadStatus() {
     const res = await fetch(`${BASE_URL}/status/${username}`);
     return await res.json();
 }
 
-// رندر سیستم‌ها
+/* ============================
+   رندر سیستم‌ها
+============================ */
 function renderSystems(systemsObj) {
     const systemsDiv = document.getElementById("systems");
     systemsDiv.innerHTML = "";
@@ -314,7 +331,9 @@ function renderSystems(systemsObj) {
     });
 }
 
-// مودال
+/* ============================
+   مودال
+============================ */
 function openModal(sys) {
     document.getElementById("modalTitle").innerText = sys.name;
     document.getElementById("modalStatus").innerText =
@@ -385,7 +404,9 @@ document.getElementById("closeModal").onclick = () => {
     document.getElementById("modal").style.display = "none";
 };
 
-// اجرای اولیه + رفرش هر ۵ ثانیه
+/* ============================
+   اجرای اولیه + رفرش
+============================ */
 (async () => {
     const active = await checkSubscription(username);
 
@@ -394,6 +415,8 @@ document.getElementById("closeModal").onclick = () => {
         window.location.href = "login.html";
         return;
     }
+
+    loadSubscriptionInfo();
 
     async function refresh() {
         const data = await loadStatus();
@@ -410,8 +433,32 @@ document.getElementById("closeModal").onclick = () => {
     }
 
     refresh();
-    setInterval(refresh, 1000);
+    setInterval(refresh, 5000);
 })();
+
+/* ============================
+   دکمه‌های منو
+============================ */
+function openSettings() {
+    alert("بخش تنظیمات به‌زودی اضافه می‌شود");
+}
+
+function openReports() {
+    alert("بخش گزارش‌ها به‌زودی اضافه می‌شود");
+}
+
+function openCustomers() {
+    alert("بخش مدیریت مشتری‌ها به‌زودی اضافه می‌شود");
+}
+
+function openSnacks() {
+    alert("بخش مدیریت خوراکی‌ها به‌زودی اضافه می‌شود");
+}
+
+function logout() {
+    localStorage.removeItem("username");
+    window.location.href = "login.html";
+}
 </script>
 
 </body>
