@@ -19,12 +19,48 @@
       height: 100vh;
     }
 
-    /* منو */
+    /* منوی سه‌خطی */
+    .hamburger {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      background: #1e1e1e;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 1000;
+      box-shadow: 0 0 10px #000;
+    }
+
+    .hamburger div {
+      width: 30px;
+      height: 4px;
+      background: #00eaff;
+      margin: 5px 0;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+
+    /* منوی مخفی */
     .sidebar {
+      position: fixed;
+      right: -320px;
+      top: 0;
       width: 300px;
+      height: 100%;
       background: #1e1e1e;
       padding: 25px;
       box-shadow: 0 0 20px #000;
+      transition: 0.4s;
+      z-index: 999;
+    }
+
+    .sidebar.open {
+      right: 0;
     }
 
     .sidebar h2 {
@@ -135,6 +171,7 @@
       background: rgba(0,0,0,0.8);
       padding: 40px;
       overflow-y: auto;
+      z-index: 2000;
     }
 
     .modal-content {
@@ -192,18 +229,25 @@
 
 <body>
 
+<!-- دکمه سه‌خط -->
+<div class="hamburger" id="hamburger">
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+
+<!-- منوی مخفی -->
+<div class="sidebar" id="sidebar">
+  <h2>منو</h2>
+
+  <div class="menu-item">داشبورد</div>
+  <div class="menu-item">مشتری‌ها</div>
+  <div class="menu-item">خوراکی‌ها</div>
+  <div class="menu-item">تنظیمات</div>
+  <div class="menu-item" onclick="logout()">خروج</div>
+</div>
+
 <div class="layout">
-
-  <!-- منو -->
-  <div class="sidebar">
-    <h2>منو</h2>
-
-    <div class="menu-item">داشبورد</div>
-    <div class="menu-item">مشتری‌ها</div>
-    <div class="menu-item">خوراکی‌ها</div>
-    <div class="menu-item">تنظیمات</div>
-    <div class="menu-item">خروج</div>
-  </div>
 
   <!-- داشبورد -->
   <div id="dashboard" class="dashboard">
@@ -236,154 +280,10 @@
 <script>
 const BASE_URL = "https://gamenet-server-mongo.onrender.com";
 
-async function loadStatus() {
-    const username = localStorage.getItem("username");
-    const password = localStorage.getItem("password");
-
-    const panelUsernameEl = document.getElementById("panelUsername");
-    const expireDateEl = document.getElementById("expireDate");
-    const lastUpdateEl = document.getElementById("lastUpdate");
-    const warningBox = document.getElementById("subscriptionWarning");
-
-    panelUsernameEl.innerText = "نام کاربری: " + (username || "—");
-
-    try {
-        const subRes = await fetch(`${BASE_URL}/subscription/${username}`);
-        const subData = await subRes.json();
-
-        expireDateEl.innerText = "تاریخ انقضا: " + (subData.expireDate || "—");
-
-        if (!subData.active) {
-            warningBox.style.display = "block";
-            document.getElementById("systems").innerHTML = "";
-            lastUpdateEl.innerText = "آخرین آپدیت: —";
-            return;
-        } else {
-            warningBox.style.display = "none";
-        }
-    } catch (e) {
-        console.log("خطا در چک اشتراک:", e);
-    }
-
-    try {
-        const res = await fetch(
-            `${BASE_URL}/status/${username}?t=${Date.now()}`,
-            { cache: "no-store" }
-        );
-
-        const data = await res.json();
-
-        lastUpdateEl.innerText = "آخرین آپدیت: " + (data.lastUpdate || "—");
-
-        if (!data.systems || Object.keys(data.systems).length === 0) {
-            document.getElementById("systems").innerHTML = "";
-            return;
-        }
-
-        renderSystems(data.systems);
-
-    } catch (err) {
-        console.log("خطا:", err);
-        lastUpdateEl.innerText = "خطا در ارتباط با سرور";
-    }
-}
-
-function formatPrice(num) {
-    return Number(num || 0).toLocaleString("fa-IR");
-}
-
-function renderSystems(systemsObj) {
-    const systemsDiv = document.getElementById("systems");
-    systemsDiv.innerHTML = "";
-
-    const systems = Object.values(systemsObj);
-
-    const sorted = systems.sort((a, b) => {
-        const numA = parseInt(a.name.match(/\d+/)?.[0] || "9999");
-        const numB = parseInt(b.name.match(/\d+/)?.[0] || "9999");
-        return numA - numB;
-    });
-
-    sorted.forEach(sys => {
-        const card = document.createElement("div");
-        card.className = "card " + (sys.active ? "active" : "free");
-
-        card.innerHTML = `
-            <h2>${sys.name}</h2>
-            <p>وضعیت: ${sys.active ? "فعال" : "آزاد"}</p>
-            <p>زمان: ${sys.elapsed}</p>
-            <p>هزینه نهایی: ${formatPrice(sys.final_total)} تومان</p>
-        `;
-
-        card.onclick = () => openModalFull(sys);
-
-        systemsDiv.appendChild(card);
-    });
-}
-
-function renderSnacks(snacks) {
-    if (!snacks || snacks.length === 0) {
-        return "<p>بدون خوراکی</p>";
-    }
-
-    return snacks.map(sn => `
-        <div class="snack-item">
-            <span>${sn.name}</span>
-            <span>${sn.qty} × ${formatPrice(sn.price)} تومان</span>
-        </div>
-    `).join("");
-}
-
-function renderCustomer(c) {
-    if (!c) return "<p>بدون مشتری</p>";
-
-    return `
-        <div class="customer-box">
-            <p>نام مشتری: ${c.name}</p>
-            <p>کد: ${c.code}</p>
-            <p>اعتبار: ${formatPrice(c.balance)} تومان</p>
-        </div>
-    `;
-}
-
-function openModalFull(sys) {
-    const modal = document.getElementById("modal");
-    const content = document.getElementById("modalContent");
-
-    content.innerHTML = `
-        <h2>${sys.name}</h2>
-
-        <p>وضعیت: ${sys.active ? "فعال" : "آزاد"}</p>
-        <p>زمان: ${sys.elapsed}</p>
-        <p>هزینه زمان: ${formatPrice(sys.time_cost)} تومان</p>
-
-        <h3>خوراکی‌ها:</h3>
-        ${renderSnacks(sys.snacks)}
-
-        <p class="modal-total-snacks">
-            جمع خوراکی‌ها: ${formatPrice(sys.snacks_total)} تومان
-        </p>
-
-        <span class="modal-final-total">
-            هزینه نهایی: ${formatPrice(sys.final_total)} تومان
-        </span>
-
-        <h3>مشتری:</h3>
-        ${renderCustomer(sys.customer)}
-
-        <p>یادداشت: ${sys.note || "—"}</p>
-    `;
-
-    modal.style.display = "block";
-}
-
-document.getElementById("closeModal").onclick = () => {
-    document.getElementById("modal").style.display = "none";
+/* منوی سه‌خط */
+document.getElementById("hamburger").onclick = () => {
+  document.getElementById("sidebar").classList.toggle("open");
 };
 
-loadStatus();
-setInterval(loadStatus, 5000);
-</script>
-
-</body>
-</html>
+/* خروج */
+function
