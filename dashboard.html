@@ -145,7 +145,7 @@
     }
 
     /* ============================
-       سیستم‌ها
+       سیستم‌ها (ساختار اصلی تو)
     ============================ */
     #systems {
       display: grid;
@@ -469,7 +469,7 @@ async function loadStatus() {
 }
 
 /* ============================
-   رندر سیستم‌ها
+   رندر سیستم‌ها (ساختار اصلی تو)
 ============================ */
 function renderSystems(systemsObj) {
   const systemsDiv = document.getElementById("systems");
@@ -559,50 +559,3 @@ function openModal(sys) {
   } else {
     customerDiv.innerHTML = "<div class='customer-box'>مشتری ثبت نشده</div>";
   }
-
-  content.appendChild(customerDiv);
-
-  content.innerHTML += `
-    <div class="customer-box">${sys.note || "—"}</div>
-  `;
-
-  modal.style.display = "block";
-}
-
-document.getElementById("closeModal").onclick = () => {
-  document.getElementById("modal").style.display = "none";
-};
-
-/* ============================
-   اجرای اولیه + رفرش
-============================ */
-(async () => {
-  const active = await checkSubscription(username);
-
-  loadSubscriptionInfo();
-
-  if (!active) {
-    document.getElementById("subscriptionExpired").style.display = "block";
-    document.getElementById("systems").innerHTML = "";
-    return;
-  }
-
-  async function refresh() {
-    const data = await loadStatus();
-    if (!data) return;
-
-    document.getElementById("panelUsername").innerText = `گیم‌نت: ${username}`;
-    document.getElementById("lastUpdate").innerText =
-      `آخرین بروزرسانی: ${data.lastUpdate}`;
-
-    renderSystems(data.systems);
-  }
-
-  refresh();
-  setInterval(refresh, 5000);
-})();
-
-/* ============================
-   خروج
-============================ */
-function logout
