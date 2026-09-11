@@ -264,7 +264,7 @@ body {
 }
 
 /* ====== موبایل ====== */
-@media (max-width:600px) {
+@media (max-width:1200px) {
   #modalContent {
     font-size:32px;
     padding:35px;
