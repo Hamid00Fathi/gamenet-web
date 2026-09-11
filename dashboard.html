@@ -2,7 +2,7 @@
 <html lang="fa">
 <head>
   <meta charset="UTF-8">
-  <title>داشبورد گیم‌نت</title>
+  title>داشبورد گیم‌نت</title>
 
   <style>
     body {
@@ -88,6 +88,22 @@
     }
 
     /* ============================
+       اطلاعات اشتراک
+    ============================ */
+    #subscriptionInfo {
+      background:#1e1e1e;
+      padding:15px;
+      border-radius:12px;
+      margin-bottom:20px;
+      box-shadow:0 0 10px #000;
+      font-size:18px;
+    }
+
+    #subscriptionInfo p {
+      margin:5px 0;
+    }
+
+    /* ============================
        اشتراک منقضی شده
     ============================ */
     #subscriptionExpired {
@@ -156,6 +172,39 @@
     }
 
     /* ============================
+       اسلاید اشتراک‌ها
+    ============================ */
+    #subscriptionSlider {
+      margin-top:25px;
+      background:#1e1e1e;
+      padding:20px;
+      border-radius:15px;
+      box-shadow:0 0 10px #000;
+      overflow-x:auto;
+      white-space:nowrap;
+    }
+
+    #subscriptionSlider::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    #subscriptionSlider::-webkit-scrollbar-thumb {
+      background: #00eaff;
+      border-radius: 10px;
+    }
+
+    .subItem {
+      display:inline-block;
+      background:#252525;
+      padding:15px 25px;
+      margin-right:15px;
+      border-radius:12px;
+      font-size:18px;
+      color:#eaeaea;
+      box-shadow:0 0 10px #000;
+    }
+
+    /* ============================
        مودال
     ============================ */
     #modal {
@@ -205,7 +254,7 @@
     /* ============================
        نسخه موبایل
     ============================ */
-    @media (max-width: 1200px) {
+    @media (max-width: 900px) {
 
       #menuButton {
         font-size: 45px;
@@ -233,6 +282,11 @@
         padding: 15px;
       }
 
+      #subscriptionInfo {
+        font-size: 28px;
+        padding: 25px;
+      }
+
       #systems {
         grid-template-columns: repeat(2, 1fr);
         gap: 18px;
@@ -247,16 +301,14 @@
         font-size: 40px;
       }
 
-      #subscriptionExpired h2 {
-        font-size: 40px;
+      #subscriptionSlider {
+        padding:30px;
       }
 
-      #subscriptionExpired p {
-        font-size: 32px;
-      }
-
-      #subscriptionExpired .phone {
-        font-size: 40px;
+      .subItem {
+        font-size:32px;
+        padding:25px 35px;
+        margin-right:25px;
       }
 
       #modalContent {
@@ -303,6 +355,12 @@
   <div id="panelUsername"></div>
   <div id="lastUpdate"></div>
 
+  <!-- اطلاعات اشتراک -->
+  <div id="subscriptionInfo">
+    <p id="subExpire"></p>
+    <p id="subDaysLeft"></p>
+  </div>
+
   <!-- اشتراک منقضی شده -->
   <div id="subscriptionExpired">
     <h2>اشتراک شما فعال نیست</h2>
@@ -325,6 +383,14 @@
   <!-- سیستم‌ها -->
   <div id="systems"></div>
 
+  <!-- اسلاید اشتراک‌ها -->
+  <div id="subscriptionSlider">
+    <div class="subItem">اشتراک ۱ ماهه — 150,000 تومان</div>
+    <div class="subItem">اشتراک ۳ ماهه — 350,000 تومان</div>
+    <div class="subItem">اشتراک ۶ ماهه — 600,000 تومان</div>
+    <div class="subItem">اشتراک ۱۲ ماهه — 1,000,000 تومان</div>
+  </div>
+
 </div>
 
 <!-- مودال -->
@@ -344,6 +410,35 @@ document.getElementById("menuButton").onclick = () => {
   const menu = document.getElementById("menuDropdown");
   menu.style.display = menu.style.display === "block" ? "none" : "block";
 };
+
+/* ============================
+   محاسبه روزهای مانده
+============================ */
+function calcDaysLeft(expireDate) {
+  const today = new Date();
+  const exp = new Date(expireDate);
+  const diff = exp - today;
+  return Math.ceil(diff / (1000 * 60 * 60 * 24));
+}
+
+/* ============================
+   اطلاعات اشتراک
+============================ */
+async function loadSubscriptionInfo() {
+  const res = await fetch(`${BASE_URL}/subscription/${username}`);
+  const data = await res.json();
+
+  const expire = data.expireDate || "—";
+  const daysLeft = data.active ? calcDaysLeft(expire) : 0;
+
+  document.getElementById("subExpire").innerText =
+    `تاریخ پایان اشتراک: ${expire}`;
+
+  document.getElementById("subDaysLeft").innerText =
+    data.active
+      ? `روزهای مانده: ${daysLeft} روز`
+      : `اشتراک شما فعال نیست`;
+}
 
 /* ============================
    چک اشتراک
@@ -472,6 +567,8 @@ document.getElementById("closeModal").onclick = () => {
 ============================ */
 (async () => {
   const active = await checkSubscription(username);
+
+  loadSubscriptionInfo();
 
   if (!active) {
     document.getElementById("subscriptionExpired").style.display = "block";
