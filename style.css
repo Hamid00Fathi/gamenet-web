@@ -29,7 +29,6 @@ body {
   transition: 0.2s;
 }
 
-/* سلکت‌طور شدن منو */
 #menuButton:hover {
   background: #00eaff;
   color: #000;
@@ -62,7 +61,7 @@ body {
   border-radius: 8px;
 }
 
-/* ====== داشبورد دسکتاپ ====== */
+/* ====== داشبورد ====== */
 #dashboard {
   margin-top: 90px;
   display: grid;
@@ -70,7 +69,7 @@ body {
   gap: 20px;
 }
 
-/* پنل سمت چپ دسکتاپ */
+/* ====== پنل چپ ====== */
 #leftPanel {
   background:#1e1e1e;
   border-radius:15px;
@@ -121,7 +120,7 @@ body {
   background:linear-gradient(90deg,#00eaff,#ff00ff);
 }
 
-/* ====== سیستم‌ها دسکتاپ ====== */
+/* ====== سیستم‌ها ====== */
 #systems {
   display:grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -148,34 +147,25 @@ body {
 }
 
 .active {
-  border-right:10px solid #00ff6a;
+  border-right:15px solid #00ff6a;
 }
 
 .free {
-  border-right:10px solid #ff3b3b;
+  border-right:15px solid #ff3b3b;
 }
 
-/* ====== اطلاعات بالا دسکتاپ ====== */
-#panelUsername,
-#lastUpdate,
-#subscriptionInfo {
-  font-size:20px;
-  margin-bottom:8px;
-}
-
-/* ====== اسلایدر اشتراک دسکتاپ ====== */
+/* ====== اسلایدر اشتراک ====== */
 #subscriptionSlider {
   margin-top:20px;
   background:#1e1e1e;
   padding:22px;
   border-radius:16px;
   display:flex;
-  overflow-x:auto; /* جلوگیری از روی‌هم‌افتادن */
+  overflow-x:auto;
   gap:22px;
   scroll-behavior:smooth;
 }
 
-/* کادر اشتراک هماهنگ */
 .subCardWrap {
   min-width:200px;
   height:180px;
@@ -246,9 +236,30 @@ body {
   box-shadow:0 0 25px #000;
   font-size:22px;
   line-height:1.8;
+  position:relative;
 }
 
-/* کادرهای جدا داخل مودال */
+/* دکمه بستن بالا سمت چپ */
+#closeModalTop {
+  position:absolute;
+  top:20px;
+  left:20px;
+  background:#ff4444;
+  color:#fff;
+  border:none;
+  font-size:26px;
+  padding:10px 18px;
+  border-radius:12px;
+  cursor:pointer;
+  z-index:999999;
+}
+
+#closeModalTop:hover {
+  background:#ff6666;
+  transform:scale(1.05);
+}
+
+/* کادرهای مودال */
 .modalSection {
   background:#1f1f1f;
   border:2px solid #00eaff88;
@@ -273,114 +284,49 @@ body {
   margin:8px 0;
 }
 
-#closeModal {
-  display:block;
-  margin:25px auto 0 auto;
-  padding:16px 45px;
-  font-size:24px;
-  background:#ff4444;
-  border:none;
+.costBox {
+  background:#262626;
+  border:2px solid #00ff6a88;
+  padding:22px;
+  border-radius:16px;
+  margin-bottom:25px;
+  box-shadow:0 0 14px #000;
+}
+
+.finalTotal {
+  font-size:26px;
+  font-weight:bold;
+  color:#00ff6a;
+  margin-top:14px;
+  padding:14px;
+  background:#1b1b1b;
   border-radius:14px;
-  color:#fff;
-  cursor:pointer;
-  box-shadow:0 0 12px #000;
-  transition:0.2s;
+  border:2px solid #00ff6a55;
+  text-align:center;
 }
 
-#closeModal:hover {
-  background:#ff6666;
-  transform:scale(1.05);
-}
-
-/* =========================
-   نسخهٔ کاملاً جدا برای گوشی
-   ========================= */
+/* ====== نسخه موبایل ====== */
 @media (max-width: 1200px) {
 
-  #container {
-    max-width: 100%;
-    padding: 10px;
-  }
-
   #dashboard {
-    margin-top: 70px;
-    display: block;
+    display:block;
   }
 
-  #leftPanel {
-    margin-bottom: 20px;
-    padding: 32px;
-    font-size:40px;
-    border-radius:22px;
-  }
-
-  #avatar {
-    width:150px;
-    height:150px;
-    font-size:90px;
-    margin-bottom:20px;
-  }
-
-  #rankBadge {
-    font-size:40px;
-    padding:18px 30px;
-    margin-bottom:25px;
-  }
-
-  #progressLabel {
-    font-size:38px;
-    margin-bottom:14px;
-  }
-
-  #progressBarOuter {
-    height:20px;
-    margin-bottom:25px;
-  }
-
-  #panelUsername,
-  #lastUpdate,
-  #subscriptionInfo {
-    font-size:42px;
-    margin-bottom:12px;
-  }
-
-  /* گوشی: دو سیستم در یک ردیف */
   #systems {
-    display:grid;
     grid-template-columns: repeat(2, 1fr);
     gap:26px;
   }
 
-  .card {
-    padding:45px;
-    border-radius:26px;
-    font-size:40px;
-  }
-
-  .card h2 {
-    font-size:48px;
-    margin-bottom:20px;
-  }
-
-  #subscriptionSlider {
-    margin-top:30px;
-    padding:26px;
-    border-radius:26px;
-    display:flex;
-    overflow-x:auto;
-    gap:22px;
-  }
-
   .subCardWrap {
-    min-width:380px;
-    height:260px;
-    padding:26px;
+    min-width:420px;
+    height:300px;
+    padding:30px;
   }
 
   .subFront, .subBack {
-    font-size:38px;
-    padding:34px;
-    border-radius:26px;
+    font-size:42px;
+    padding:40px;
+    border-radius:30px;
   }
 
   #modalContent {
@@ -390,42 +336,11 @@ body {
     border-radius:26px;
   }
 
-  .modalSection {
-    padding:34px;
-    border-radius:26px;
-    margin-bottom:30px;
-  }
-
-  .modalSection h3 {
-    font-size:42px;
-    margin-bottom:20px;
-    padding-bottom:12px;
-  }
-
-  .modalSection p {
-    font-size:38px;
-    margin:12px 0;
-  }
-
-  #closeModal {
-    font-size:38px;
-    padding:20px 44px;
-    border-radius:20px;
-  }
-
-  #menuButton {
-    font-size:50px;
-    padding:16px 24px;
-  }
-
-  #menuDropdown {
-    width: 90%;
-    right: 5%;
-    font-size:38px;
-  }
-
-  .menuItem {
-    font-size:38px;
-    padding:22px;
+  #closeModalTop {
+    font-size:48px;
+    padding:20px 32px;
+    border-radius:22px;
+    top:30px;
+    left:30px;
   }
 }
