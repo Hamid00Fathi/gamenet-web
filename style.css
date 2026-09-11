@@ -48,6 +48,14 @@ body {
   border-bottom: 1px solid #333;
 }
 
+#menuSubscriptionBox {
+  background:#252525;
+  padding:15px;
+  border-radius:12px;
+  margin-bottom:10px;
+  color:#00eaff;
+}
+
 /* ====== داشبورد ====== */
 #dashboard {
   margin-top: 100px;
@@ -109,7 +117,7 @@ body {
 /* ====== سیستم‌ها ====== */
 #systems {
   display:grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr); /* دسکتاپ = 3 ستون */
   gap:20px;
 }
 
@@ -269,7 +277,12 @@ body {
   }
 
   #systems {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr); /* گوشی = 2 ستون */
+  }
+
+  .card {
+    font-size:32px;
+    padding:35px;
   }
 
   #leftPanel {
@@ -292,11 +305,6 @@ body {
   #lastUpdate,
   #subscriptionInfo {
     font-size:32px;
-  }
-
-  .card {
-    font-size:32px;
-    padding:35px;
   }
 
   #subscriptionSlider {
