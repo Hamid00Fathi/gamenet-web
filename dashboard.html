@@ -92,12 +92,12 @@
            داشبورد اصلی
         ============================ */
         #dashboard {
-            margin-top: 80px;
+            margin-top: 20px;
         }
 
         @media (max-width: 1200px) {
             #dashboard {
-                margin-top: 180px;
+                margin-top: 60px;
             }
         }
 
@@ -106,12 +106,22 @@
             font-weight: bold;
             margin-bottom: 10px;
             color: #00eaff;
+            background: #1e1e1e;
+            padding: 12px;
+            border-radius: 10px;
+            display: inline-block;
+            box-shadow: 0 0 10px #000;
         }
 
         #lastUpdate {
             font-size: 18px;
             margin-bottom: 20px;
             color: #cccccc;
+            background: #1e1e1e;
+            padding: 10px;
+            border-radius: 10px;
+            display: inline-block;
+            box-shadow: 0 0 10px #000;
         }
 
         @media (max-width: 1200px) {
@@ -125,6 +135,39 @@
             }
         }
 
+        /* ============================
+           صفحه اشتراک منقضی شده
+        ============================ */
+        #subscriptionExpired {
+            display: none;
+            background: #1e1e1e;
+            padding: 35px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            text-align: center;
+            box-shadow: 0 0 15px #000;
+        }
+
+        #subscriptionExpired h2 {
+            color: #ff4444;
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        #subscriptionExpired p {
+            font-size: 28px;
+            margin: 10px 0;
+        }
+
+        #subscriptionExpired .phone {
+            font-size: 35px;
+            color: #00eaff;
+            font-weight: bold;
+        }
+
+        /* ============================
+           سیستم‌ها
+        ============================ */
         #systems {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -132,17 +175,18 @@
         }
 
         .card {
-            background: #1e1e1e;
+            background: linear-gradient(135deg, #1e1e1e, #252525);
             padding: 15px;
             border-radius: 12px;
             box-shadow: 0 0 10px rgba(0,0,0,0.4);
-            transition: transform 0.2s;
+            transition: transform 0.25s;
             cursor: pointer;
             font-size: 20px;
         }
 
         .card:hover {
-            transform: scale(1.03);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px #000;
         }
 
         .active {
@@ -185,126 +229,105 @@
            مودال
         ============================ */
         #modal {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 100%;
-            background: #000000dd;
-            backdrop-filter: blur(5px);
-            padding: 20px;
-            overflow-y: auto;
             display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            padding: 40px;
+            overflow-y: auto;
             z-index: 999999;
         }
 
         #modalContent {
-            background: #1e1e1e;
-            padding: 20px;
-            border-radius: 12px;
-            max-width: 700px;
-            margin: auto;
-            font-size: 20px;
-            line-height: 1.6;
+            background: #222;
+            padding: 40px;
+            border-radius: 25px;
+            color: #fff;
+            font-size: 40px;
+            line-height: 1.8;
         }
 
         #closeModal {
-            background: #ff3b3b;
-            color: white;
+            margin-top: 30px;
+            padding: 20px 40px;
+            font-size: 40px;
+            background: #ff4444;
+            color: #fff;
             border: none;
-            padding: 12px 18px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            cursor: pointer;
-            font-size: 20px;
-            display: block;
-            width: 100%;
+            border-radius: 15px;
         }
 
-        @media (max-width: 1200px) {
-            #modalContent {
-                max-width: 100%;
-                font-size: 45px;
-                padding: 30px;
-            }
+        .customer-box {
+            background: #333;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 20px;
+            font-size: 40px;
+        }
 
-            #closeModal {
-                font-size: 50px;
-                padding: 25px;
-            }
+        .snack-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 40px;
+            margin: 10px 0;
         }
     </style>
 </head>
 
 <body>
 
-<!-- دکمه سه‌خط -->
-<div id="menuButton">≡</div>
+<!-- دکمه منوی سه‌خط -->
+<div id="menuButton">☰</div>
 
-<!-- منوی کشویی -->
+<!-- منوی مخفی -->
 <div id="menuDropdown">
-    <div class="menuItem" id="menuUsername"></div>
-    <div class="menuItem" id="menuExpire"></div>
-    <div class="menuItem" id="menuDaysLeft"></div>
-
-    <hr>
-
-    <div class="menuItem" onclick="openSettings()">تنظیمات</div>
-    <div class="menuItem" onclick="openReports()">گزارش‌ها</div>
     <div class="menuItem" onclick="openCustomers()">مشتری‌ها</div>
     <div class="menuItem" onclick="openSnacks()">خوراکی‌ها</div>
-
+    <div class="menuItem" onclick="openReports()">گزارش‌ها</div>
+    <div class="menuItem" onclick="openSettings()">تنظیمات</div>
     <hr>
-
     <div class="menuItem" onclick="logout()">خروج</div>
 </div>
 
-<div id="loading">در حال بررسی اشتراک و دریافت اطلاعات...</div>
+<!-- داشبورد -->
+<div id="dashboard">
 
-<div id="dashboard" style="display:none;">
     <div id="panelUsername"></div>
     <div id="lastUpdate"></div>
 
+    <!-- اشتراک منقضی شده -->
+    <div id="subscriptionExpired">
+        <h2>اشتراک شما فعال نیست</h2>
+        <p>برای استفاده از پنل باید اشتراک تهیه کنید.</p>
+        <p>برای خرید اشتراک با پشتیبانی تماس بگیرید:</p>
+        <p class="phone">09187343793</p>
+
+        <hr>
+
+        <h3 style="font-size:32px; margin-bottom:15px;">لیست اشتراک‌ها:</h3>
+
+        <div style="font-size:26px; line-height:1.8;">
+            • اشتراک ۱ ماهه — 150,000 تومان<br>
+            • اشتراک ۳ ماهه — 350,000 تومان<br>
+            • اشتراک ۶ ماهه — 600,000 تومان<br>
+            • اشتراک ۱۲ ماهه — 1,000,000 تومان<br>
+        </div>
+    </div>
+
+    <!-- سیستم‌ها -->
     <div id="systems"></div>
+
 </div>
 
 <!-- مودال -->
 <div id="modal">
-    <div id="modalContent">
-
-        <button id="closeModal">بستن</button>
-
-        <h2 id="modalTitle"></h2>
-
-        <p><strong>وضعیت:</strong> <span id="modalStatus"></span></p>
-
-        <div id="modalTimes"></div>
-
-        <h3>خوراکی‌ها:</h3>
-        <div id="modalSnacks"></div>
-
-        <h3>مشتری:</h3>
-        <div id="modalCustomer"></div>
-
-        <h3>یادداشت:</h3>
-        <div id="modalNote"></div>
-
-    </div>
+    <div id="modalContent"></div>
+    <button id="closeModal">بستن</button>
 </div>
 
 <script>
 const BASE_URL = "https://gamenet-server-mongo.onrender.com";
 const username = localStorage.getItem("username");
-
-// جلوگیری از کرش toLocaleString
-function safeNum(n) {
-    return Number(n || 0).toLocaleString("fa-IR");
-}
-
-if (!username) {
-    alert("ابتدا وارد حساب شوید");
-    window.location.href = "login.html";
-}
 
 /* ============================
    منوی سه‌خط
@@ -313,28 +336,6 @@ document.getElementById("menuButton").onclick = () => {
     const menu = document.getElementById("menuDropdown");
     menu.style.display = menu.style.display === "block" ? "none" : "block";
 };
-
-async function loadSubscriptionInfo() {
-    const res = await fetch(`${BASE_URL}/subscription/${username}`);
-    const data = await res.json();
-
-    document.getElementById("menuUsername").innerText = `کاربر: ${username}`;
-
-    if (!data.expireDate) {
-        document.getElementById("menuExpire").innerText = "اشتراک: ندارد";
-        document.getElementById("menuDaysLeft").innerText = "";
-        return;
-    }
-
-    document.getElementById("menuExpire").innerText = `پایان اشتراک: ${data.expireDate}`;
-
-    const now = new Date();
-    const exp = new Date(data.expireDate);
-    const diff = exp - now;
-    const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
-
-    document.getElementById("menuDaysLeft").innerText = `مانده: ${days} روز`;
-}
 
 /* ============================
    چک اشتراک
@@ -391,23 +392,24 @@ function renderSystems(systemsObj) {
    مودال
 ============================ */
 function openModal(sys) {
-    document.getElementById("modalTitle").innerText = sys.name;
-    document.getElementById("modalStatus").innerText =
-        sys.active === 1 ? "فعال" :
-        sys.active === 2 ? "مکث" :
-        "آزاد";
+    const modal = document.getElementById("modal");
+    const content = document.getElementById("modalContent");
 
-    document.getElementById("modalTimes").innerHTML = `
-        <div class="customer-box">
-            زمان سپری‌شده: ${sys.elapsed}
-        </div>
-        <div class="customer-box">
-            هزینه زمان: ${safeNum(sys.time_cost)} تومان
-        </div>
+    content.innerHTML = `
+        <h2>${sys.name}</h2>
+        <div class="customer-box">وضعیت: ${
+            sys.active === 1 ? "فعال" :
+            sys.active === 2 ? "مکث" :
+            "آزاد"
+        }</div>
+
+        <div class="customer-box">زمان سپری‌شده: ${sys.elapsed}</div>
+        <div class="customer-box">هزینه زمان: ${safeNum(sys.time_cost)} تومان</div>
+
+        <h3>خوراکی‌ها:</h3>
     `;
 
-    const snacksDiv = document.getElementById("modalSnacks");
-    snacksDiv.innerHTML = "";
+    const snacksDiv = document.createElement("div");
 
     if (sys.snacks.length > 0) {
         sys.snacks.forEach(item => {
@@ -423,17 +425,14 @@ function openModal(sys) {
         snacksDiv.innerHTML = "<div>خوراکی ثبت نشده</div>";
     }
 
-    snacksDiv.innerHTML += `
-        <div class="customer-box">
-            جمع خوراکی‌ها: ${safeNum(sys.snacks_total)} تومان
-        </div>
-        <div class="customer-box">
-            جمع نهایی: ${safeNum(sys.final_total)} تومان
-        </div>
+    content.appendChild(snacksDiv);
+
+    content.innerHTML += `
+        <div class="customer-box">جمع خوراکی‌ها: ${safeNum(sys.snacks_total)} تومان</div>
+        <div class="customer-box">جمع نهایی: ${safeNum(sys.final_total)} تومان</div>
     `;
 
-    const customerDiv = document.getElementById("modalCustomer");
-    customerDiv.innerHTML = "";
+    const customerDiv = document.createElement("div");
 
     if (sys.customer) {
         customerDiv.innerHTML = `
@@ -447,13 +446,13 @@ function openModal(sys) {
         customerDiv.innerHTML = "<div class='customer-box'>مشتری ثبت نشده</div>";
     }
 
-    document.getElementById("modalNote").innerHTML = `
-        <div class="customer-box">
-            ${sys.note || "—"}
-        </div>
+    content.appendChild(customerDiv);
+
+    content.innerHTML += `
+        <div class="customer-box">${sys.note || "—"}</div>
     `;
 
-    document.getElementById("modal").style.display = "block";
+    modal.style.display = "block";
 }
 
 document.getElementById("closeModal").onclick = () => {
@@ -467,12 +466,12 @@ document.getElementById("closeModal").onclick = () => {
     const active = await checkSubscription(username);
 
     if (!active) {
-        alert("اشتراک شما فعال نیست یا تمام شده است.");
-        window.location.href = "login.html";
+        document.getElementById("subscriptionExpired").style.display = "block";
+        document.getElementById("systems").innerHTML = "";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("dashboard").style.display = "block";
         return;
     }
-
-    loadSubscriptionInfo();
 
     async function refresh() {
         const data = await loadStatus();
@@ -514,6 +513,13 @@ function openSnacks() {
 function logout() {
     localStorage.removeItem("username");
     window.location.href = "login.html";
+}
+
+/* ============================
+   تابع امن عدد
+============================ */
+function safeNum(n) {
+    return Number(n || 0).toLocaleString("fa-IR");
 }
 </script>
 
