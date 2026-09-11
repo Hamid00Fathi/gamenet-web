@@ -48,14 +48,6 @@ body {
   border-bottom: 1px solid #333;
 }
 
-#menuSubscriptionBox {
-  background:#252525;
-  padding:15px;
-  border-radius:12px;
-  margin-bottom:10px;
-  color:#00eaff;
-}
-
 /* ====== داشبورد ====== */
 #dashboard {
   margin-top: 100px;
