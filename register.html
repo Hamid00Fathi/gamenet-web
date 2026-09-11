@@ -6,7 +6,7 @@
 
   <style>
     body {
-      font-family: sans-serif;
+      font-family: B Nazanin, sans-serif;
       direction: rtl;
       text-align: center;
       margin-top: 80px;
@@ -16,37 +16,50 @@
 
     .box {
       display: inline-block;
-      background: #1e1e1e;
-      padding: 25px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
-      min-width: 300px;
+      background: linear-gradient(135deg, #1e1e1e, #252525);
+      padding: 35px;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(0,0,0,0.6);
+      min-width: 330px;
+      transition: 0.3s;
+    }
+
+    .box:hover {
+      transform: scale(1.02);
     }
 
     h2 {
-      margin-bottom: 20px;
+      margin-bottom: 25px;
       color: #00eaff;
+      font-size: 28px;
     }
 
     input {
-      padding: 10px;
+      padding: 12px;
       width: 260px;
-      margin: 10px;
-      font-size: 16px;
-      border-radius: 8px;
+      margin: 12px;
+      font-size: 18px;
+      border-radius: 10px;
       border: none;
       outline: none;
       background: #2a2a2a;
       color: #eaeaea;
+      transition: 0.2s;
+    }
+
+    input:focus {
+      background: #333;
+      box-shadow: 0 0 10px #00eaff;
     }
 
     button {
-      padding: 10px 20px;
-      font-size: 16px;
+      padding: 12px 25px;
+      font-size: 18px;
       cursor: pointer;
-      border-radius: 8px;
+      border-radius: 10px;
       border: none;
-      margin: 5px;
+      margin: 8px;
+      transition: 0.2s;
     }
 
     #registerBtn {
@@ -54,28 +67,36 @@
       color: white;
     }
 
+    #registerBtn:hover {
+      background: #1e88e5;
+    }
+
     #goLogin {
       background: #4caf50;
       color: white;
+    }
+
+    #goLogin:hover {
+      background: #45a049;
     }
 
     #error {
       color: #ff6b6b;
       margin-top: 10px;
       min-height: 20px;
-      font-size: 14px;
+      font-size: 16px;
     }
 
     #loading {
       display: none;
       margin-top: 15px;
-      font-size: 16px;
+      font-size: 18px;
       color: #00eaff;
     }
 
     .spinner {
-      width: 28px;
-      height: 28px;
+      width: 32px;
+      height: 32px;
       border: 4px solid #00eaff;
       border-top-color: transparent;
       border-radius: 50%;
@@ -151,6 +172,23 @@
 
       showLoading();
 
+      // چک وجود کاربر
+      try {
+        const checkRes = await fetch(`${BASE_URL}/check/${username}`);
+        const checkData = await checkRes.json();
+
+        if (checkData.exists) {
+          hideLoading();
+          errorEl.textContent = "این یوزرنیم قبلاً ثبت شده است.";
+          return;
+        }
+      } catch {
+        hideLoading();
+        errorEl.textContent = "خطا در ارتباط با سرور.";
+        return;
+      }
+
+      // ساخت کاربر جدید
       try {
         const res = await fetch(`${BASE_URL}/status/${username}`, {
           method: "POST",
