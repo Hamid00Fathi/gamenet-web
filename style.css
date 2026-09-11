@@ -181,7 +181,7 @@ body {
   height:180px;
   background:#1e1e1e;
   border-radius:18px;
-  padding:16px; /* پدینگ هماهنگ */
+  padding:16px;
   box-sizing: border-box;
   display:flex;
   align-items:center;
@@ -239,42 +239,57 @@ body {
 
 #modalContent {
   background:#1e1e1e;
-  padding:26px;
-  border-radius:18px;
-  max-width:640px;
+  padding:30px;
+  border-radius:20px;
+  max-width:700px;
   margin:auto;
   box-shadow:0 0 25px #000;
-  font-size:20px;
+  font-size:22px;
   line-height:1.8;
 }
 
 /* کادرهای جدا داخل مودال */
 .modalSection {
   background:#1f1f1f;
-  border:1px solid #00eaff55;
-  padding:20px;
-  border-radius:14px;
-  margin-bottom:20px;
+  border:2px solid #00eaff88;
+  padding:22px;
+  border-radius:16px;
+  margin-bottom:25px;
+  box-shadow:0 0 12px #000;
 }
 
 .modalSection h3 {
   margin-top:0;
-  margin-bottom:12px;
-  font-size:22px;
+  margin-bottom:14px;
+  font-size:26px;
   color:#00eaff;
+  font-weight:bold;
+  border-bottom:1px solid #00eaff55;
+  padding-bottom:8px;
+}
+
+.modalSection p {
+  font-size:22px;
+  margin:8px 0;
 }
 
 #closeModal {
   display:block;
-  margin:22px auto 0 auto;
-  padding:12px 32px;
-  font-size:20px;
+  margin:25px auto 0 auto;
+  padding:16px 45px;
+  font-size:24px;
   background:#ff4444;
   border:none;
-  border-radius:10px;
+  border-radius:14px;
   color:#fff;
   cursor:pointer;
-  box-shadow:0 0 10px #000;
+  box-shadow:0 0 12px #000;
+  transition:0.2s;
+}
+
+#closeModal:hover {
+  background:#ff6666;
+  transform:scale(1.05);
 }
 
 /* =========================
@@ -373,6 +388,23 @@ body {
     font-size:40px;
     padding:34px;
     border-radius:26px;
+  }
+
+  .modalSection {
+    padding:34px;
+    border-radius:26px;
+    margin-bottom:30px;
+  }
+
+  .modalSection h3 {
+    font-size:42px;
+    margin-bottom:20px;
+    padding-bottom:12px;
+  }
+
+  .modalSection p {
+    font-size:38px;
+    margin:12px 0;
   }
 
   #closeModal {
