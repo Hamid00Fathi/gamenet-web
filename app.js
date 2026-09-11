@@ -29,23 +29,30 @@ async function loadSubscription() {
         const expire = data.expireDate || "—";
         const active = data.active;
 
-        // نمایش در داشبورد
         document.getElementById("subExpire").innerText = "تاریخ پایان: " + expire;
 
-        if (active) {
-            const daysLeft = calcDaysLeft(expire);
+        let daysLeft = calcDaysLeft(expire);
 
+        // اگر اشتراک فعال است ولی اختلاف تاریخ منفی شده، حداقل ۱ روز در نظر بگیر
+        if (daysLeft < 0 && active) daysLeft = 1;
+
+        if (active) {
             document.getElementById("subDaysLeft").innerText = "روزهای مانده: " + daysLeft;
 
-            // نمایش در منو
             document.getElementById("menuSubExpire").innerText = "پایان: " + expire;
             document.getElementById("menuSubDaysLeft").innerText = "مانده: " + daysLeft + " روز";
 
             document.getElementById("subscriptionExpired").style.display = "none";
+
+            // پیشرفت اشتراک (فرض: ۳۰ روز = ۱۰۰٪)
+            const percent = Math.min(100, Math.max(0, (daysLeft / 30) * 100));
+            document.getElementById("progressBarInner").style.width = percent + "%";
+
         } else {
             document.getElementById("subDaysLeft").innerText = "اشتراک فعال نیست";
             document.getElementById("menuSubDaysLeft").innerText = "غیرفعال";
             document.getElementById("subscriptionExpired").style.display = "block";
+            document.getElementById("progressBarInner").style.width = "0%";
         }
 
     } catch (err) {
@@ -98,7 +105,7 @@ async function loadStatus() {
 }
 
 // ===============================
-//  مرتب‌سازی سیستم‌ها (نسخهٔ درست)
+//  مرتب‌سازی سیستم‌ها
 // ===============================
 function sortSystems(systemsObj) {
     const systems = Object.entries(systemsObj);
@@ -107,11 +114,9 @@ function sortSystems(systemsObj) {
         const nameA = a[1].name;
         const nameB = b[1].name;
 
-        // استخراج عدد از نام (PC1 → 1 ، Play Station3 → 3)
         const numA = parseInt((nameA.match(/\d+/g) || ["9999"])[0], 10);
         const numB = parseInt((nameB.match(/\d+/g) || ["9999"])[0], 10);
 
-        // اول PCها، بعد PlayStationها
         const isPCA = nameA.toLowerCase().includes("pc");
         const isPCB = nameB.toLowerCase().includes("pc");
 
@@ -131,7 +136,16 @@ function renderSystems(systemsObj) {
 
     const sorted = sortSystems(systemsObj);
 
+    let activeCount = 0;
+    let freeCount = 0;
+    let totalCost = 0;
+
     sorted.forEach(([key, sys]) => {
+        if (sys.active === 1 || sys.active === 2) activeCount++;
+        else freeCount++;
+
+        totalCost += sys.final_total;
+
         const card = document.createElement("div");
         card.className = "card";
 
@@ -154,6 +168,10 @@ function renderSystems(systemsObj) {
 
         systemsDiv.appendChild(card);
     });
+
+    document.getElementById("qsActive").innerText = activeCount;
+    document.getElementById("qsFree").innerText = freeCount;
+    document.getElementById("qsTotalCost").innerText = formatPrice(totalCost);
 }
 
 // ===============================
@@ -206,8 +224,10 @@ function openModalFull(sys) {
         <h3>خوراکی‌ها:</h3>
         ${renderSnacks(sys.snacks)}
 
-        <p>جمع خوراکی‌ها: ${formatPrice(sys.snacks_total)} تومان</p>
-        <p><strong>هزینه نهایی: ${formatPrice(sys.final_total)} تومان</strong></p>
+        <div class="total-box">
+            <p>جمع خوراکی‌ها: ${formatPrice(sys.snacks_total)} تومان</p>
+            <p><strong>هزینه نهایی: ${formatPrice(sys.final_total)} تومان</strong></p>
+        </div>
 
         <h3>مشتری:</h3>
         ${renderCustomer(sys.customer)}
