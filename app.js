@@ -1,5 +1,60 @@
 // ===============================
-//  دریافت وضعیت از سرور
+//  ابزارهای کمکی
+// ===============================
+
+// فرمت تومان
+function formatPrice(num) {
+    return Number(num || 0).toLocaleString("fa-IR");
+}
+
+// محاسبه روزهای مانده
+function calcDaysLeft(expireDate) {
+    const today = new Date();
+    const exp = new Date(expireDate);
+    const diff = exp - today;
+    return Math.ceil(diff / (1000 * 60 * 60 * 24));
+}
+
+// ===============================
+//  دریافت اشتراک
+// ===============================
+async function loadSubscription() {
+    const username = localStorage.getItem("username");
+    if (!username) return;
+
+    try {
+        const res = await fetch(`https://gamenet-server-mongo.onrender.com/subscription/${username}`);
+        const data = await res.json();
+
+        const expire = data.expireDate || "—";
+        const active = data.active;
+
+        // نمایش در داشبورد
+        document.getElementById("subExpire").innerText = "تاریخ پایان: " + expire;
+
+        if (active) {
+            const daysLeft = calcDaysLeft(expire);
+
+            document.getElementById("subDaysLeft").innerText = "روزهای مانده: " + daysLeft;
+
+            // نمایش در منو
+            document.getElementById("menuSubExpire").innerText = "پایان: " + expire;
+            document.getElementById("menuSubDaysLeft").innerText = "مانده: " + daysLeft + " روز";
+
+            document.getElementById("subscriptionExpired").style.display = "none";
+        } else {
+            document.getElementById("subDaysLeft").innerText = "اشتراک فعال نیست";
+            document.getElementById("menuSubDaysLeft").innerText = "غیرفعال";
+            document.getElementById("subscriptionExpired").style.display = "block";
+        }
+
+    } catch (err) {
+        console.log("خطا در اشتراک:", err);
+    }
+}
+
+// ===============================
+//  دریافت وضعیت سیستم‌ها
 // ===============================
 async function loadStatus() {
     const username = localStorage.getItem("username");
@@ -15,7 +70,6 @@ async function loadStatus() {
     }
 
     try {
-        // جلوگیری از کش مرورگر
         const res = await fetch(
             `https://gamenet-server-mongo.onrender.com/status/${username}?t=${Date.now()}`,
             { cache: "no-store" }
@@ -30,13 +84,11 @@ async function loadStatus() {
 
         lastUpdateEl.innerText = "آخرین آپدیت: " + (data.lastUpdate || "—");
 
-        // اگر سیستم‌ها خالی بود، باز هم تلاش کن
         if (!data.systems || Object.keys(data.systems).length === 0) {
             console.log("سیستم‌ها خالی هستند، تلاش مجدد...");
             return;
         }
 
-        // اجرای رندر
         renderSystems(data.systems);
 
     } catch (err) {
@@ -46,36 +98,40 @@ async function loadStatus() {
 }
 
 // ===============================
-//  فرمت کردن عدد به تومان فارسی
+//  مرتب‌سازی سیستم‌ها (نسخهٔ درست)
 // ===============================
-function formatPrice(num) {
-    return Number(num || 0).toLocaleString("fa-IR");
+function sortSystems(systemsObj) {
+    const systems = Object.entries(systemsObj);
+
+    return systems.sort((a, b) => {
+        const nameA = a[1].name;
+        const nameB = b[1].name;
+
+        // استخراج عدد از نام (PC1 → 1 ، Play Station3 → 3)
+        const numA = parseInt((nameA.match(/\d+/g) || ["9999"])[0], 10);
+        const numB = parseInt((nameB.match(/\d+/g) || ["9999"])[0], 10);
+
+        // اول PCها، بعد PlayStationها
+        const isPCA = nameA.toLowerCase().includes("pc");
+        const isPCB = nameB.toLowerCase().includes("pc");
+
+        if (isPCA && !isPCB) return -1;
+        if (!isPCA && isPCB) return 1;
+
+        return numA - numB;
+    });
 }
 
 // ===============================
-//  رندر کردن کارت‌های سیستم‌ها (نسخهٔ درست و نهایی)
+//  رندر سیستم‌ها
 // ===============================
 function renderSystems(systemsObj) {
     const systemsDiv = document.getElementById("systems");
     systemsDiv.innerHTML = "";
 
-    // تبدیل شیء به آرایه همراه با کلید
-    const systems = Object.entries(systemsObj);
+    const sorted = sortSystems(systemsObj);
 
-    // مرتب‌سازی بر اساس نام سیستم (pc1 → pc2 → pc10)
-    const sortedSystems = systems.sort((a, b) => {
-        const nameA = a[1].name;
-        const nameB = b[1].name;
-
-        // استخراج عدد از نام
-        const numA = parseInt(nameA.match(/\d+/)?.[0] || "9999", 10);
-        const numB = parseInt(nameB.match(/\d+/)?.[0] || "9999", 10);
-
-        return numA - numB;
-    });
-
-    // ساخت کارت‌ها
-    sortedSystems.forEach(([key, sys]) => {
+    sorted.forEach(([key, sys]) => {
         const card = document.createElement("div");
         card.className = "card";
 
@@ -101,7 +157,7 @@ function renderSystems(systemsObj) {
 }
 
 // ===============================
-//  رندر خوراکی‌ها در مودال
+//  رندر خوراکی‌ها
 // ===============================
 function renderSnacks(snacks) {
     if (!snacks || snacks.length === 0) {
@@ -117,7 +173,7 @@ function renderSnacks(snacks) {
 }
 
 // ===============================
-//  رندر مشتری در مودال
+//  رندر مشتری
 // ===============================
 function renderCustomer(c) {
     if (!c) {
@@ -134,7 +190,7 @@ function renderCustomer(c) {
 }
 
 // ===============================
-//  باز کردن مودال کامل سیستم
+//  مودال کامل سیستم
 // ===============================
 function openModalFull(sys) {
     const modal = document.getElementById("modal");
@@ -159,7 +215,6 @@ function openModalFull(sys) {
         <p>یادداشت: ${sys.note || "—"}</p>
     `;
 
-    modal.classList.add("modal-active");
     modal.style.display = "block";
 }
 
@@ -167,23 +222,21 @@ function openModalFull(sys) {
 //  بستن مودال
 // ===============================
 window.onload = () => {
-    const closeBtn = document.getElementById("closeModal");
-
-    closeBtn.onclick = () => {
-        const modal = document.getElementById("modal");
-        modal.style.display = "none";
-        modal.classList.remove("modal-active");
+    document.getElementById("closeModal").onclick = () => {
+        document.getElementById("modal").style.display = "none";
     };
 };
 
 // ===============================
-//  اجرای اولیه + رفرش خودکار تضمینی
+//  اجرای اولیه + رفرش خودکار
 // ===============================
 async function startAutoRefresh() {
-    await loadStatus(); // اولین بار همیشه اجرا می‌شود
+    await loadSubscription();
+    await loadStatus();
 
     setInterval(() => {
-        loadStatus(); // هر ۵ ثانیه بدون توقف
+        loadSubscription();
+        loadStatus();
     }, 5000);
 }
 
