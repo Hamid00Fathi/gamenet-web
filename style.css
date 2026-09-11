@@ -65,7 +65,7 @@ body {
   color:#00eaff;
 }
 
-/* داشبورد دو ستونه */
+/* داشبورد */
 #dashboard {
   margin-top: 100px;
   display: grid;
@@ -179,6 +179,7 @@ body {
   font-size:24px;
 }
 
+/* اشتراک منقضی */
 #subscriptionExpired {
   display:none;
   background:#1e1e1e;
@@ -189,28 +190,12 @@ body {
   box-shadow:0 0 15px #000;
 }
 
-#subscriptionExpired h2 {
-  color:#ff4444;
-  font-size:32px;
-  margin-bottom:15px;
-}
-
-#subscriptionExpired p {
-  font-size:22px;
-  margin:10px 0;
-}
-
-#subscriptionExpired .phone {
-  font-size:28px;
-  color:#00eaff;
-  font-weight:bold;
-}
-
 /* سیستم‌ها — بدون اسکرول افقی */
 #systems {
   display:grid;
   grid-template-columns: repeat(4,1fr);
   gap:15px;
+  overflow:hidden;
 }
 
 .card {
@@ -331,14 +316,51 @@ body {
   border-radius:10px;
 }
 
-/* موبایل */
+/* موبایل — نسخه متفاوت */
 @media (max-width:1200px) {
-  body { font-size: 22px !important; }
-  .card { font-size: 26px !important; padding: 25px !important; }
-  .card h2 { font-size: 30px !important; }
-  #panelUsername { font-size: 34px !important; }
-  #lastUpdate { font-size: 28px !important; }
-  #subscriptionInfo { font-size: 28px !important; }
-  #avatar { width: 120px; height: 120px; font-size: 70px; }
-  #systems { grid-template-columns: repeat(2,1fr); }
+
+  #dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  #leftPanel {
+    margin-bottom:20px;
+  }
+
+  #systems {
+    grid-template-columns: repeat(1,1fr);
+  }
+
+  .card {
+    font-size:28px;
+    padding:30px;
+  }
+
+  #subscriptionSlider {
+    padding:20px;
+    gap:15px;
+  }
+
+  .subCardWrap {
+    width:200px;
+    height:140px;
+  }
+
+  #panelUsername {
+    font-size:36px;
+  }
+
+  #lastUpdate {
+    font-size:30px;
+  }
+
+  #subscriptionInfo {
+    font-size:30px;
+  }
+
+  #avatar {
+    width:120px;
+    height:120px;
+    font-size:70px;
+  }
 }
