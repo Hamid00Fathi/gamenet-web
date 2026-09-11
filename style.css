@@ -332,7 +332,7 @@ body {
 }
 
 /* موبایل */
-@media (max-width:600px) {
+@media (max-width:1200px) {
   body { font-size: 22px !important; }
   .card { font-size: 26px !important; padding: 25px !important; }
   .card h2 { font-size: 30px !important; }
