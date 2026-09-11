@@ -403,6 +403,7 @@ body {
     font-size:40px;
     padding:34px;
     border-radius:26px;
+    position: relative;
   }
 
   .modalSection {
