@@ -15,7 +15,7 @@
     }
 
     #container {
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 0 auto;
       padding: 15px;
     }
@@ -152,7 +152,7 @@
       box-shadow:0 0 10px #000;
     }
 
-    /* نام کاربری و آخرین بروزرسانی */
+    /* نام کاربری */
     #panelUsername {
       font-size:32px;
       font-weight:bold;
@@ -186,7 +186,7 @@
       font-size:24px;
     }
 
-    /* اشتراک منقضی شده */
+    /* اشتراک منقضی */
     #subscriptionExpired {
       display:none;
       background:#1e1e1e;
@@ -214,7 +214,7 @@
       font-weight:bold;
     }
 
-    /* سیستم‌ها */
+    /* سیستم‌ها — بدون اسکرول افقی */
     #systems {
       display:grid;
       grid-template-columns: repeat(4,1fr);
@@ -251,22 +251,23 @@
       font-size:30px;
     }
 
-    /* کارت‌های اشتراک Flip */
+    /* کارت‌های اشتراک — اسلایدی */
     #subscriptionSlider {
       margin-top:25px;
       background:#1e1e1e;
       padding:30px;
       border-radius:20px;
       box-shadow:0 0 15px #000;
+      display:flex;
       overflow-x:auto;
-      white-space:nowrap;
+      gap:20px;
+      scroll-snap-type:x mandatory;
     }
 
     .subCardWrap {
-      display:inline-block;
       width:240px;
       height:160px;
-      margin-right:25px;
+      scroll-snap-align:start;
       perspective:1000px;
     }
 
@@ -338,50 +339,16 @@
       border-radius:10px;
     }
 
-    /* نسخه موبایل */
-    @media (max-width:1200px) {
-      #dashboard {
-        grid-template-columns:1fr;
-      }
-
-      #systems {
-        grid-template-columns: repeat(2,1fr);
-      }
-
-      #panelUsername {
-        font-size:40px;
-      }
-
-      #lastUpdate {
-        font-size:32px;
-      }
-
-      #subscriptionInfo {
-        font-size:30px;
-      }
-
-      .card {
-        font-size:30px;
-        padding:30px;
-      }
-
-      .card h2 {
-        font-size:36px;
-      }
-
-      .quickStatItem {
-        font-size:24px;
-      }
-
-      #rankBadge {
-        font-size:26px;
-      }
-
-      #avatar {
-        width:110px;
-        height:110px;
-        font-size:60px;
-      }
+    /* نسخه موبایل — فونت بزرگ‌تر */
+    @media (max-width:600px) {
+      body { font-size: 22px !important; }
+      .card { font-size: 26px !important; padding: 25px !important; }
+      .card h2 { font-size: 30px !important; }
+      #panelUsername { font-size: 34px !important; }
+      #lastUpdate { font-size: 28px !important; }
+      #subscriptionInfo { font-size: 28px !important; }
+      #avatar { width: 120px; height: 120px; font-size: 70px; }
+      #systems { grid-template-columns: repeat(2,1fr); }
     }
   </style>
 </head>
@@ -521,7 +488,7 @@ function calcDaysLeft(expireDate) {
   return Math.ceil(diff / (1000 * 60 * 60 * 24));
 }
 
-/* اطلاعات اشتراک (API سالم مدل ۱) */
+/* اطلاعات اشتراک */
 async function loadSubscriptionInfo() {
   const res = await fetch(`${BASE_URL}/subscription/${username}`);
   const data = await res.json();
@@ -616,111 +583,3 @@ function renderSystems(systemsObj) {
   else if (score >= 250 && score < 500) rank = "Gold";
   else if (score >= 500 && score < 1000) rank = "Platinum";
   else if (score >= 1000 && score < 2000) rank = "Diamond";
-  else if (score >= 2000) rank = "Immortal";
-
-  document.getElementById("rankBadge").innerText = `Rank: ${rank}`;
-}
-
-/* مودال سیستم */
-function openModal(sys) {
-  const modal = document.getElementById("modal");
-  const content = document.getElementById("modalContent");
-
-  content.innerHTML = `
-    <h2>${sys.name}</h2>
-    <div>وضعیت: ${
-      sys.active === 1 ? "فعال" :
-      sys.active === 2 ? "مکث" :
-      "آزاد"
-    }</div>
-    <div>زمان سپری‌شده: ${sys.elapsed}</div>
-    <div>هزینه زمان: ${safeNum(sys.time_cost)} تومان</div>
-    <h3>خوراکی‌ها:</h3>
-  `;
-
-  const snacksDiv = document.createElement("div");
-
-  if (sys.snacks && sys.snacks.length > 0) {
-    sys.snacks.forEach(item => {
-      const div = document.createElement("div");
-      div.innerHTML = `
-        <span>${item.name} × ${item.qty}</span>
-        <span style="float:left">${safeNum(item.price)} تومان</span>
-      `;
-      snacksDiv.appendChild(div);
-    });
-  } else {
-    snacksDiv.innerHTML = "<div>خوراکی ثبت نشده</div>";
-  }
-
-  content.appendChild(snacksDiv);
-
-  content.innerHTML += `
-    <div>جمع خوراکی‌ها: ${safeNum(sys.snacks_total)} تومان</div>
-    <div>جمع نهایی: ${safeNum(sys.final_total)} تومان</div>
-  `;
-
-  if (sys.customer) {
-    content.innerHTML += `
-      <div>
-        <div>نام مشتری: ${sys.customer.name}</div>
-        <div>کد: ${sys.customer.code}</div>
-        <div>اعتبار: ${safeNum(sys.customer.balance)} تومان</div>
-      </div>
-    `;
-  } else {
-    content.innerHTML += "<div>مشتری ثبت نشده</div>";
-  }
-
-  content.innerHTML += `
-    <div>یادداشت: ${sys.note || "—"}</div>
-  `;
-
-  modal.style.display = "block";
-}
-
-document.getElementById("closeModal").onclick = () => {
-  document.getElementById("modal").style.display = "none";
-};
-
-/* اجرای اولیه */
-(async () => {
-  const active = await checkSubscription(username);
-  await loadSubscriptionInfo();
-
-  if (!active) {
-    document.getElementById("subscriptionExpired").style.display = "block";
-    document.getElementById("systems").innerHTML = "";
-    return;
-  }
-
-  async function refresh() {
-    const data = await loadStatus();
-    if (!data) return;
-
-    document.getElementById("panelUsername").innerText = `گیم‌نت: ${username}`;
-    document.getElementById("lastUpdate").innerText =
-      `آخرین بروزرسانی: ${data.lastUpdate}`;
-
-    renderSystems(data.systems);
-  }
-
-  refresh();
-  setInterval(refresh, 5000);
-})();
-
-/* خروج */
-function logout() {
-  localStorage.removeItem("username");
-  localStorage.removeItem("password");
-  window.location.href = "login.html";
-}
-
-/* تبدیل امن عدد */
-function safeNum(n) {
-  return Number(n || 0).toLocaleString("fa-IR");
-}
-</script>
-
-</body>
-</html>
