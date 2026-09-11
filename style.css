@@ -29,12 +29,6 @@ body {
   transition: 0.2s;
 }
 
-#menuButton:hover {
-  background: #00eaff;
-  color: #000;
-  transform: scale(1.05);
-}
-
 #menuDropdown {
   position: fixed;
   top: 80px;
@@ -53,12 +47,6 @@ body {
   color: #eaeaea;
   cursor: pointer;
   border-bottom: 1px solid #333;
-  transition: 0.2s;
-}
-
-.menuItem:hover {
-  background: #00eaff33;
-  border-radius: 8px;
 }
 
 /* ====== داشبورد ====== */
@@ -142,10 +130,6 @@ body {
   margin-bottom:8px;
 }
 
-.card:hover {
-  transform:translateY(-4px);
-}
-
 .active {
   border-right:15px solid #00ff6a;
 }
@@ -186,10 +170,6 @@ body {
   transition:transform 0.8s;
   transform-style:preserve-3d;
   cursor:pointer;
-}
-
-.subCardFlip.flipped {
-  transform:rotateY(180deg);
 }
 
 .subFront, .subBack {
@@ -251,12 +231,6 @@ body {
   padding:10px 18px;
   border-radius:12px;
   cursor:pointer;
-  z-index:999999;
-}
-
-#closeModalTop:hover {
-  background:#ff6666;
-  transform:scale(1.05);
 }
 
 /* کادرهای مودال */
@@ -266,7 +240,6 @@ body {
   padding:22px;
   border-radius:16px;
   margin-bottom:25px;
-  box-shadow:0 0 12px #000;
 }
 
 .modalSection h3 {
@@ -290,7 +263,6 @@ body {
   padding:22px;
   border-radius:16px;
   margin-bottom:25px;
-  box-shadow:0 0 14px #000;
 }
 
 .finalTotal {
@@ -308,39 +280,14 @@ body {
 /* ====== نسخه موبایل ====== */
 @media (max-width: 1200px) {
 
-  #dashboard {
-    display:block;
-  }
-
   #systems {
     grid-template-columns: repeat(2, 1fr);
     gap:26px;
   }
 
+  /* فقط بزرگ‌تر کردن کارت‌های اشتراک */
   .subCardWrap {
-    min-width:420px;
-    height:300px;
-    padding:30px;
-  }
-
-  .subFront, .subBack {
-    font-size:42px;
-    padding:40px;
-    border-radius:30px;
-  }
-
-  #modalContent {
-    max-width:95%;
-    font-size:40px;
-    padding:34px;
-    border-radius:26px;
-  }
-
-  #closeModalTop {
-    font-size:48px;
-    padding:20px 32px;
-    border-radius:22px;
-    top:30px;
-    left:30px;
+    min-width:350px;
+    height:240px;
   }
 }
