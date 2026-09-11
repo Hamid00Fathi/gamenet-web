@@ -21,9 +21,7 @@
       padding: 15px;
     }
 
-    /* ============================
-       منوی سه‌خط
-    ============================ */
+    /* منوی سه‌خط */
     #menuButton {
       position: fixed;
       top: 15px;
@@ -75,126 +73,193 @@
       color:#00eaff;
     }
 
-    /* ============================
-       داشبورد
-    ============================ */
+    /* داشبورد */
     #dashboard {
       margin-top: 100px;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 20px;
     }
 
+    /* پنل سمت چپ (آواتار + رنک + اطلاعات سریع) */
+    #leftPanel {
+      background:#1e1e1e;
+      border-radius:15px;
+      padding:20px;
+      box-shadow:0 0 15px #000;
+    }
+
+    #avatar {
+      width:80px;
+      height:80px;
+      border-radius:50%;
+      background:radial-gradient(circle at 30% 30%, #fff, #ff00ff);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:40px;
+      margin-bottom:15px;
+      box-shadow:0 0 20px #ff00ff55;
+    }
+
+    #rankBadge {
+      display:inline-block;
+      padding:8px 14px;
+      border-radius:999px;
+      background:#ff00ff;
+      color:#000;
+      font-weight:bold;
+      margin-bottom:15px;
+      box-shadow:0 0 15px #ff00ff55;
+    }
+
+    #progressBox {
+      margin-bottom:15px;
+    }
+
+    #progressLabel {
+      font-size:16px;
+      margin-bottom:5px;
+    }
+
+    #progressBarOuter {
+      width:100%;
+      height:10px;
+      border-radius:999px;
+      background:#333;
+      overflow:hidden;
+    }
+
+    #progressBarInner {
+      height:100%;
+      width:0%;
+      background:linear-gradient(90deg,#00eaff,#ff00ff);
+    }
+
+    #quickStats {
+      margin-top:10px;
+      display:grid;
+      grid-template-columns: repeat(3,1fr);
+      gap:10px;
+    }
+
+    .quickStatItem {
+      background:#252525;
+      border-radius:10px;
+      padding:10px;
+      text-align:center;
+      font-size:14px;
+      box-shadow:0 0 10px #000;
+    }
+
+    .quickStatItem span {
+      display:block;
+    }
+
+    /* نام کاربری و آخرین بروزرسانی */
     #panelUsername {
-      font-size: 26px;
-      font-weight: bold;
-      margin-bottom: 10px;
-      color: #00eaff;
-      background: #1e1e1e;
-      padding: 15px;
-      border-radius: 12px;
-      display: inline-block;
-      box-shadow: 0 0 10px #000;
+      font-size:26px;
+      font-weight:bold;
+      margin-bottom:10px;
+      color:#00eaff;
+      background:#1e1e1e;
+      padding:15px;
+      border-radius:12px;
+      display:inline-block;
+      box-shadow:0 0 10px #000;
     }
 
     #lastUpdate {
-      font-size: 20px;
-      margin-bottom: 20px;
-      color: #cccccc;
-      background: #1e1e1e;
-      padding: 12px;
-      border-radius: 12px;
-      display: inline-block;
-      box-shadow: 0 0 10px #000;
+      font-size:20px;
+      margin-bottom:20px;
+      color:#cccccc;
+      background:#1e1e1e;
+      padding:12px;
+      border-radius:12px;
+      display:inline-block;
+      box-shadow:0 0 10px #000;
     }
 
-    /* ============================
-       کارت اشتراک (Flip Card)
-    ============================ */
+    /* کارت اشتراک فعلی (ساده، نه Flip) */
     #subscriptionInfo {
-      width: 300px;
-      height: 180px;
-      perspective: 1000px;
-      margin-bottom: 20px;
+      background:#1e1e1e;
+      padding:15px;
+      border-radius:12px;
+      margin-bottom:20px;
+      box-shadow:0 0 10px #000;
+      font-size:18px;
     }
 
-    .subCard {
-      width: 100%;
-      height: 100%;
-      position: relative;
-      transition: transform 0.8s;
-      transform-style: preserve-3d;
-      cursor: pointer;
+    #subscriptionInfo p {
+      margin:5px 0;
     }
 
-    .subCard.flip {
-      transform: rotateY(180deg);
+    /* اشتراک منقضی شده */
+    #subscriptionExpired {
+      display:none;
+      background:#1e1e1e;
+      padding:35px;
+      border-radius:15px;
+      margin-bottom:25px;
+      text-align:center;
+      box-shadow:0 0 15px #000;
     }
 
-    .subFront, .subBack {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      backface-visibility: hidden;
-      border-radius: 15px;
-      padding: 20px;
-      box-shadow: 0 0 15px #000;
+    #subscriptionExpired h2 {
+      color:#ff4444;
+      font-size:32px;
+      margin-bottom:15px;
     }
 
-    .subFront {
-      background: linear-gradient(135deg, #00eaff, #006eff);
-      color: #000;
-      font-size: 22px;
-      font-weight: bold;
+    #subscriptionExpired p {
+      font-size:22px;
+      margin:10px 0;
     }
 
-    .subBack {
-      background: #1e1e1e;
-      color: #eaeaea;
-      transform: rotateY(180deg);
-      font-size: 18px;
-      line-height: 1.8;
+    #subscriptionExpired .phone {
+      font-size:28px;
+      color:#00eaff;
+      font-weight:bold;
     }
 
-    /* ============================
-       سیستم‌ها (نئونی ملایم)
-    ============================ */
+    /* سیستم‌ها (نئونی ملایم) */
     #systems {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
+      display:grid;
+      grid-template-columns: repeat(4,1fr);
+      gap:15px;
     }
 
     .card {
-      background: #1e1e1e;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 0 15px rgba(0,255,255,0.15);
-      transition: 0.3s;
-      cursor: pointer;
-      font-size: 20px;
-      border: 1px solid #00eaff33;
+      background:#1e1e1e;
+      padding:20px;
+      border-radius:15px;
+      box-shadow:0 0 15px rgba(0,255,255,0.15);
+      transition:0.3s;
+      cursor:pointer;
+      font-size:20px;
+      border:1px solid #00eaff33;
     }
 
     .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 25px rgba(0,255,255,0.25);
+      transform:translateY(-5px);
+      box-shadow:0 0 25px rgba(0,255,255,0.25);
     }
 
     .active {
-      border-right: 12px solid #00ff6a;
+      border-right:12px solid #00ff6a;
     }
 
     .free {
-      border-right: 12px solid #ff3b3b;
+      border-right:12px solid #ff3b3b;
     }
 
     .card h2 {
-      margin: 0 0 10px 0;
-      color: #00eaff;
-      font-size: 26px;
+      margin:0 0 10px 0;
+      color:#00eaff;
+      font-size:26px;
     }
 
-    /* ============================
-       اسلاید اشتراک‌ها (خفن)
-    ============================ */
+    /* کارت‌های اشتراک خریدنی (Flip) */
     #subscriptionSlider {
       margin-top:25px;
       background:#1e1e1e;
@@ -205,74 +270,116 @@
       white-space:nowrap;
     }
 
-    .subItem {
+    .subCardWrap {
       display:inline-block;
-      background:linear-gradient(135deg,#00eaff,#006eff);
-      padding:25px 35px;
+      width:220px;
+      height:140px;
       margin-right:20px;
+      perspective:1000px;
+    }
+
+    .subCardFlip {
+      width:100%;
+      height:100%;
+      position:relative;
+      transition:transform 0.8s;
+      transform-style:preserve-3d;
+      cursor:pointer;
+    }
+
+    .subCardFlip.flipped {
+      transform:rotateY(180deg);
+    }
+
+    .subFront, .subBack {
+      position:absolute;
+      width:100%;
+      height:100%;
+      backface-visibility:hidden;
       border-radius:20px;
-      font-size:22px;
+      padding:15px;
+      box-shadow:0 0 15px #00eaff;
+      font-size:18px;
+    }
+
+    .subFront {
+      background:linear-gradient(135deg,#00eaff,#006eff);
       color:#000;
       font-weight:bold;
-      box-shadow:0 0 15px #00eaff;
-      transition:0.3s;
     }
 
-    .subItem:hover {
-      transform:scale(1.08);
-      box-shadow:0 0 25px #00eaff;
+    .subBack {
+      background:#252525;
+      color:#eaeaea;
+      transform:rotateY(180deg);
+      font-size:16px;
+      line-height:1.6;
     }
 
-    /* ============================
-       مودال انیمیشنی
-    ============================ */
+    /* مودال انیمیشنی */
     #modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.8);
-      padding: 20px;
-      overflow-y: auto;
-      z-index: 999999;
-      animation: fadeIn 0.4s ease;
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.8);
+      padding:20px;
+      overflow-y:auto;
+      z-index:999999;
+      animation:fadeIn 0.4s ease;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      from { opacity:0; }
+      to { opacity:1; }
     }
 
     #modalContent {
-      background: #222;
-      padding: 25px;
-      border-radius: 20px;
-      color: #fff;
-      font-size: 22px;
-      line-height: 1.8;
-      animation: scaleIn 0.4s ease;
+      background:#222;
+      padding:25px;
+      border-radius:20px;
+      color:#fff;
+      font-size:22px;
+      line-height:1.8;
+      animation:scaleIn 0.4s ease;
     }
 
     @keyframes scaleIn {
-      from { transform: scale(0.7); }
-      to { transform: scale(1); }
+      from { transform:scale(0.7); }
+      to { transform:scale(1); }
     }
 
     #closeModal {
-      margin-top: 20px;
-      padding: 12px 25px;
-      font-size: 20px;
-      background: #ff4444;
-      color: #fff;
-      border: none;
-      border-radius: 10px;
+      margin-top:20px;
+      padding:12px 25px;
+      font-size:20px;
+      background:#ff4444;
+      color:#fff;
+      border:none;
+      border-radius:10px;
     }
 
-    /* ============================
-       نسخه موبایل
-    ============================ */
-    @media (max-width: 1200px) {
+    .customer-box {
+      background:#333;
+      padding:18px;
+      border-radius:12px;
+      margin-top:15px;
+      font-size:20px;
+    }
+
+    .snack-item {
+      display:flex;
+      justify-content:space-between;
+      font-size:20px;
+      margin:10px 0;
+    }
+
+    /* نسخه موبایل */
+    @media (max-width:1200px) {
+      #dashboard {
+        grid-template-columns:1fr;
+      }
       #systems {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2,1fr);
       }
     }
   </style>
@@ -298,45 +405,121 @@
 
 <div id="container">
 
-<div id="dashboard">
+  <div id="dashboard">
 
-  <div id="panelUsername"></div>
-  <div id="lastUpdate"></div>
+    <!-- پنل سمت چپ -->
+    <div id="leftPanel">
+      <div id="avatar">🎮</div>
+      <div id="rankBadge">Rank: Bronze</div>
 
-  <!-- کارت اشتراک -->
-  <div id="subscriptionInfo">
-    <div class="subCard" id="subCard">
-      <div class="subFront">
-        اشتراک فعال  
-        <br>
-        برای دیدن جزئیات کلیک کنید
+      <div id="progressBox">
+        <div id="progressLabel">پیشرفت اشتراک</div>
+        <div id="progressBarOuter">
+          <div id="progressBarInner"></div>
+        </div>
       </div>
-      <div class="subBack">
+
+      <div id="quickStats">
+        <div class="quickStatItem">
+          <span>سیستم فعال</span>
+          <span id="qsActive">0</span>
+        </div>
+        <div class="quickStatItem">
+          <span>سیستم آزاد</span>
+          <span id="qsFree">0</span>
+        </div>
+        <div class="quickStatItem">
+          <span>جمع هزینه</span>
+          <span id="qsTotalCost">0</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- پنل اصلی -->
+    <div>
+
+      <div id="panelUsername"></div>
+      <div id="lastUpdate"></div>
+
+      <!-- اطلاعات اشتراک فعلی -->
+      <div id="subscriptionInfo">
         <p id="subExpire"></p>
         <p id="subDaysLeft"></p>
       </div>
+
+      <!-- اشتراک منقضی شده -->
+      <div id="subscriptionExpired">
+        <h2>اشتراک شما فعال نیست</h2>
+        <p>برای استفاده از پنل باید اشتراک تهیه کنید.</p>
+        <p>برای خرید اشتراک با پشتیبانی تماس بگیرید:</p>
+        <p class="phone">09187343793</p>
+      </div>
+
+      <!-- سیستم‌ها -->
+      <div id="systems"></div>
+
+      <!-- کارت‌های اشتراک خریدنی (Flip) -->
+      <div id="subscriptionSlider">
+        <div class="subCardWrap">
+          <div class="subCardFlip" data-plan="1m">
+            <div class="subFront">
+              اشتراک ۱ ماهه<br>
+              150,000 تومان
+            </div>
+            <div class="subBack">
+              مناسب شروع کار<br>
+              دسترسی کامل به پنل<br>
+              پشتیبانی پایه
+            </div>
+          </div>
+        </div>
+
+        <div class="subCardWrap">
+          <div class="subCardFlip" data-plan="3m">
+            <div class="subFront">
+              اشتراک ۳ ماهه<br>
+              350,000 تومان
+            </div>
+            <div class="subBack">
+              صرفه‌جویی در هزینه<br>
+              دسترسی کامل به پنل<br>
+              پشتیبانی استاندارد
+            </div>
+          </div>
+        </div>
+
+        <div class="subCardWrap">
+          <div class="subCardFlip" data-plan="6m">
+            <div class="subFront">
+              اشتراک ۶ ماهه<br>
+              600,000 تومان
+            </div>
+            <div class="subBack">
+              مناسب گیم‌نت‌های فعال<br>
+              دسترسی کامل به پنل<br>
+              پشتیبانی پیشرفته
+            </div>
+          </div>
+        </div>
+
+        <div class="subCardWrap">
+          <div class="subCardFlip" data-plan="12m">
+            <div class="subFront">
+              اشتراک ۱۲ ماهه<br>
+              1,000,000 تومان
+            </div>
+            <div class="subBack">
+              بهترین انتخاب بلندمدت<br>
+              دسترسی کامل به پنل<br>
+              پشتیبانی ویژه
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
+
   </div>
-
-  <!-- اشتراک منقضی شده -->
-  <div id="subscriptionExpired">
-    <h2>اشتراک شما فعال نیست</h2>
-    <p>برای استفاده از پنل باید اشتراک تهیه کنید.</p>
-    <p class="phone">09187343793</p>
-  </div>
-
-  <!-- سیستم‌ها -->
-  <div id="systems"></div>
-
-  <!-- اسلاید اشتراک‌ها -->
-  <div id="subscriptionSlider">
-    <div class="subItem">اشتراک ۱ ماهه — 150,000 تومان</div>
-    <div class="subItem">اشتراک ۳ ماهه — 350,000 تومان</div>
-    <div class="subItem">اشتراک ۶ ماهه — 600,000 تومان</div>
-    <div class="subItem">اشتراک ۱۲ ماهه — 1,000,000 تومان</div>
-  </div>
-
-</div>
 
 </div>
 
@@ -356,10 +539,12 @@ document.getElementById("menuButton").onclick = () => {
   menu.style.display = menu.style.display === "block" ? "none" : "block";
 };
 
-/* کارت اشتراک Flip */
-document.getElementById("subCard").onclick = () => {
-  document.getElementById("subCard").classList.toggle("flip");
-};
+/* Flip کارت‌های اشتراک خریدنی */
+document.querySelectorAll(".subCardFlip").forEach(card => {
+  card.addEventListener("click", () => {
+    card.classList.toggle("flipped");
+  });
+});
 
 /* محاسبه روزهای مانده */
 function calcDaysLeft(expireDate) {
@@ -393,6 +578,15 @@ async function loadSubscriptionInfo() {
     data.active
       ? `مانده: ${daysLeft} روز`
       : `غیرفعال`;
+
+  /* Progress Bar اشتراک (شبیه‌سازی) */
+  let totalDays = 90; // فرضاً اشتراک ۳ ماهه
+  let used = totalDays - daysLeft;
+  let percent = totalDays > 0 ? Math.max(0, Math.min(100, (used / totalDays) * 100)) : 0;
+  document.getElementById("progressBarInner").style.width = percent + "%";
+
+  /* رنک گیمینگ بر اساس daysLeft + active systems (شبیه‌سازی اولیه) */
+  // این بخش بعداً می‌تونه با API واقعی جایگزین بشه
 }
 
 /* چک اشتراک */
@@ -413,14 +607,25 @@ function renderSystems(systemsObj) {
   const systemsDiv = document.getElementById("systems");
   systemsDiv.innerHTML = "";
 
+  let activeCount = 0;
+  let freeCount = 0;
+  let totalCost = 0;
+
   Object.keys(systemsObj).forEach(key => {
     const sys = systemsObj[key];
 
     const card = document.createElement("div");
     card.className = "card";
 
-    if (sys.active === 1 || sys.active === 2) card.classList.add("active");
-    else card.classList.add("free");
+    if (sys.active === 1 || sys.active === 2) {
+      card.classList.add("active");
+      activeCount++;
+    } else {
+      card.classList.add("free");
+      freeCount++;
+    }
+
+    totalCost += Number(sys.final_total || 0);
 
     card.innerHTML = `
       <h2>${sys.name}</h2>
@@ -438,6 +643,26 @@ function renderSystems(systemsObj) {
 
     systemsDiv.appendChild(card);
   });
+
+  /* اطلاعات سریع سمت چپ */
+  document.getElementById("qsActive").innerText = activeCount;
+  document.getElementById("qsFree").innerText = freeCount;
+  document.getElementById("qsTotalCost").innerText = safeNum(totalCost) + " تومان";
+
+  /* رنک گیمینگ شبیه‌سازی‌شده */
+  let score = 0;
+  score += activeCount * 20;
+  score += freeCount * 5;
+  score += totalCost / 10000;
+
+  let rank = "Bronze";
+  if (score >= 100 && score < 250) rank = "Silver";
+  else if (score >= 250 && score < 500) rank = "Gold";
+  else if (score >= 500 && score < 1000) rank = "Platinum";
+  else if (score >= 1000 && score < 2000) rank = "Diamond";
+  else if (score >= 2000) rank = "Immortal";
+
+  document.getElementById("rankBadge").innerText = `Rank: ${rank}`;
 }
 
 /* مودال */
@@ -461,7 +686,7 @@ function openModal(sys) {
 
   const snacksDiv = document.createElement("div");
 
-  if (sys.snacks.length > 0) {
+  if (sys.snacks && sys.snacks.length > 0) {
     sys.snacks.forEach(item => {
       const div = document.createElement("div");
       div.className = "snack-item";
