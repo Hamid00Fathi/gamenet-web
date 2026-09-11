@@ -2,7 +2,7 @@
 <html lang="fa">
 <head>
   <meta charset="UTF-8">
-  title>داشبورد گیم‌نت</title>
+  <title>داشبورد گیم‌نت</title>
 
   <style>
     body {
@@ -36,9 +36,9 @@
       top: 70px;
       right: 15px;
       background: #1e1e1e;
-      width: 260px;
+      width: 280px;
       border-radius: 12px;
-      padding: 10px;
+      padding: 15px;
       display: none;
       z-index: 999999;
       box-shadow: 0 0 15px #000;
@@ -57,11 +57,21 @@
       color: black;
     }
 
+    #menuSubscriptionBox {
+      background:#252525;
+      padding:15px;
+      border-radius:12px;
+      margin-bottom:10px;
+      box-shadow:0 0 10px #000;
+      font-size:16px;
+      color:#00eaff;
+    }
+
     /* ============================
        داشبورد
     ============================ */
     #dashboard {
-      margin-top: 20px;
+      margin-top: 80px;
     }
 
     #panelUsername {
@@ -92,11 +102,12 @@
     ============================ */
     #subscriptionInfo {
       background:#1e1e1e;
-      padding:15px;
+      padding:20px;
       border-radius:12px;
       margin-bottom:20px;
       box-shadow:0 0 10px #000;
       font-size:18px;
+      border-right:6px solid #00eaff;
     }
 
     #subscriptionInfo p {
@@ -172,36 +183,34 @@
     }
 
     /* ============================
-       اسلاید اشتراک‌ها
+       اسلاید اشتراک‌ها (خفن)
     ============================ */
     #subscriptionSlider {
       margin-top:25px;
       background:#1e1e1e;
       padding:20px;
       border-radius:15px;
-      box-shadow:0 0 10px #000;
+      box-shadow:0 0 15px #000;
       overflow-x:auto;
       white-space:nowrap;
     }
 
-    #subscriptionSlider::-webkit-scrollbar {
-      height: 8px;
-    }
-
-    #subscriptionSlider::-webkit-scrollbar-thumb {
-      background: #00eaff;
-      border-radius: 10px;
-    }
-
     .subItem {
       display:inline-block;
-      background:#252525;
-      padding:15px 25px;
-      margin-right:15px;
-      border-radius:12px;
-      font-size:18px;
-      color:#eaeaea;
-      box-shadow:0 0 10px #000;
+      background:linear-gradient(135deg,#00eaff,#006eff);
+      padding:20px 30px;
+      margin-right:20px;
+      border-radius:15px;
+      font-size:20px;
+      color:#000;
+      font-weight:bold;
+      box-shadow:0 0 15px #00eaff;
+      transition:0.3s;
+    }
+
+    .subItem:hover {
+      transform:scale(1.08);
+      box-shadow:0 0 25px #00eaff;
     }
 
     /* ============================
@@ -254,7 +263,7 @@
     /* ============================
        نسخه موبایل
     ============================ */
-    @media (max-width: 1200px) {
+    @media (max-width: 900px) {
 
       #menuButton {
         font-size: 45px;
@@ -267,9 +276,8 @@
         top: 110px;
       }
 
-      .menuItem {
-        font-size: 32px;
-        padding: 25px;
+      #dashboard {
+        margin-top: 140px;
       }
 
       #panelUsername {
@@ -341,6 +349,12 @@
 
 <!-- منوی مخفی -->
 <div id="menuDropdown">
+
+  <div id="menuSubscriptionBox">
+    <div id="menuSubExpire"></div>
+    <div id="menuSubDaysLeft"></div>
+  </div>
+
   <div class="menuItem">مشتری‌ها</div>
   <div class="menuItem">خوراکی‌ها</div>
   <div class="menuItem">گزارش‌ها</div>
@@ -367,17 +381,6 @@
     <p>برای استفاده از پنل باید اشتراک تهیه کنید.</p>
     <p>برای خرید اشتراک با پشتیبانی تماس بگیرید:</p>
     <p class="phone">09187343793</p>
-
-    <hr>
-
-    <h3 style="font-size:28px; margin-bottom:15px;">لیست اشتراک‌ها:</h3>
-
-    <div style="font-size:22px; line-height:1.8;">
-      • اشتراک ۱ ماهه — 150,000 تومان<br>
-      • اشتراک ۳ ماهه — 350,000 تومان<br>
-      • اشتراک ۶ ماهه — 600,000 تومان<br>
-      • اشتراک ۱۲ ماهه — 1,000,000 تومان<br>
-    </div>
   </div>
 
   <!-- سیستم‌ها -->
@@ -438,6 +441,14 @@ async function loadSubscriptionInfo() {
     data.active
       ? `روزهای مانده: ${daysLeft} روز`
       : `اشتراک شما فعال نیست`;
+
+  document.getElementById("menuSubExpire").innerText =
+    `پایان اشتراک: ${expire}`;
+
+  document.getElementById("menuSubDaysLeft").innerText =
+    data.active
+      ? `مانده: ${daysLeft} روز`
+      : `غیرفعال`;
 }
 
 /* ============================
@@ -594,19 +605,4 @@ document.getElementById("closeModal").onclick = () => {
 /* ============================
    خروج
 ============================ */
-function logout() {
-  localStorage.removeItem("username");
-  localStorage.removeItem("password");
-  window.location.href = "login.html";
-}
-
-/* ============================
-   تابع امن عدد
-============================ */
-function safeNum(n) {
-  return Number(n || 0).toLocaleString("fa-IR");
-}
-</script>
-
-</body>
-</html>
+function logout
