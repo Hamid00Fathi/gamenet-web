@@ -87,7 +87,7 @@
       box-shadow:0 0 15px #000;
     }
 
-    /* آواتار کارتونی گیمری */
+    /* آواتار کارتونی گیمری — مدل ۳ */
     #avatar {
       width:90px;
       height:90px;
@@ -311,36 +311,46 @@
       border-radius:10px;
     }
 
-    /* نسخه موبایل */
+    /* نسخه موبایل — فونت بزرگ‌تر */
     @media (max-width:1200px) {
+
       #dashboard {
         grid-template-columns:1fr;
       }
+
       #systems {
         grid-template-columns: repeat(2,1fr);
       }
+
+      #panelUsername {
+        font-size:40px;
+      }
+
+      #lastUpdate {
+        font-size:32px;
+      }
+
+      #subscriptionInfo {
+        font-size:30px;
+      }
+
       .card {
         font-size:30px;
         padding:30px;
       }
+
       .card h2 {
         font-size:36px;
       }
-      #subscriptionInfo {
-        font-size:30px;
-      }
-      #panelUsername {
-        font-size:40px;
-      }
-      #lastUpdate {
-        font-size:32px;
-      }
+
       .quickStatItem {
         font-size:24px;
       }
+
       #rankBadge {
         font-size:26px;
       }
+
       #avatar {
         width:110px;
         height:110px;
@@ -598,6 +608,4 @@ function openModal(sys) {
     <h2>${sys.name}</h2>
     <div class="customer-box">وضعیت: ${
       sys.active === 1 ? "فعال" :
-      sys.active === 2 ? "مکث" :
-      "آزاد"
-    }</div>
+      sys.active === 2 ? "مک
