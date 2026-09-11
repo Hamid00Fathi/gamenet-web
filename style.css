@@ -303,7 +303,7 @@ body {
 /* ===========================
    نسخه موبایل
 =========================== */
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
 
   #dashboard {
     flex-direction: column;
