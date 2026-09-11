@@ -42,18 +42,10 @@ body {
 
 .menuItem {
   padding: 18px;
-  font-size: 20px;
+  font-size: 22px;
   color: #eaeaea;
   cursor: pointer;
   border-bottom: 1px solid #333;
-}
-
-#menuSubscriptionBox {
-  background:#252525;
-  padding:15px;
-  border-radius:12px;
-  margin-bottom:10px;
-  color:#00eaff;
 }
 
 /* ====== داشبورد ====== */
@@ -117,7 +109,7 @@ body {
 /* ====== سیستم‌ها ====== */
 #systems {
   display:grid;
-  grid-template-columns: repeat(3, 1fr); /* دسکتاپ = 3 ستون */
+  grid-template-columns: repeat(3, 1fr);
   gap:20px;
 }
 
@@ -150,13 +142,14 @@ body {
   padding:30px;
   border-radius:20px;
   display:flex;
-  overflow-x:auto;
+  overflow-x:hidden;
   gap:20px;
+  scroll-behavior:smooth;
 }
 
 .subCardWrap {
-  width:240px;
-  height:160px;
+  min-width:300px;
+  height:180px;
   perspective:1000px;
 }
 
@@ -179,7 +172,8 @@ body {
   height:100%;
   backface-visibility:hidden;
   border-radius:20px;
-  padding:20px;
+  padding:25px;
+  font-size:26px;
 }
 
 .subFront {
@@ -263,15 +257,19 @@ body {
   font-size:24px;
 }
 
-/* ====== موبایل واقعی ====== */
+/* ====== موبایل ====== */
 @media (max-width:1200px) {
+
+  #menuButton {
+    right: 5px;
+  }
 
   #dashboard {
     grid-template-columns: 1fr;
   }
 
   #systems {
-    grid-template-columns: repeat(2, 1fr); /* گوشی = 2 ستون */
+    grid-template-columns: repeat(2, 1fr);
   }
 
   #leftPanel {
@@ -301,27 +299,17 @@ body {
     padding:35px;
   }
 
-  #modalContent {
-    font-size:32px;
-    padding:35px;
-  }
-
-  .snack-item {
-    font-size:30px;
-    padding:20px;
-  }
-
-  .total-box {
-    font-size:34px;
-    padding:25px;
-  }
-
-  .customer-box {
-    font-size:30px;
-    padding:25px;
-  }
-
   #subscriptionSlider {
     padding:20px;
+  }
+
+  .subCardWrap {
+    min-width:350px;
+    height:200px;
+  }
+
+  .subFront, .subBack {
+    font-size:32px;
+    padding:30px;
   }
 }
