@@ -33,7 +33,7 @@ body {
   top: 80px;
   right: 15px;
   background: #1e1e1e;
-  width: 300px;
+  width: 280px;
   border-radius: 15px;
   padding: 15px;
   display: none;
@@ -41,64 +41,63 @@ body {
 }
 
 .menuItem {
-  padding: 18px;
-  font-size: 22px;
+  padding: 14px;
+  font-size: 18px;
   color: #eaeaea;
   cursor: pointer;
   border-bottom: 1px solid #333;
 }
 
-/* ====== داشبورد ====== */
+/* ====== داشبورد دسکتاپ ====== */
 #dashboard {
-  margin-top: 100px;
+  margin-top: 90px;
   display: grid;
-  grid-template-columns: 260px 1fr; /* کوچیک‌تر */
+  grid-template-columns: 260px 1fr;
   gap: 20px;
 }
 
-/* ====== پنل سمت چپ ====== */
+/* پنل سمت چپ دسکتاپ */
 #leftPanel {
   background:#1e1e1e;
   border-radius:15px;
-  padding:20px;
-  font-size:18px;
+  padding:18px;
+  font-size:16px;
 }
 
 #avatar {
-  width:80px;
-  height:80px;
+  width:70px;
+  height:70px;
   border-radius:50%;
   background:#ff00ff;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:45px;
-  margin-bottom:15px;
+  font-size:40px;
+  margin-bottom:12px;
 }
 
 #rankBadge {
-  font-size:20px;
-  padding:8px 15px;
+  font-size:18px;
+  padding:6px 12px;
   border-radius:999px;
   background:#ff00ff;
   color:#000;
   font-weight:bold;
-  margin-bottom:20px;
+  margin-bottom:15px;
 }
 
-/* ====== Progress ====== */
 #progressLabel {
-  font-size:18px;
-  margin-bottom:10px;
+  font-size:16px;
+  margin-bottom:8px;
 }
 
 #progressBarOuter {
   width:100%;
-  height:12px;
+  height:10px;
   background:#333;
   border-radius:999px;
   overflow:hidden;
-  margin-bottom:20px;
+  margin-bottom:15px;
 }
 
 #progressBarInner {
@@ -107,55 +106,63 @@ body {
   background:linear-gradient(90deg,#00eaff,#ff00ff);
 }
 
-/* ====== سیستم‌ها ====== */
+/* ====== سیستم‌ها دسکتاپ ====== */
 #systems {
   display:grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap:15px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap:12px;
 }
 
 .card {
   background:#1e1e1e;
-  padding:15px;
-  border-radius:12px;
+  padding:14px;
+  border-radius:10px;
   border:1px solid #00eaff33;
-  font-size:18px;
+  font-size:16px;
   cursor:pointer;
   transition:0.3s;
-  width: 100%; /* باریک‌تر */
 }
 
 .card h2 {
-  font-size:20px;
+  font-size:18px;
+  margin-bottom:8px;
 }
 
 .card:hover {
-  transform:translateY(-5px);
+  transform:translateY(-4px);
 }
 
 .active {
-  border-right:10px solid #00ff6a;
+  border-right:8px solid #00ff6a;
 }
 
 .free {
-  border-right:10px solid #ff3b3b;
+  border-right:8px solid #ff3b3b;
 }
 
-/* ====== کارت‌های اشتراک ====== */
+/* ====== اطلاعات بالا دسکتاپ ====== */
+#panelUsername,
+#lastUpdate,
+#subscriptionInfo {
+  font-size:16px;
+  margin-bottom:8px;
+}
+
+/* ====== اسلایدر اشتراک دسکتاپ ====== */
 #subscriptionSlider {
-  margin-top:25px;
+  margin-top:20px;
   background:#1e1e1e;
-  padding:25px;
-  border-radius:20px;
+  padding:18px;
+  border-radius:16px;
   display:flex;
   overflow-x:hidden;
-  gap:20px;
+  gap:14px;
   scroll-behavior:smooth;
 }
 
 .subCardWrap {
-  min-width:240px; /* کوچیک‌تر */
-  height:150px;
+  min-width:220px;
+  height:140px;
   perspective:1000px;
 }
 
@@ -177,9 +184,9 @@ body {
   width:100%;
   height:100%;
   backface-visibility:hidden;
-  border-radius:20px;
-  padding:18px;
-  font-size:18px;
+  border-radius:16px;
+  padding:16px;
+  font-size:16px;
 }
 
 .subFront {
@@ -208,82 +215,157 @@ body {
 
 #modalContent {
   background:#1e1e1e;
-  padding:30px;
-  border-radius:20px;
-  max-width:700px;
+  padding:26px;
+  border-radius:18px;
+  max-width:640px;
   margin:auto;
   box-shadow:0 0 25px #000;
-  font-size:22px;
+  font-size:18px;
   line-height:1.8;
 }
 
 #closeModal {
   display:block;
-  margin:25px auto 0 auto;
-  padding:15px 40px;
-  font-size:22px;
+  margin:22px auto 0 auto;
+  padding:12px 32px;
+  font-size:18px;
   background:#ff4444;
   border:none;
-  border-radius:12px;
+  border-radius:10px;
   color:#fff;
   cursor:pointer;
   box-shadow:0 0 10px #000;
 }
 
-/* ====== موبایل ====== */
-@media (max-width:1200px) {
+/* =========================
+   نسخهٔ کاملاً جدا برای گوشی
+   ========================= */
+@media (max-width: 768px) {
+
+  /* کل صفحه روی گوشی */
+  #container {
+    max-width: 100%;
+    padding: 10px;
+  }
 
   #dashboard {
-    grid-template-columns: 1fr;
+    margin-top: 70px;
+    display: block; /* دیگه گرید نیست، کاملاً ستونی */
   }
 
-  #systems {
-    grid-template-columns: repeat(2, 1fr);
-    gap:30px;
-  }
-
-  .card {
-    padding:55px; /* خیلی بزرگ‌تر */
-    font-size:42px; /* خیلی بزرگ‌تر */
-  }
-
-  .card h2 {
-    font-size:48px; /* خیلی بزرگ‌تر */
-  }
-
+  /* پنل سمت چپ روی گوشی → تبدیل به هدر بزرگ */
   #leftPanel {
-    font-size:40px;
-    padding:40px;
+    margin-bottom: 20px;
+    padding: 28px;
+    font-size:32px;
+    border-radius:20px;
   }
 
   #avatar {
-    width:150px;
-    height:150px;
-    font-size:90px;
+    width:140px;
+    height:140px;
+    font-size:80px;
+    margin-bottom:20px;
   }
 
   #rankBadge {
-    font-size:40px;
-    padding:20px 30px;
+    font-size:34px;
+    padding:16px 26px;
+    margin-bottom:25px;
   }
 
+  #progressLabel {
+    font-size:32px;
+    margin-bottom:14px;
+  }
+
+  #progressBarOuter {
+    height:18px;
+    margin-bottom:25px;
+  }
+
+  /* اطلاعات بالا روی گوشی */
   #panelUsername,
   #lastUpdate,
   #subscriptionInfo {
-    font-size:42px;
+    font-size:34px;
+    margin-bottom:12px;
   }
 
+  /* سیستم‌ها روی گوشی → ستون تکی، کارت‌های خیلی بزرگ */
+  #systems {
+    display:block; /* نه گرید، نه چندستونه */
+  }
+
+  .card {
+    margin-bottom:18px;
+    padding:50px;
+    border-radius:24px;
+    font-size:40px;
+  }
+
+  .card h2 {
+    font-size:46px;
+    margin-bottom:18px;
+  }
+
+  .active {
+    border-right:16px solid #00ff6a;
+  }
+
+  .free {
+    border-right:16px solid #ff3b3b;
+  }
+
+  /* اسلایدر اشتراک روی گوشی → تمام عرض، کارت‌های خیلی بزرگ */
   #subscriptionSlider {
-    padding:25px;
+    margin-top:30px;
+    padding:24px;
+    border-radius:24px;
+    display:flex;
+    overflow-x:auto;
+    gap:20px;
   }
 
   .subCardWrap {
-    min-width:380px;
-    height:250px;
+    min-width:420px;
+    height:260px;
   }
 
   .subFront, .subBack {
     font-size:38px;
-    padding:35px;
+    padding:32px;
+    border-radius:24px;
+  }
+
+  /* مودال روی گوشی */
+  #modalContent {
+    max-width:95%;
+    font-size:36px;
+    padding:32px;
+    border-radius:24px;
+  }
+
+  #closeModal {
+    font-size:34px;
+    padding:18px 40px;
+    border-radius:18px;
+  }
+
+  /* منو روی گوشی */
+  #menuButton {
+    font-size:46px;
+    padding:14px 22px;
+  }
+
+  #menuDropdown {
+    width: 90%;
+    right: 5%;
+    font-size:32px;
+  }
+
+  .menuItem {
+    font-size:32px;
+    padding:20px;
   }
 }
