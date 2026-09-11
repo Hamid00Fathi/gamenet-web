@@ -52,7 +52,7 @@ body {
 #dashboard {
   margin-top: 100px;
   display: grid;
-  grid-template-columns: 280px 1fr; /* کوچیک‌تر برای دسکتاپ */
+  grid-template-columns: 260px 1fr; /* کوچیک‌تر */
   gap: 20px;
 }
 
@@ -61,7 +61,7 @@ body {
   background:#1e1e1e;
   border-radius:15px;
   padding:20px;
-  font-size:18px; /* کوچیک‌تر روی دسکتاپ */
+  font-size:18px;
 }
 
 #avatar {
@@ -110,22 +110,23 @@ body {
 /* ====== سیستم‌ها ====== */
 #systems {
   display:grid;
-  grid-template-columns: repeat(3, 1fr); /* دسکتاپ = 3 ستون */
-  gap:15px; /* کوچیک‌تر */
+  grid-template-columns: repeat(3, 1fr);
+  gap:15px;
 }
 
 .card {
   background:#1e1e1e;
-  padding:18px; /* کوچیک‌تر */
+  padding:15px;
   border-radius:12px;
   border:1px solid #00eaff33;
-  font-size:18px; /* کوچیک‌تر */
+  font-size:18px;
   cursor:pointer;
   transition:0.3s;
+  width: 100%; /* باریک‌تر */
 }
 
 .card h2 {
-  font-size:20px; /* کوچیک‌تر */
+  font-size:20px;
 }
 
 .card:hover {
@@ -153,8 +154,8 @@ body {
 }
 
 .subCardWrap {
-  min-width:260px; /* کوچیک‌تر روی دسکتاپ */
-  height:160px;
+  min-width:240px; /* کوچیک‌تر */
+  height:150px;
   perspective:1000px;
 }
 
@@ -177,8 +178,8 @@ body {
   height:100%;
   backface-visibility:hidden;
   border-radius:20px;
-  padding:20px;
-  font-size:20px; /* کوچیک‌تر */
+  padding:18px;
+  font-size:18px;
 }
 
 .subFront {
@@ -237,52 +238,52 @@ body {
   }
 
   #systems {
-    grid-template-columns: repeat(2, 1fr); /* گوشی = 2 ستون */
-    gap:25px;
+    grid-template-columns: repeat(2, 1fr);
+    gap:30px;
   }
 
   .card {
-    padding:40px; /* بزرگ‌تر */
-    font-size:34px; /* بزرگ‌تر */
+    padding:55px; /* خیلی بزرگ‌تر */
+    font-size:42px; /* خیلی بزرگ‌تر */
   }
 
   .card h2 {
-    font-size:38px; /* بزرگ‌تر */
+    font-size:48px; /* خیلی بزرگ‌تر */
   }
 
   #leftPanel {
-    font-size:34px; /* بزرگ‌تر */
-    padding:35px;
+    font-size:40px;
+    padding:40px;
   }
 
   #avatar {
-    width:130px;
-    height:130px;
-    font-size:80px;
+    width:150px;
+    height:150px;
+    font-size:90px;
   }
 
   #rankBadge {
-    font-size:34px;
-    padding:18px 28px;
+    font-size:40px;
+    padding:20px 30px;
   }
 
   #panelUsername,
   #lastUpdate,
   #subscriptionInfo {
-    font-size:36px;
+    font-size:42px;
   }
 
   #subscriptionSlider {
-    padding:20px;
+    padding:25px;
   }
 
   .subCardWrap {
-    min-width:350px; /* بزرگ‌تر */
-    height:220px;
+    min-width:380px;
+    height:250px;
   }
 
   .subFront, .subBack {
-    font-size:32px; /* بزرگ‌تر */
-    padding:30px;
+    font-size:38px;
+    padding:35px;
   }
 }
