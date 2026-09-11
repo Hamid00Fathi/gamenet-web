@@ -154,23 +154,30 @@
     }
 
     registerBtn.onclick = async () => {
-      const username = document.getElementById("username").value.trim();
-      const password = document.getElementById("password").value.trim();
-      const confirmPassword = document.getElementById("confirmPassword").value.trim();
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value.trim();
+  const confirmPassword = document.getElementById("confirmPassword").value.trim();
 
-      errorEl.textContent = "";
+  errorEl.textContent = "";
 
-      if (!username || !password || !confirmPassword) {
-        errorEl.textContent = "تمام فیلدها را وارد کنید.";
-        return;
-      }
+  if (!username || !password || !confirmPassword) {
+    errorEl.textContent = "تمام فیلدها را وارد کنید.";
+    return;
+  }
 
-      if (password !== confirmPassword) {
-        errorEl.textContent = "پسورد و تایید پسورد یکسان نیستند.";
-        return;
-      }
+  // جلوگیری از فاصله در یوزرنیم
+  if (username.includes(" ")) {
+    errorEl.textContent = "یوزرنیم نباید شامل فاصله باشد.";
+    return;
+  }
 
-      showLoading();
+  if (password !== confirmPassword) {
+    errorEl.textContent = "پسورد و تایید پسورد یکسان نیستند.";
+    return;
+  }
+
+  showLoading();
+
 
       // چک وجود کاربر
       try {
