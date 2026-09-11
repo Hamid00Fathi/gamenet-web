@@ -26,6 +26,14 @@ body {
   border-radius: 12px;
   cursor: pointer;
   z-index: 999999;
+  transition: 0.2s;
+}
+
+/* سلکت‌طور شدن منو */
+#menuButton:hover {
+  background: #00eaff;
+  color: #000;
+  transform: scale(1.05);
 }
 
 #menuDropdown {
@@ -46,6 +54,12 @@ body {
   color: #eaeaea;
   cursor: pointer;
   border-bottom: 1px solid #333;
+  transition: 0.2s;
+}
+
+.menuItem:hover {
+  background: #00eaff33;
+  border-radius: 8px;
 }
 
 /* ====== داشبورد دسکتاپ ====== */
@@ -153,17 +167,25 @@ body {
 #subscriptionSlider {
   margin-top:20px;
   background:#1e1e1e;
-  padding:18px;
+  padding:22px;
   border-radius:16px;
   display:flex;
-  overflow-x:auto; /* مهم: جلوگیری از نصفه دیده شدن */
-  gap:18px;
+  overflow-x:auto; /* جلوگیری از روی‌هم‌افتادن */
+  gap:22px;
   scroll-behavior:smooth;
 }
 
+/* کادر اشتراک هماهنگ */
 .subCardWrap {
-  min-width:180px; /* کوتاه‌تر */
-  height:150px;
+  min-width:200px;
+  height:180px;
+  background:#1e1e1e;
+  border-radius:18px;
+  padding:16px; /* پدینگ هماهنگ */
+  box-sizing: border-box;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   perspective:1000px;
 }
 
@@ -185,9 +207,10 @@ body {
   width:100%;
   height:100%;
   backface-visibility:hidden;
-  border-radius:16px;
-  padding:14px;
-  font-size:18px;
+  border-radius:18px;
+  padding:20px;
+  font-size:20px;
+  box-sizing: border-box;
 }
 
 .subFront {
@@ -234,7 +257,6 @@ body {
   margin-bottom:20px;
 }
 
-/* عنوان هر بخش مودال */
 .modalSection h3 {
   margin-top:0;
   margin-bottom:12px;
@@ -307,28 +329,22 @@ body {
     margin-bottom:12px;
   }
 
+  /* گوشی: دو سیستم در یک ردیف */
   #systems {
-    display:block;
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap:26px;
   }
 
   .card {
-    margin-bottom:20px;
-    padding:55px;
+    padding:45px;
     border-radius:26px;
-    font-size:46px;
+    font-size:40px;
   }
 
   .card h2 {
-    font-size:52px;
+    font-size:48px;
     margin-bottom:20px;
-  }
-
-  .active {
-    border-right:18px solid #00ff6a;
-  }
-
-  .free {
-    border-right:18px solid #ff3b3b;
   }
 
   #subscriptionSlider {
@@ -341,12 +357,13 @@ body {
   }
 
   .subCardWrap {
-    min-width:420px;
+    min-width:380px;
     height:260px;
+    padding:26px;
   }
 
   .subFront, .subBack {
-    font-size:40px;
+    font-size:38px;
     padding:34px;
     border-radius:26px;
   }
