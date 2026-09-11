@@ -213,7 +213,7 @@ function renderCustomer(c) {
 }
 
 // ===============================
-//  مودال کامل سیستم (با دکمه خروج)
+//  مودال کامل سیستم (ترتیب قبلی + دکمه خروج)
 // ===============================
 function openModalFull(sys) {
   const modal = document.getElementById("modal");
@@ -223,13 +223,23 @@ function openModalFull(sys) {
     <button id="closeModalTop">✖</button>
 
     <div class="modalSection">
-      <h3>زمان سپری شده</h3>
-      <p>${sys.elapsed || "—"}</p>
+      <h3>اطلاعات سیستم</h3>
+      <p>نام سیستم: ${sys.name}</p>
+      <p>وضعیت: ${
+        sys.active === 1 ? "فعال" :
+        sys.active === 2 ? "مکث" :
+        "آزاد"
+      }</p>
+      <p>زمان سپری شده: ${sys.elapsed || "—"}</p>
     </div>
 
-    <div class="modalSection">
-      <h3>هزینه زمان</h3>
-      <p>${formatPrice(sys.time_cost)} تومان</p>
+    <div class="costBox">
+      <h3>هزینه‌ها</h3>
+      <p>هزینه زمان: ${formatPrice(sys.time_cost)} تومان</p>
+      <p>جمع خوراکی‌ها: ${formatPrice(sys.snacks_total)} تومان</p>
+      <div class="finalTotal">
+        هزینه نهایی: ${formatPrice(sys.final_total)} تومان
+      </div>
     </div>
 
     <div class="modalSection">
@@ -237,13 +247,9 @@ function openModalFull(sys) {
       ${renderSnacks(sys.snacks)}
     </div>
 
-    <div class="costBox">
-      <h3>جمع خوراکی‌ها</h3>
-      <p>${formatPrice(sys.snacks_total)} تومان</p>
-    </div>
-
-    <div class="finalTotal">
-      جمع نهایی: ${formatPrice(sys.final_total)} تومان
+    <div class="modalSection">
+      <h3>مشتری</h3>
+      ${renderCustomer(sys.customer)}
     </div>
 
     <div class="modalSection">
