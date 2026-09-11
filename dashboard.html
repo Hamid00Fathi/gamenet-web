@@ -10,8 +10,15 @@
       background: #121212;
       color: #eaeaea;
       margin: 0;
-      padding: 15px;
+      padding: 0;
       direction: rtl;
+    }
+
+    /* کانتینر اصلی */
+    #container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 15px;
     }
 
     /* ============================
@@ -23,9 +30,9 @@
       right: 15px;
       background: #1e1e1e;
       color: #00eaff;
-      font-size: 32px;
-      padding: 10px 16px;
-      border-radius: 10px;
+      font-size: 40px;
+      padding: 12px 20px;
+      border-radius: 12px;
       cursor: pointer;
       z-index: 999999;
       box-shadow: 0 0 10px #000;
@@ -33,20 +40,20 @@
 
     #menuDropdown {
       position: fixed;
-      top: 70px;
+      top: 80px;
       right: 15px;
       background: #1e1e1e;
-      width: 260px;
-      border-radius: 12px;
-      padding: 10px;
+      width: 300px;
+      border-radius: 15px;
+      padding: 15px;
       display: none;
       z-index: 999999;
       box-shadow: 0 0 15px #000;
     }
 
     .menuItem {
-      padding: 14px;
-      font-size: 18px;
+      padding: 18px;
+      font-size: 20px;
       color: #eaeaea;
       cursor: pointer;
       border-bottom: 1px solid #333;
@@ -57,104 +64,118 @@
       color: black;
     }
 
+    /* اشتراک داخل منو */
+    #menuSubscriptionBox {
+      background:#252525;
+      padding:15px;
+      border-radius:12px;
+      margin-bottom:10px;
+      box-shadow:0 0 10px #000;
+      font-size:18px;
+      color:#00eaff;
+    }
+
     /* ============================
        داشبورد
     ============================ */
     #dashboard {
-      margin-top: 20px;
+      margin-top: 100px;
     }
 
     #panelUsername {
-      font-size: 22px;
+      font-size: 26px;
       font-weight: bold;
       margin-bottom: 10px;
       color: #00eaff;
       background: #1e1e1e;
-      padding: 12px;
-      border-radius: 10px;
+      padding: 15px;
+      border-radius: 12px;
       display: inline-block;
       box-shadow: 0 0 10px #000;
     }
 
     #lastUpdate {
-      font-size: 18px;
+      font-size: 20px;
       margin-bottom: 20px;
       color: #cccccc;
       background: #1e1e1e;
-      padding: 10px;
-      border-radius: 10px;
+      padding: 12px;
+      border-radius: 12px;
       display: inline-block;
       box-shadow: 0 0 10px #000;
     }
 
     /* ============================
-       اطلاعات اشتراک
+       کارت اشتراک (Flip Card)
     ============================ */
     #subscriptionInfo {
-      background:#1e1e1e;
-      padding:15px;
-      border-radius:12px;
-      margin-bottom:20px;
-      box-shadow:0 0 10px #000;
-      font-size:18px;
+      width: 300px;
+      height: 180px;
+      perspective: 1000px;
+      margin-bottom: 20px;
     }
 
-    #subscriptionInfo p {
-      margin:5px 0;
+    .subCard {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+      cursor: pointer;
     }
 
-    /* ============================
-       اشتراک منقضی شده
-    ============================ */
-    #subscriptionExpired {
-      display: none;
-      background: #1e1e1e;
-      padding: 35px;
+    .subCard.flip {
+      transform: rotateY(180deg);
+    }
+
+    .subFront, .subBack {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
       border-radius: 15px;
-      margin-bottom: 25px;
-      text-align: center;
+      padding: 20px;
       box-shadow: 0 0 15px #000;
     }
 
-    #subscriptionExpired h2 {
-      color: #ff4444;
-      font-size: 32px;
-      margin-bottom: 15px;
-    }
-
-    #subscriptionExpired p {
+    .subFront {
+      background: linear-gradient(135deg, #00eaff, #006eff);
+      color: #000;
       font-size: 22px;
-      margin: 10px 0;
-    }
-
-    #subscriptionExpired .phone {
-      font-size: 28px;
-      color: #00eaff;
       font-weight: bold;
     }
 
+    .subBack {
+      background: #1e1e1e;
+      color: #eaeaea;
+      transform: rotateY(180deg);
+      font-size: 18px;
+      line-height: 1.8;
+    }
+
     /* ============================
-       سیستم‌ها
+       سیستم‌ها (نئونی ملایم)
     ============================ */
     #systems {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
+      gap: 15px;
     }
 
     .card {
-      background: linear-gradient(135deg, #1e1e1e, #252525);
-      padding: 15px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.4);
-      transition: transform 0.25s;
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0,255,255,0.15);
+      transition: 0.3s;
       cursor: pointer;
-      font-size: 18px;
+      font-size: 20px;
+      border: 1px solid #00eaff33;
     }
 
     .card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px #000;
+      transform: translateY(-5px);
+      box-shadow: 0 0 25px rgba(0,255,255,0.25);
     }
 
     .active {
@@ -168,44 +189,42 @@
     .card h2 {
       margin: 0 0 10px 0;
       color: #00eaff;
-      font-size: 22px;
+      font-size: 26px;
     }
 
     /* ============================
-       اسلاید اشتراک‌ها
+       اسلاید اشتراک‌ها (خفن)
     ============================ */
     #subscriptionSlider {
       margin-top:25px;
       background:#1e1e1e;
-      padding:20px;
-      border-radius:15px;
-      box-shadow:0 0 10px #000;
+      padding:25px;
+      border-radius:20px;
+      box-shadow:0 0 15px #000;
       overflow-x:auto;
       white-space:nowrap;
     }
 
-    #subscriptionSlider::-webkit-scrollbar {
-      height: 8px;
-    }
-
-    #subscriptionSlider::-webkit-scrollbar-thumb {
-      background: #00eaff;
-      border-radius: 10px;
-    }
-
     .subItem {
       display:inline-block;
-      background:#252525;
-      padding:15px 25px;
-      margin-right:15px;
-      border-radius:12px;
-      font-size:18px;
-      color:#eaeaea;
-      box-shadow:0 0 10px #000;
+      background:linear-gradient(135deg,#00eaff,#006eff);
+      padding:25px 35px;
+      margin-right:20px;
+      border-radius:20px;
+      font-size:22px;
+      color:#000;
+      font-weight:bold;
+      box-shadow:0 0 15px #00eaff;
+      transition:0.3s;
+    }
+
+    .subItem:hover {
+      transform:scale(1.08);
+      box-shadow:0 0 25px #00eaff;
     }
 
     /* ============================
-       مودال
+       مودال انیمیشنی
     ============================ */
     #modal {
       display: none;
@@ -215,6 +234,12 @@
       padding: 20px;
       overflow-y: auto;
       z-index: 999999;
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     #modalContent {
@@ -224,6 +249,12 @@
       color: #fff;
       font-size: 22px;
       line-height: 1.8;
+      animation: scaleIn 0.4s ease;
+    }
+
+    @keyframes scaleIn {
+      from { transform: scale(0.7); }
+      to { transform: scale(1); }
     }
 
     #closeModal {
@@ -236,111 +267,27 @@
       border-radius: 10px;
     }
 
-    .customer-box {
-      background: #333;
-      padding: 18px;
-      border-radius: 12px;
-      margin-top: 15px;
-      font-size: 20px;
-    }
-
-    .snack-item {
-      display: flex;
-      justify-content: space-between;
-      font-size: 20px;
-      margin: 10px 0;
-    }
-
     /* ============================
        نسخه موبایل
     ============================ */
     @media (max-width: 1200px) {
-
-      #menuButton {
-        font-size: 45px;
-        padding: 18px 24px;
-      }
-
-      #menuDropdown {
-        width: 85%;
-        right: 7%;
-        top: 110px;
-      }
-
-      .menuItem {
-        font-size: 32px;
-        padding: 25px;
-      }
-
-      #panelUsername {
-        font-size: 32px;
-        padding: 18px;
-      }
-
-      #lastUpdate {
-        font-size: 28px;
-        padding: 15px;
-      }
-
-      #subscriptionInfo {
-        font-size: 28px;
-        padding: 25px;
-      }
-
       #systems {
         grid-template-columns: repeat(2, 1fr);
-        gap: 18px;
-      }
-
-      .card {
-        font-size: 32px;
-        padding: 25px;
-      }
-
-      .card h2 {
-        font-size: 40px;
-      }
-
-      #subscriptionSlider {
-        padding:30px;
-      }
-
-      .subItem {
-        font-size:32px;
-        padding:25px 35px;
-        margin-right:25px;
-      }
-
-      #modalContent {
-        font-size: 32px;
-        padding: 35px;
-      }
-
-      #closeModal {
-        font-size: 32px;
-        padding: 20px 40px;
-      }
-
-      .customer-box {
-        font-size: 32px;
-        padding: 25px;
-      }
-
-      .snack-item {
-        font-size: 32px;
       }
     }
-
   </style>
 </head>
 
 <body>
 
-<!-- دکمه منوی سه‌خط -->
 <div id="menuButton">☰</div>
 
-<!-- منوی مخفی -->
 <div id="menuDropdown">
+  <div id="menuSubscriptionBox">
+    <div id="menuSubExpire"></div>
+    <div id="menuSubDaysLeft"></div>
+  </div>
+
   <div class="menuItem">مشتری‌ها</div>
   <div class="menuItem">خوراکی‌ها</div>
   <div class="menuItem">گزارش‌ها</div>
@@ -349,35 +296,33 @@
   <div class="menuItem" onclick="logout()">خروج</div>
 </div>
 
-<!-- داشبورد -->
+<div id="container">
+
 <div id="dashboard">
 
   <div id="panelUsername"></div>
   <div id="lastUpdate"></div>
 
-  <!-- اطلاعات اشتراک -->
+  <!-- کارت اشتراک -->
   <div id="subscriptionInfo">
-    <p id="subExpire"></p>
-    <p id="subDaysLeft"></p>
+    <div class="subCard" id="subCard">
+      <div class="subFront">
+        اشتراک فعال  
+        <br>
+        برای دیدن جزئیات کلیک کنید
+      </div>
+      <div class="subBack">
+        <p id="subExpire"></p>
+        <p id="subDaysLeft"></p>
+      </div>
+    </div>
   </div>
 
   <!-- اشتراک منقضی شده -->
   <div id="subscriptionExpired">
     <h2>اشتراک شما فعال نیست</h2>
     <p>برای استفاده از پنل باید اشتراک تهیه کنید.</p>
-    <p>برای خرید اشتراک با پشتیبانی تماس بگیرید:</p>
     <p class="phone">09187343793</p>
-
-    <hr>
-
-    <h3 style="font-size:28px; margin-bottom:15px;">لیست اشتراک‌ها:</h3>
-
-    <div style="font-size:22px; line-height:1.8;">
-      • اشتراک ۱ ماهه — 150,000 تومان<br>
-      • اشتراک ۳ ماهه — 350,000 تومان<br>
-      • اشتراک ۶ ماهه — 600,000 تومان<br>
-      • اشتراک ۱۲ ماهه — 1,000,000 تومان<br>
-    </div>
   </div>
 
   <!-- سیستم‌ها -->
@@ -393,6 +338,8 @@
 
 </div>
 
+</div>
+
 <!-- مودال -->
 <div id="modal">
   <div id="modalContent"></div>
@@ -403,17 +350,18 @@
 const BASE_URL = "https://gamenet-server-mongo.onrender.com";
 const username = localStorage.getItem("username");
 
-/* ============================
-   منوی سه‌خط
-============================ */
+/* منوی سه‌خط */
 document.getElementById("menuButton").onclick = () => {
   const menu = document.getElementById("menuDropdown");
   menu.style.display = menu.style.display === "block" ? "none" : "block";
 };
 
-/* ============================
-   محاسبه روزهای مانده
-============================ */
+/* کارت اشتراک Flip */
+document.getElementById("subCard").onclick = () => {
+  document.getElementById("subCard").classList.toggle("flip");
+};
+
+/* محاسبه روزهای مانده */
 function calcDaysLeft(expireDate) {
   const today = new Date();
   const exp = new Date(expireDate);
@@ -421,9 +369,7 @@ function calcDaysLeft(expireDate) {
   return Math.ceil(diff / (1000 * 60 * 60 * 24));
 }
 
-/* ============================
-   اطلاعات اشتراک
-============================ */
+/* اطلاعات اشتراک */
 async function loadSubscriptionInfo() {
   const res = await fetch(`${BASE_URL}/subscription/${username}`);
   const data = await res.json();
@@ -438,28 +384,31 @@ async function loadSubscriptionInfo() {
     data.active
       ? `روزهای مانده: ${daysLeft} روز`
       : `اشتراک شما فعال نیست`;
+
+  /* داخل منو */
+  document.getElementById("menuSubExpire").innerText =
+    `پایان اشتراک: ${expire}`;
+
+  document.getElementById("menuSubDaysLeft").innerText =
+    data.active
+      ? `مانده: ${daysLeft} روز`
+      : `غیرفعال`;
 }
 
-/* ============================
-   چک اشتراک
-============================ */
+/* چک اشتراک */
 async function checkSubscription(username) {
   const res = await fetch(`${BASE_URL}/subscription/${username}`);
   const data = await res.json();
   return data.active;
 }
 
-/* ============================
-   گرفتن وضعیت
-============================ */
+/* گرفتن وضعیت */
 async function loadStatus() {
   const res = await fetch(`${BASE_URL}/status/${username}`);
   return await res.json();
 }
 
-/* ============================
-   رندر سیستم‌ها
-============================ */
+/* رندر سیستم‌ها */
 function renderSystems(systemsObj) {
   const systemsDiv = document.getElementById("systems");
   systemsDiv.innerHTML = "";
@@ -491,9 +440,7 @@ function renderSystems(systemsObj) {
   });
 }
 
-/* ============================
-   مودال
-============================ */
+/* مودال */
 function openModal(sys) {
   const modal = document.getElementById("modal");
   const content = document.getElementById("modalContent");
@@ -562,9 +509,7 @@ document.getElementById("closeModal").onclick = () => {
   document.getElementById("modal").style.display = "none";
 };
 
-/* ============================
-   اجرای اولیه + رفرش
-============================ */
+/* اجرای اولیه + رفرش */
 (async () => {
   const active = await checkSubscription(username);
 
@@ -591,18 +536,14 @@ document.getElementById("closeModal").onclick = () => {
   setInterval(refresh, 5000);
 })();
 
-/* ============================
-   خروج
-============================ */
+/* خروج */
 function logout() {
   localStorage.removeItem("username");
   localStorage.removeItem("password");
   window.location.href = "login.html";
 }
 
-/* ============================
-   تابع امن عدد
-============================ */
+/* تابع امن عدد */
 function safeNum(n) {
   return Number(n || 0).toLocaleString("fa-IR");
 }
