@@ -117,7 +117,7 @@ body {
 /* ====== سیستم‌ها ====== */
 #systems {
   display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(3, 1fr); /* دسکتاپ = 3 ستون */
   gap:20px;
 }
 
@@ -271,7 +271,29 @@ body {
   }
 
   #systems {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(2, 1fr); /* گوشی = 2 ستون */
+  }
+
+  #leftPanel {
+    font-size:30px;
+    padding:30px;
+  }
+
+  #avatar {
+    width:120px;
+    height:120px;
+    font-size:70px;
+  }
+
+  #rankBadge {
+    font-size:32px;
+    padding:15px 25px;
+  }
+
+  #panelUsername,
+  #lastUpdate,
+  #subscriptionInfo {
+    font-size:32px;
   }
 
   .card {
@@ -297,5 +319,9 @@ body {
   .customer-box {
     font-size:30px;
     padding:25px;
+  }
+
+  #subscriptionSlider {
+    padding:20px;
   }
 }
