@@ -1,206 +1,231 @@
-/* ===========================
-   فونت و تنظیمات پایه
-=========================== */
+/* ====== پایه ====== */
 body {
+  font-family: B Nazanin, sans-serif;
+  background: #121212;
+  color: #eaeaea;
   margin: 0;
   padding: 0;
-  background: #121212;
-  color: #fff;
-  font-family: sans-serif;
   direction: rtl;
 }
 
 #container {
-  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 15px;
 }
 
-/* ===========================
-   منوی بالا
-=========================== */
+/* ====== منو ====== */
 #menuButton {
   position: fixed;
-  top: 20px;
-  left: 20px;
+  top: 15px;
+  right: 15px;
+  background: #1e1e1e;
+  color: #00eaff;
   font-size: 40px;
+  padding: 12px 20px;
+  border-radius: 12px;
   cursor: pointer;
-  z-index: 99999;
+  z-index: 999999;
+  transition: 0.2s;
+}
+
+/* سلکت‌طور شدن منو */
+#menuButton:hover {
+  background: #00eaff;
+  color: #000;
+  transform: scale(1.05);
 }
 
 #menuDropdown {
-  display: none;
   position: fixed;
   top: 80px;
-  left: 20px;
+  right: 15px;
   background: #1e1e1e;
-  padding: 20px;
-  border-radius: 14px;
-  box-shadow: 0 0 20px #000;
-  z-index: 99999;
-  width: 260px;
+  width: 280px;
+  border-radius: 15px;
+  padding: 15px;
+  display: none;
+  z-index: 999999;
 }
 
 .menuItem {
   padding: 14px;
-  font-size: 22px;
+  font-size: 18px;
+  color: #eaeaea;
+  cursor: pointer;
   border-bottom: 1px solid #333;
-  cursor: pointer;
-}
-
-.menuItem:hover {
-  background: #333;
-}
-
-/* ===========================
-   داشبورد
-=========================== */
-#dashboard {
-  display: flex;
-  gap: 20px;
-  margin-top: 80px;
-}
-
-/* ===========================
-   پنل سمت چپ
-=========================== */
-#leftPanel {
-  width: 260px;
-  background: #1e1e1e;
-  padding: 20px;
-  border-radius: 18px;
-  box-shadow: 0 0 20px #000;
-}
-
-#avatar {
-  font-size: 60px;
-  text-align: center;
-}
-
-#rankBadge {
-  text-align: center;
-  margin-top: 10px;
-  font-size: 22px;
-  color: #00eaff;
-}
-
-/* ===========================
-   نوار پیشرفت اشتراک
-=========================== */
-#progressLabel {
-  margin-top: 20px;
-  font-size: 20px;
-}
-
-#progressBarOuter {
-  width: 100%;
-  height: 18px;
-  background: #333;
-  border-radius: 10px;
-  margin-top: 10px;
-}
-
-#progressBarInner {
-  height: 100%;
-  width: 0%;
-  background: #00eaff;
-  border-radius: 10px;
-}
-
-/* ===========================
-   آمار سریع
-=========================== */
-#quickStats {
-  margin-top: 20px;
-}
-
-.quickStatItem {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 0;
-  font-size: 20px;
-}
-
-/* ===========================
-   سیستم‌ها
-=========================== */
-#systems {
-  margin-top: 20px;
-}
-
-.card {
-  background: #1e1e1e;
-  padding: 20px;
-  border-radius: 18px;
-  margin-bottom: 20px;
-  box-shadow: 0 0 20px #000;
-  cursor: pointer;
   transition: 0.2s;
 }
 
-.card:hover {
-  transform: scale(1.03);
+.menuItem:hover {
+  background: #00eaff33;
+  border-radius: 8px;
 }
 
-.card.active {
-  border-right: 6px solid #00ff6a;
+/* ====== داشبورد دسکتاپ ====== */
+#dashboard {
+  margin-top: 90px;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 20px;
 }
 
-.card.free {
-  border-right: 6px solid #ff4444;
+/* پنل سمت چپ دسکتاپ */
+#leftPanel {
+  background:#1e1e1e;
+  border-radius:15px;
+  padding:18px;
+  font-size:18px;
+}
+
+#avatar {
+  width:75px;
+  height:75px;
+  border-radius:50%;
+  background:#ff00ff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:42px;
+  margin-bottom:12px;
+}
+
+#rankBadge {
+  font-size:20px;
+  padding:8px 15px;
+  border-radius:999px;
+  background:#ff00ff;
+  color:#000;
+  font-weight:bold;
+  margin-bottom:15px;
+}
+
+/* ====== Progress ====== */
+#progressLabel {
+  font-size:18px;
+  margin-bottom:10px;
+}
+
+#progressBarOuter {
+  width:100%;
+  height:12px;
+  background:#333;
+  border-radius:999px;
+  overflow:hidden;
+  margin-bottom:20px;
+}
+
+#progressBarInner {
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,#00eaff,#ff00ff);
+}
+
+/* ====== سیستم‌ها دسکتاپ ====== */
+#systems {
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap:14px;
+}
+
+.card {
+  background:#1e1e1e;
+  padding:16px;
+  border-radius:12px;
+  border:1px solid #00eaff33;
+  font-size:20px;
+  cursor:pointer;
+  transition:0.3s;
 }
 
 .card h2 {
-  margin: 0 0 10px 0;
-  font-size: 26px;
+  font-size:24px;
+  margin-bottom:8px;
 }
 
-/* ===========================
-   اسلایدر اشتراک
-=========================== */
+.card:hover {
+  transform:translateY(-4px);
+}
+
+.active {
+  border-right:10px solid #00ff6a;
+}
+
+.free {
+  border-right:10px solid #ff3b3b;
+}
+
+/* ====== اطلاعات بالا دسکتاپ ====== */
+#panelUsername,
+#lastUpdate,
+#subscriptionInfo {
+  font-size:20px;
+  margin-bottom:8px;
+}
+
+/* ====== اسلایدر اشتراک دسکتاپ ====== */
 #subscriptionSlider {
-  display: flex;
-  overflow-x: auto;
-  gap: 20px;
-  margin-top: 30px;
-  padding-bottom: 20px;
+  margin-top:20px;
+  background:#1e1e1e;
+  padding:22px;
+  border-radius:16px;
+  display:flex;
+  overflow-x:auto; /* جلوگیری از روی‌هم‌افتادن */
+  gap:22px;
+  scroll-behavior:smooth;
 }
 
+/* کادر اشتراک هماهنگ */
 .subCardWrap {
-  min-width: 200px;
-  perspective: 1000px;
+  min-width:200px;
+  height:180px;
+  background:#1e1e1e;
+  border-radius:18px;
+  padding:16px;
+  box-sizing: border-box;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  perspective:1000px;
 }
 
 .subCardFlip {
-  width: 200px;
-  height: 140px;
-  background: #1e1e1e;
-  border-radius: 18px;
-  box-shadow: 0 0 20px #000;
-  text-align: center;
-  font-size: 22px;
-  padding-top: 30px;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-  cursor: pointer;
+  width:100%;
+  height:100%;
+  position:relative;
+  transition:transform 0.8s;
+  transform-style:preserve-3d;
+  cursor:pointer;
 }
 
 .subCardFlip.flipped {
-  transform: rotateY(180deg);
+  transform:rotateY(180deg);
 }
 
 .subFront, .subBack {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
+  position:absolute;
+  width:100%;
+  height:100%;
+  backface-visibility:hidden;
+  border-radius:18px;
+  padding:20px;
+  font-size:20px;
+  box-sizing: border-box;
+}
+
+.subFront {
+  background:linear-gradient(135deg,#00eaff,#006eff);
+  color:#000;
+  font-weight:bold;
 }
 
 .subBack {
-  transform: rotateY(180deg);
+  background:#252525;
+  color:#eaeaea;
+  transform:rotateY(180deg);
 }
 
-/* ===========================
-   مودال (همان که فرستادی)
-=========================== */
+/* ====== مودال ====== */
 #modal {
   display:none;
   position:fixed;
@@ -214,71 +239,38 @@ body {
 
 #modalContent {
   background:#1e1e1e;
-  padding:32px;
-  border-radius:22px;
-  max-width:720px;
+  padding:30px;
+  border-radius:20px;
+  max-width:700px;
   margin:auto;
   box-shadow:0 0 25px #000;
   font-size:22px;
   line-height:1.8;
 }
 
+/* کادرهای جدا داخل مودال */
 .modalSection {
   background:#1f1f1f;
   border:2px solid #00eaff88;
-  padding:24px;
-  border-radius:18px;
-  margin-bottom:28px;
+  padding:22px;
+  border-radius:16px;
+  margin-bottom:25px;
   box-shadow:0 0 12px #000;
 }
 
 .modalSection h3 {
-  margin:0 0 16px 0;
+  margin-top:0;
+  margin-bottom:14px;
   font-size:26px;
   color:#00eaff;
   font-weight:bold;
   border-bottom:1px solid #00eaff55;
-  padding-bottom:10px;
+  padding-bottom:8px;
 }
 
 .modalSection p {
   font-size:22px;
-  margin:10px 0;
-}
-
-.costBox {
-  background:#262626;
-  border:2px solid #00ff6a88;
-  padding:22px;
-  border-radius:18px;
-  margin-bottom:28px;
-  box-shadow:0 0 14px #000;
-}
-
-.costBox h3 {
-  margin:0 0 16px 0;
-  font-size:26px;
-  color:#00ff6a;
-  font-weight:bold;
-  border-bottom:1px solid #00ff6a55;
-  padding-bottom:10px;
-}
-
-.costBox p {
-  font-size:22px;
-  margin:10px 0;
-}
-
-.finalTotal {
-  font-size:26px;
-  font-weight:bold;
-  color:#00ff6a;
-  margin-top:14px;
-  padding:14px;
-  background:#1b1b1b;
-  border-radius:14px;
-  border:2px solid #00ff6a55;
-  text-align:center;
+  margin:8px 0;
 }
 
 #closeModal {
@@ -300,69 +292,140 @@ body {
   transform:scale(1.05);
 }
 
-/* ===========================
-   نسخه موبایل
-=========================== */
+/* =========================
+   نسخهٔ کاملاً جدا برای گوشی
+   ========================= */
 @media (max-width: 1200px) {
 
+  #container {
+    max-width: 100%;
+    padding: 10px;
+  }
+
   #dashboard {
-    flex-direction: column;
+    margin-top: 70px;
+    display: block;
   }
 
   #leftPanel {
-    width: 100%;
+    margin-bottom: 20px;
+    padding: 32px;
+    font-size:40px;
+    border-radius:22px;
+  }
+
+  #avatar {
+    width:150px;
+    height:150px;
+    font-size:90px;
+    margin-bottom:20px;
+  }
+
+  #rankBadge {
+    font-size:40px;
+    padding:18px 30px;
+    margin-bottom:25px;
+  }
+
+  #progressLabel {
+    font-size:38px;
+    margin-bottom:14px;
+  }
+
+  #progressBarOuter {
+    height:20px;
+    margin-bottom:25px;
+  }
+
+  #panelUsername,
+  #lastUpdate,
+  #subscriptionInfo {
+    font-size:42px;
+    margin-bottom:12px;
+  }
+
+  /* گوشی: دو سیستم در یک ردیف */
+  #systems {
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap:26px;
   }
 
   .card {
-    font-size: 32px;
-    padding: 30px;
+    padding:45px;
+    border-radius:26px;
+    font-size:40px;
   }
 
-  #menuButton {
-    font-size: 60px;
+  .card h2 {
+    font-size:48px;
+    margin-bottom:20px;
   }
 
-  #menuDropdown {
-    width: 90%;
-    left: 5%;
+  #subscriptionSlider {
+    margin-top:30px;
+    padding:26px;
+    border-radius:26px;
+    display:flex;
+    overflow-x:auto;
+    gap:22px;
+  }
+
+  .subCardWrap {
+    min-width:380px;
+    height:260px;
+    padding:26px;
+  }
+
+  .subFront, .subBack {
+    font-size:38px;
+    padding:34px;
+    border-radius:26px;
   }
 
   #modalContent {
     max-width:95%;
     font-size:40px;
-    padding:38px;
-    border-radius:28px;
-  }
-
-  .modalSection,
-  .costBox {
-    padding:36px;
-    border-radius:28px;
-    margin-bottom:34px;
-  }
-
-  .modalSection h3,
-  .costBox h3 {
-    font-size:44px;
-    margin-bottom:24px;
-    padding-bottom:14px;
-  }
-
-  .modalSection p,
-  .costBox p {
-    font-size:38px;
-    margin:14px 0;
-  }
-
-  .finalTotal {
-    font-size:44px;
-    padding:26px;
+    padding:34px;
     border-radius:26px;
   }
 
-  #closeModal {
+  .modalSection {
+    padding:34px;
+    border-radius:26px;
+    margin-bottom:30px;
+  }
+
+  .modalSection h3 {
     font-size:42px;
-    padding:24px 50px;
-    border-radius:24px;
+    margin-bottom:20px;
+    padding-bottom:12px;
+  }
+
+  .modalSection p {
+    font-size:38px;
+    margin:12px 0;
+  }
+
+  #closeModal {
+    font-size:38px;
+    padding:20px 44px;
+    border-radius:20px;
+  }
+
+  #menuButton {
+    font-size:50px;
+    padding:16px 24px;
+  }
+
+  #menuDropdown {
+    width: 90%;
+    right: 5%;
+    font-size:38px;
+  }
+
+  .menuItem {
+    font-size:38px;
+    padding:22px;
   }
 }
