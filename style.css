@@ -264,7 +264,7 @@ body {
 }
 
 /* ====== موبایل واقعی ====== */
-@media (max-width:600px) {
+@media (max-width:1200px) {
 
   #dashboard {
     grid-template-columns: 1fr;
