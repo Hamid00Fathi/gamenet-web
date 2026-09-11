@@ -1,3 +1,4 @@
+/* ====== پایه ====== */
 body {
   font-family: B Nazanin, sans-serif;
   background: #121212;
@@ -13,7 +14,7 @@ body {
   padding: 15px;
 }
 
-/* دکمه منو */
+/* ====== منو ====== */
 #menuButton {
   position: fixed;
   top: 15px;
@@ -25,10 +26,8 @@ body {
   border-radius: 12px;
   cursor: pointer;
   z-index: 999999;
-  box-shadow: 0 0 10px #000;
 }
 
-/* منوی بازشو */
 #menuDropdown {
   position: fixed;
   top: 80px;
@@ -39,7 +38,6 @@ body {
   padding: 15px;
   display: none;
   z-index: 999999;
-  box-shadow: 0 0 15px #000;
 }
 
 .menuItem {
@@ -50,22 +48,15 @@ body {
   border-bottom: 1px solid #333;
 }
 
-.menuItem:hover {
-  background: #00eaff;
-  color: black;
-}
-
 #menuSubscriptionBox {
   background:#252525;
   padding:15px;
   border-radius:12px;
   margin-bottom:10px;
-  box-shadow:0 0 10px #000;
-  font-size:18px;
   color:#00eaff;
 }
 
-/* داشبورد */
+/* ====== داشبورد ====== */
 #dashboard {
   margin-top: 100px;
   display: grid;
@@ -73,15 +64,13 @@ body {
   gap: 20px;
 }
 
-/* پنل سمت چپ */
+/* ====== پنل سمت چپ ====== */
 #leftPanel {
   background:#1e1e1e;
   border-radius:15px;
   padding:20px;
-  box-shadow:0 0 15px #000;
 }
 
-/* آواتار */
 #avatar {
   width:90px;
   height:90px;
@@ -92,10 +81,8 @@ body {
   justify-content:center;
   font-size:50px;
   margin-bottom:15px;
-  box-shadow:0 0 25px #ff00ff88;
 }
 
-/* رنک */
 #rankBadge {
   display:inline-block;
   padding:10px 18px;
@@ -104,114 +91,21 @@ body {
   color:#000;
   font-weight:bold;
   margin-bottom:20px;
-  font-size:20px;
-  box-shadow:0 0 15px #ff00ff55;
 }
 
-/* Progress Bar */
-#progressLabel {
-  font-size:18px;
-  margin-bottom:5px;
-}
-
-#progressBarOuter {
-  width:100%;
-  height:12px;
-  border-radius:999px;
-  background:#333;
-  overflow:hidden;
-  margin-bottom:20px;
-}
-
-#progressBarInner {
-  height:100%;
-  width:0%;
-  background:linear-gradient(90deg,#00eaff,#ff00ff);
-}
-
-/* اطلاعات سریع */
-#quickStats {
-  display:grid;
-  grid-template-columns: repeat(3,1fr);
-  gap:10px;
-}
-
-.quickStatItem {
-  background:#252525;
-  border-radius:10px;
-  padding:12px;
-  text-align:center;
-  font-size:18px;
-  box-shadow:0 0 10px #000;
-}
-
-/* نام کاربری */
-#panelUsername {
-  font-size:32px;
-  font-weight:bold;
-  margin-bottom:10px;
-  color:#00eaff;
-  background:#1e1e1e;
-  padding:18px;
-  border-radius:12px;
-  display:inline-block;
-  box-shadow:0 0 10px #000;
-}
-
-#lastUpdate {
-  font-size:26px;
-  margin-bottom:20px;
-  color:#cccccc;
-  background:#1e1e1e;
-  padding:15px;
-  border-radius:12px;
-  display:inline-block;
-  box-shadow:0 0 10px #000;
-}
-
-/* اشتراک */
-#subscriptionInfo {
-  background:#1e1e1e;
-  padding:20px;
-  border-radius:12px;
-  margin-bottom:20px;
-  box-shadow:0 0 10px #000;
-  font-size:24px;
-}
-
-/* اشتراک منقضی */
-#subscriptionExpired {
-  display:none;
-  background:#1e1e1e;
-  padding:35px;
-  border-radius:15px;
-  margin-bottom:25px;
-  text-align:center;
-  box-shadow:0 0 15px #000;
-}
-
-/* سیستم‌ها — بدون اسکرول افقی */
+/* ====== سیستم‌ها ====== */
 #systems {
   display:grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap:15px;
-  overflow:hidden;
 }
 
 .card {
   background:#1e1e1e;
   padding:25px;
   border-radius:15px;
-  box-shadow:0 0 15px rgba(0,255,255,0.15);
-  transition:0.3s;
-  cursor:pointer;
-  font-size:24px;
   border:1px solid #00eaff33;
-}
-
-.card:hover {
-  transform:translateY(-5px);
-  box-shadow:0 0 25px rgba(0,255,255,0.25);
+  font-size:24px;
 }
 
 .active {
@@ -222,29 +116,20 @@ body {
   border-right:12px solid #ff3b3b;
 }
 
-.card h2 {
-  margin:0 0 10px 0;
-  color:#00eaff;
-  font-size:30px;
-}
-
-/* کارت‌های اشتراک — اسلایدی */
+/* ====== کارت‌های اشتراک ====== */
 #subscriptionSlider {
   margin-top:25px;
   background:#1e1e1e;
   padding:30px;
   border-radius:20px;
-  box-shadow:0 0 15px #000;
   display:flex;
   overflow-x:auto;
   gap:20px;
-  scroll-snap-type:x mandatory;
 }
 
 .subCardWrap {
   width:240px;
   height:160px;
-  scroll-snap-align:start;
   perspective:1000px;
 }
 
@@ -268,8 +153,6 @@ body {
   backface-visibility:hidden;
   border-radius:20px;
   padding:20px;
-  box-shadow:0 0 15px #00eaff;
-  font-size:22px;
 }
 
 .subFront {
@@ -282,49 +165,12 @@ body {
   background:#252525;
   color:#eaeaea;
   transform:rotateY(180deg);
-  font-size:20px;
-  line-height:1.6;
 }
 
-/* مودال */
-#modal {
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.8);
-  padding:20px;
-  overflow-y:auto;
-  z-index:999999;
-}
-
-#modalContent {
-  background:#222;
-  padding:30px;
-  border-radius:20px;
-  color:#fff;
-  font-size:24px;
-  line-height:1.8;
-}
-
-#closeModal {
-  margin-top:20px;
-  padding:15px 30px;
-  font-size:22px;
-  background:#ff4444;
-  color:#fff;
-  border:none;
-  border-radius:10px;
-}
-
-/* موبایل — نسخه متفاوت */
+/* ====== موبایل ====== */
 @media (max-width:1200px) {
-
   #dashboard {
     grid-template-columns: 1fr;
-  }
-
-  #leftPanel {
-    margin-bottom:20px;
   }
 
   #systems {
@@ -344,23 +190,5 @@ body {
   .subCardWrap {
     width:200px;
     height:140px;
-  }
-
-  #panelUsername {
-    font-size:36px;
-  }
-
-  #lastUpdate {
-    font-size:30px;
-  }
-
-  #subscriptionInfo {
-    font-size:30px;
-  }
-
-  #avatar {
-    width:120px;
-    height:120px;
-    font-size:70px;
   }
 }
