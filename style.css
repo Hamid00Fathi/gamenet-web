@@ -52,7 +52,7 @@ body {
 #dashboard {
   margin-top: 90px;
   display: grid;
-  grid-template-columns: 240px 1fr; /* باریک‌تر */
+  grid-template-columns: 240px 1fr;
   gap: 20px;
 }
 
@@ -61,7 +61,7 @@ body {
   background:#1e1e1e;
   border-radius:15px;
   padding:18px;
-  font-size:18px; /* بزرگ‌تر */
+  font-size:18px;
 }
 
 #avatar {
@@ -119,13 +119,13 @@ body {
   padding:16px;
   border-radius:12px;
   border:1px solid #00eaff33;
-  font-size:20px; /* بزرگ‌تر */
+  font-size:20px;
   cursor:pointer;
   transition:0.3s;
 }
 
 .card h2 {
-  font-size:24px; /* بزرگ‌تر */
+  font-size:24px;
   margin-bottom:8px;
 }
 
@@ -145,7 +145,7 @@ body {
 #panelUsername,
 #lastUpdate,
 #subscriptionInfo {
-  font-size:20px; /* بزرگ‌تر */
+  font-size:20px;
   margin-bottom:8px;
 }
 
@@ -156,7 +156,7 @@ body {
   padding:18px;
   border-radius:16px;
   display:flex;
-  overflow-x:auto; /* روی هم نیفتن */
+  overflow-x:auto; /* مهم: جلوگیری از نصفه دیده شدن */
   gap:18px;
   scroll-behavior:smooth;
 }
@@ -186,7 +186,7 @@ body {
   height:100%;
   backface-visibility:hidden;
   border-radius:16px;
-  padding:14px; /* کمتر */
+  padding:14px;
   font-size:18px;
 }
 
@@ -232,6 +232,14 @@ body {
   padding:20px;
   border-radius:14px;
   margin-bottom:20px;
+}
+
+/* عنوان هر بخش مودال */
+.modalSection h3 {
+  margin-top:0;
+  margin-bottom:12px;
+  font-size:22px;
+  color:#00eaff;
 }
 
 #closeModal {
