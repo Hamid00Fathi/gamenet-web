@@ -120,20 +120,17 @@
 <script src="app.js"></script>
 
 <script>
-/* دکمه منو */
 document.getElementById("menuButton").onclick = () => {
   const menu = document.getElementById("menuDropdown");
   menu.style.display = menu.style.display === "block" ? "none" : "block";
 };
 
-/* Flip کارت‌های اشتراک */
 document.querySelectorAll(".subCardFlip").forEach(card => {
   card.addEventListener("click", () => {
     card.classList.toggle("flipped");
   });
 });
 
-/* خروج */
 function logout() {
   localStorage.removeItem("username");
   localStorage.removeItem("password");
