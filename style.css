@@ -52,7 +52,7 @@ body {
 #dashboard {
   margin-top: 100px;
   display: grid;
-  grid-template-columns: 320px 1fr;
+  grid-template-columns: 280px 1fr; /* کوچیک‌تر برای دسکتاپ */
   gap: 20px;
 }
 
@@ -61,23 +61,24 @@ body {
   background:#1e1e1e;
   border-radius:15px;
   padding:20px;
+  font-size:18px; /* کوچیک‌تر روی دسکتاپ */
 }
 
 #avatar {
-  width:90px;
-  height:90px;
+  width:80px;
+  height:80px;
   border-radius:50%;
   background:#ff00ff;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:50px;
+  font-size:45px;
   margin-bottom:15px;
 }
 
 #rankBadge {
-  display:inline-block;
-  padding:10px 18px;
+  font-size:20px;
+  padding:8px 15px;
   border-radius:999px;
   background:#ff00ff;
   color:#000;
@@ -87,13 +88,13 @@ body {
 
 /* ====== Progress ====== */
 #progressLabel {
-  font-size:20px;
+  font-size:18px;
   margin-bottom:10px;
 }
 
 #progressBarOuter {
   width:100%;
-  height:14px;
+  height:12px;
   background:#333;
   border-radius:999px;
   overflow:hidden;
@@ -110,17 +111,21 @@ body {
 #systems {
   display:grid;
   grid-template-columns: repeat(3, 1fr); /* دسکتاپ = 3 ستون */
-  gap:20px;
+  gap:15px; /* کوچیک‌تر */
 }
 
 .card {
   background:#1e1e1e;
-  padding:25px;
-  border-radius:15px;
+  padding:18px; /* کوچیک‌تر */
+  border-radius:12px;
   border:1px solid #00eaff33;
-  font-size:24px;
+  font-size:18px; /* کوچیک‌تر */
   cursor:pointer;
   transition:0.3s;
+}
+
+.card h2 {
+  font-size:20px; /* کوچیک‌تر */
 }
 
 .card:hover {
@@ -128,18 +133,18 @@ body {
 }
 
 .active {
-  border-right:12px solid #00ff6a;
+  border-right:10px solid #00ff6a;
 }
 
 .free {
-  border-right:12px solid #ff3b3b;
+  border-right:10px solid #ff3b3b;
 }
 
 /* ====== کارت‌های اشتراک ====== */
 #subscriptionSlider {
   margin-top:25px;
   background:#1e1e1e;
-  padding:30px;
+  padding:25px;
   border-radius:20px;
   display:flex;
   overflow-x:hidden;
@@ -148,8 +153,8 @@ body {
 }
 
 .subCardWrap {
-  min-width:300px;
-  height:180px;
+  min-width:260px; /* کوچیک‌تر روی دسکتاپ */
+  height:160px;
   perspective:1000px;
 }
 
@@ -172,8 +177,8 @@ body {
   height:100%;
   backface-visibility:hidden;
   border-radius:20px;
-  padding:25px;
-  font-size:26px;
+  padding:20px;
+  font-size:20px; /* کوچیک‌تر */
 }
 
 .subFront {
@@ -207,7 +212,7 @@ body {
   max-width:700px;
   margin:auto;
   box-shadow:0 0 25px #000;
-  font-size:26px;
+  font-size:22px;
   line-height:1.8;
 }
 
@@ -215,7 +220,7 @@ body {
   display:block;
   margin:25px auto 0 auto;
   padding:15px 40px;
-  font-size:24px;
+  font-size:22px;
   background:#ff4444;
   border:none;
   border-radius:12px;
@@ -224,45 +229,8 @@ body {
   box-shadow:0 0 10px #000;
 }
 
-/* ====== باکس خوراکی ====== */
-.snack-item {
-  background:#252525;
-  padding:15px 20px;
-  border-radius:12px;
-  margin-bottom:12px;
-  display:flex;
-  justify-content:space-between;
-  font-size:24px;
-  border:1px solid #333;
-}
-
-/* ====== باکس جمع ====== */
-.total-box {
-  background:#2a2a2a;
-  padding:20px;
-  border-radius:15px;
-  margin:25px 0;
-  font-size:28px;
-  border:1px solid #444;
-  box-shadow:0 0 10px #000;
-}
-
-/* ====== باکس مشتری ====== */
-.customer-box {
-  background:#252525;
-  padding:20px;
-  border-radius:15px;
-  margin-top:20px;
-  border:1px solid #333;
-  font-size:24px;
-}
-
 /* ====== موبایل ====== */
 @media (max-width:1200px) {
-
-  #menuButton {
-    right: 5px;
-  }
 
   #dashboard {
     grid-template-columns: 1fr;
@@ -270,33 +238,38 @@ body {
 
   #systems {
     grid-template-columns: repeat(2, 1fr); /* گوشی = 2 ستون */
+    gap:25px;
   }
 
   .card {
-    font-size:32px;
-    padding:35px;
+    padding:40px; /* بزرگ‌تر */
+    font-size:34px; /* بزرگ‌تر */
+  }
+
+  .card h2 {
+    font-size:38px; /* بزرگ‌تر */
   }
 
   #leftPanel {
-    font-size:30px;
-    padding:30px;
+    font-size:34px; /* بزرگ‌تر */
+    padding:35px;
   }
 
   #avatar {
-    width:120px;
-    height:120px;
-    font-size:70px;
+    width:130px;
+    height:130px;
+    font-size:80px;
   }
 
   #rankBadge {
-    font-size:32px;
-    padding:15px 25px;
+    font-size:34px;
+    padding:18px 28px;
   }
 
   #panelUsername,
   #lastUpdate,
   #subscriptionInfo {
-    font-size:32px;
+    font-size:36px;
   }
 
   #subscriptionSlider {
@@ -304,12 +277,12 @@ body {
   }
 
   .subCardWrap {
-    min-width:350px;
-    height:200px;
+    min-width:350px; /* بزرگ‌تر */
+    height:220px;
   }
 
   .subFront, .subBack {
-    font-size:32px;
+    font-size:32px; /* بزرگ‌تر */
     padding:30px;
   }
 }
