@@ -238,6 +238,7 @@ body {
 
 #modalContent {
   background:#1e1e1e;
+  position: relative;
   padding:30px;
   border-radius:20px;
   max-width:700px;
@@ -399,7 +400,7 @@ body {
   }
 
   #modalContent {
-    max-width:95%;
+    max-width:100%;
     font-size:40px;
     padding:34px;
     border-radius:26px;
