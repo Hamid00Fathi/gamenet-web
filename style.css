@@ -424,33 +424,39 @@ body {
   }
 
   .finalTotal {
-  font-size:42px;
-  font-weight:bold;
-  color:#00ff6a;
-  margin-top:14px;
-  padding:14px;
-  background:#1b1b1b;
-  border-radius:14px;
-  border:2px solid #00ff6a55;
-  text-align:center;
+    font-size:42px;
+    font-weight:bold;
+    color:#00ff6a;
+    margin-top:14px;
+    padding:14px;
+    background:#1b1b1b;
+    border-radius:14px;
+    border:2px solid #00ff6a55;
+    text-align:center;
   }
 
   .snack-item {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 14px;
-  padding: 12px 16px;
-  background: #262626;
-  border-radius: 12px;
-  border: 1px solid #00eaff33;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    padding: 12px 16px;
+    background: #262626;
+    border-radius: 12px;
+    border: 1px solid #00eaff33;
  ‌ }
 
   #closeModalTop {
-    font-size:38px;
-    padding:20px 44px;
-    border-radius:20px;
-    top:30px;
-    left:30px;
+    position:absolute;
+    top:20px;
+    left:20px;
+    background:#ff4444;
+    color:#fff;
+    border:none;
+    font-size:24px;
+    padding:10px 18px;
+    border-radius:12px;
+    cursor:pointer;
+    z-index:999999;
   }
 
   #menuButton {
