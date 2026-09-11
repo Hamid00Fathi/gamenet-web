@@ -33,7 +33,7 @@ async function loadSubscription() {
 
         let daysLeft = calcDaysLeft(expire);
 
-        // اگر اشتراک فعال است ولی اختلاف تاریخ منفی شده، حداقل ۱ روز در نظر بگیر
+        // جلوگیری از منفی شدن روزهای مانده
         if (daysLeft < 0 && active) daysLeft = 1;
 
         if (active) {
@@ -44,7 +44,7 @@ async function loadSubscription() {
 
             document.getElementById("subscriptionExpired").style.display = "none";
 
-            // پیشرفت اشتراک (فرض: ۳۰ روز = ۱۰۰٪)
+            // پیشرفت اشتراک (۳۰ روز = ۱۰۰٪)
             const percent = Math.min(100, Math.max(0, (daysLeft / 30) * 100));
             document.getElementById("progressBarInner").style.width = percent + "%";
 
@@ -248,6 +248,18 @@ window.onload = () => {
 };
 
 // ===============================
+//  اسلایدر خودکار کارت‌های اشتراک
+// ===============================
+setInterval(() => {
+    const slider = document.getElementById("subscriptionSlider");
+    slider.scrollLeft += 350;
+
+    if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth) {
+        slider.scrollLeft = 0;
+    }
+}, 4000);
+
+// ===============================
 //  اجرای اولیه + رفرش خودکار
 // ===============================
 async function startAutoRefresh() {
@@ -259,14 +271,5 @@ async function startAutoRefresh() {
         loadStatus();
     }, 5000);
 }
-// اسلایدر خودکار کارت‌های اشتراک
-setInterval(() => {
-    const slider = document.getElementById("subscriptionSlider");
-    slider.scrollLeft += 350;
-
-    if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth) {
-        slider.scrollLeft = 0;
-    }
-}, 4000);
 
 startAutoRefresh();
