@@ -422,6 +422,18 @@ body {
     margin:12px 0;
   }
 
+  .finalTotal {
+  font-size:42px;
+  font-weight:bold;
+  color:#00ff6a;
+  margin-top:14px;
+  padding:14px;
+  background:#1b1b1b;
+  border-radius:14px;
+  border:2px solid #00ff6a55;
+  text-align:center;
+  }
+
   #closeModalTop {
     font-size:38px;
     padding:20px 44px;
