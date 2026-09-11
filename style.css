@@ -148,11 +148,11 @@ body {
 }
 
 .active {
-  border-right:10px solid #00ff6a;
+  border-right:20px solid #00ff6a;
 }
 
 .free {
-  border-right:10px solid #ff3b3b;
+  border-right:20px solid #ff3b3b;
 }
 
 /* ====== اطلاعات بالا دسکتاپ ====== */
