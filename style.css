@@ -52,7 +52,7 @@ body {
 #dashboard {
   margin-top: 90px;
   display: grid;
-  grid-template-columns: 260px 1fr;
+  grid-template-columns: 240px 1fr; /* باریک‌تر */
   gap: 20px;
 }
 
@@ -61,24 +61,24 @@ body {
   background:#1e1e1e;
   border-radius:15px;
   padding:18px;
-  font-size:16px;
+  font-size:18px; /* بزرگ‌تر */
 }
 
 #avatar {
-  width:70px;
-  height:70px;
+  width:75px;
+  height:75px;
   border-radius:50%;
   background:#ff00ff;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:40px;
+  font-size:42px;
   margin-bottom:12px;
 }
 
 #rankBadge {
-  font-size:18px;
-  padding:6px 12px;
+  font-size:20px;
+  padding:8px 15px;
   border-radius:999px;
   background:#ff00ff;
   color:#000;
@@ -86,18 +86,19 @@ body {
   margin-bottom:15px;
 }
 
+/* ====== Progress ====== */
 #progressLabel {
-  font-size:16px;
-  margin-bottom:8px;
+  font-size:18px;
+  margin-bottom:10px;
 }
 
 #progressBarOuter {
   width:100%;
-  height:10px;
+  height:12px;
   background:#333;
   border-radius:999px;
   overflow:hidden;
-  margin-bottom:15px;
+  margin-bottom:20px;
 }
 
 #progressBarInner {
@@ -110,21 +111,21 @@ body {
 #systems {
   display:grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap:12px;
+  gap:14px;
 }
 
 .card {
   background:#1e1e1e;
-  padding:14px;
-  border-radius:10px;
+  padding:16px;
+  border-radius:12px;
   border:1px solid #00eaff33;
-  font-size:16px;
+  font-size:20px; /* بزرگ‌تر */
   cursor:pointer;
   transition:0.3s;
 }
 
 .card h2 {
-  font-size:18px;
+  font-size:24px; /* بزرگ‌تر */
   margin-bottom:8px;
 }
 
@@ -133,18 +134,18 @@ body {
 }
 
 .active {
-  border-right:8px solid #00ff6a;
+  border-right:10px solid #00ff6a;
 }
 
 .free {
-  border-right:8px solid #ff3b3b;
+  border-right:10px solid #ff3b3b;
 }
 
 /* ====== اطلاعات بالا دسکتاپ ====== */
 #panelUsername,
 #lastUpdate,
 #subscriptionInfo {
-  font-size:16px;
+  font-size:20px; /* بزرگ‌تر */
   margin-bottom:8px;
 }
 
@@ -155,14 +156,14 @@ body {
   padding:18px;
   border-radius:16px;
   display:flex;
-  overflow-x:hidden;
-  gap:14px;
+  overflow-x:auto; /* روی هم نیفتن */
+  gap:18px;
   scroll-behavior:smooth;
 }
 
 .subCardWrap {
-  min-width:220px;
-  height:140px;
+  min-width:180px; /* کوتاه‌تر */
+  height:150px;
   perspective:1000px;
 }
 
@@ -185,8 +186,8 @@ body {
   height:100%;
   backface-visibility:hidden;
   border-radius:16px;
-  padding:16px;
-  font-size:16px;
+  padding:14px; /* کمتر */
+  font-size:18px;
 }
 
 .subFront {
@@ -220,15 +221,24 @@ body {
   max-width:640px;
   margin:auto;
   box-shadow:0 0 25px #000;
-  font-size:18px;
+  font-size:20px;
   line-height:1.8;
+}
+
+/* کادرهای جدا داخل مودال */
+.modalSection {
+  background:#1f1f1f;
+  border:1px solid #00eaff55;
+  padding:20px;
+  border-radius:14px;
+  margin-bottom:20px;
 }
 
 #closeModal {
   display:block;
   margin:22px auto 0 auto;
   padding:12px 32px;
-  font-size:18px;
+  font-size:20px;
   background:#ff4444;
   border:none;
   border-radius:10px;
@@ -240,9 +250,8 @@ body {
 /* =========================
    نسخهٔ کاملاً جدا برای گوشی
    ========================= */
-@media (max-width: 1200px) {
+@media (max-width: 768px) {
 
-  /* کل صفحه روی گوشی */
   #container {
     max-width: 100%;
     padding: 10px;
@@ -250,81 +259,77 @@ body {
 
   #dashboard {
     margin-top: 70px;
-    display: block; /* دیگه گرید نیست، کاملاً ستونی */
+    display: block;
   }
 
-  /* پنل سمت چپ روی گوشی → تبدیل به هدر بزرگ */
   #leftPanel {
     margin-bottom: 20px;
-    padding: 28px;
-    font-size:32px;
-    border-radius:20px;
+    padding: 32px;
+    font-size:40px;
+    border-radius:22px;
   }
 
   #avatar {
-    width:140px;
-    height:140px;
-    font-size:80px;
+    width:150px;
+    height:150px;
+    font-size:90px;
     margin-bottom:20px;
   }
 
   #rankBadge {
-    font-size:34px;
-    padding:16px 26px;
+    font-size:40px;
+    padding:18px 30px;
     margin-bottom:25px;
   }
 
   #progressLabel {
-    font-size:32px;
+    font-size:38px;
     margin-bottom:14px;
   }
 
   #progressBarOuter {
-    height:18px;
+    height:20px;
     margin-bottom:25px;
   }
 
-  /* اطلاعات بالا روی گوشی */
   #panelUsername,
   #lastUpdate,
   #subscriptionInfo {
-    font-size:34px;
+    font-size:42px;
     margin-bottom:12px;
   }
 
-  /* سیستم‌ها روی گوشی → ستون تکی، کارت‌های خیلی بزرگ */
   #systems {
-    display:block; /* نه گرید، نه چندستونه */
+    display:block;
   }
 
   .card {
-    margin-bottom:18px;
-    padding:50px;
-    border-radius:24px;
-    font-size:40px;
+    margin-bottom:20px;
+    padding:55px;
+    border-radius:26px;
+    font-size:46px;
   }
 
   .card h2 {
-    font-size:46px;
-    margin-bottom:18px;
+    font-size:52px;
+    margin-bottom:20px;
   }
 
   .active {
-    border-right:16px solid #00ff6a;
+    border-right:18px solid #00ff6a;
   }
 
   .free {
-    border-right:16px solid #ff3b3b;
+    border-right:18px solid #ff3b3b;
   }
 
-  /* اسلایدر اشتراک روی گوشی → تمام عرض، کارت‌های خیلی بزرگ */
   #subscriptionSlider {
     margin-top:30px;
-    padding:24px;
-    border-radius:24px;
+    padding:26px;
+    border-radius:26px;
     display:flex;
     overflow-x:auto;
-    gap:20px;
+    gap:22px;
   }
 
   .subCardWrap {
@@ -333,39 +338,37 @@ body {
   }
 
   .subFront, .subBack {
-    font-size:38px;
-    padding:32px;
-    border-radius:24px;
+    font-size:40px;
+    padding:34px;
+    border-radius:26px;
   }
 
-  /* مودال روی گوشی */
   #modalContent {
     max-width:95%;
-    font-size:36px;
-    padding:32px;
-    border-radius:24px;
+    font-size:40px;
+    padding:34px;
+    border-radius:26px;
   }
 
   #closeModal {
-    font-size:34px;
-    padding:18px 40px;
-    border-radius:18px;
+    font-size:38px;
+    padding:20px 44px;
+    border-radius:20px;
   }
 
-  /* منو روی گوشی */
   #menuButton {
-    font-size:46px;
-    padding:14px 22px;
+    font-size:50px;
+    padding:16px 24px;
   }
 
   #menuDropdown {
     width: 90%;
     right: 5%;
-    font-size:32px;
+    font-size:38px;
   }
 
   .menuItem {
-    font-size:32px;
-    padding:20px;
+    font-size:38px;
+    padding:22px;
   }
 }
