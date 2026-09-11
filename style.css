@@ -387,8 +387,8 @@ body {
 
   /* ⭐ تغییر 3: کارت‌های اشتراک بزرگ‌تر */
   .subCardWrap {
-    min-width:420px;
-    height:300px;
+    min-width:500px;
+    height:400px;
     padding:26px;
   }
 
@@ -433,6 +433,16 @@ body {
   border:2px solid #00ff6a55;
   text-align:center;
   }
+
+  .snack-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  padding: 12px 16px;
+  background: #262626;
+  border-radius: 12px;
+  border: 1px solid #00eaff33;
+ ‌ }
 
   #closeModalTop {
     font-size:38px;
