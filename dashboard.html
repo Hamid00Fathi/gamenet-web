@@ -71,118 +71,74 @@
       color:#00eaff;
     }
 
-    /* داشبورد دو ستونه */
+    /* داشبورد */
     #dashboard {
       margin-top: 100px;
-      display: grid;
-      grid-template-columns: 320px 1fr;
-      gap: 20px;
     }
 
-    /* پنل سمت چپ */
-    #leftPanel {
-      background:#1e1e1e;
-      border-radius:15px;
-      padding:20px;
-      box-shadow:0 0 15px #000;
-    }
-
-    /* آواتار کارتونی گیمری — مدل ۳ */
-    #avatar {
-      width:90px;
-      height:90px;
-      border-radius:50%;
-      background:#ff00ff;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:50px;
-      margin-bottom:15px;
-      box-shadow:0 0 25px #ff00ff88;
-    }
-
-    /* رنک */
-    #rankBadge {
-      display:inline-block;
-      padding:10px 18px;
-      border-radius:999px;
-      background:#ff00ff;
-      color:#000;
-      font-weight:bold;
-      margin-bottom:20px;
-      font-size:20px;
-      box-shadow:0 0 15px #ff00ff55;
-    }
-
-    /* Progress Bar */
-    #progressLabel {
-      font-size:18px;
-      margin-bottom:5px;
-    }
-
-    #progressBarOuter {
-      width:100%;
-      height:12px;
-      border-radius:999px;
-      background:#333;
-      overflow:hidden;
-      margin-bottom:20px;
-    }
-
-    #progressBarInner {
-      height:100%;
-      width:0%;
-      background:linear-gradient(90deg,#00eaff,#ff00ff);
-    }
-
-    /* اطلاعات سریع */
-    #quickStats {
-      display:grid;
-      grid-template-columns: repeat(3,1fr);
-      gap:10px;
-    }
-
-    .quickStatItem {
-      background:#252525;
-      border-radius:10px;
-      padding:12px;
-      text-align:center;
-      font-size:18px;
-      box-shadow:0 0 10px #000;
-    }
-
-    /* نام کاربری */
     #panelUsername {
-      font-size:32px;
-      font-weight:bold;
-      margin-bottom:10px;
-      color:#00eaff;
-      background:#1e1e1e;
-      padding:18px;
-      border-radius:12px;
-      display:inline-block;
-      box-shadow:0 0 10px #000;
+      font-size: 26px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #00eaff;
+      background: #1e1e1e;
+      padding: 15px;
+      border-radius: 12px;
+      display: inline-block;
+      box-shadow: 0 0 10px #000;
     }
 
     #lastUpdate {
-      font-size:26px;
-      margin-bottom:20px;
-      color:#cccccc;
-      background:#1e1e1e;
-      padding:15px;
-      border-radius:12px;
-      display:inline-block;
-      box-shadow:0 0 10px #000;
+      font-size: 20px;
+      margin-bottom: 20px;
+      color: #cccccc;
+      background: #1e1e1e;
+      padding: 12px;
+      border-radius: 12px;
+      display: inline-block;
+      box-shadow: 0 0 10px #000;
     }
 
     /* اشتراک فعلی */
     #subscriptionInfo {
       background:#1e1e1e;
-      padding:20px;
+      padding:15px;
       border-radius:12px;
       margin-bottom:20px;
       box-shadow:0 0 10px #000;
-      font-size:24px;
+      font-size:18px;
+    }
+
+    #subscriptionInfo p {
+      margin:5px 0;
+    }
+
+    /* اشتراک منقضی شده */
+    #subscriptionExpired {
+      display:none;
+      background:#1e1e1e;
+      padding:35px;
+      border-radius:15px;
+      margin-bottom:25px;
+      text-align:center;
+      box-shadow:0 0 15px #000;
+    }
+
+    #subscriptionExpired h2 {
+      color:#ff4444;
+      font-size:32px;
+      margin-bottom:15px;
+    }
+
+    #subscriptionExpired p {
+      font-size:22px;
+      margin:10px 0;
+    }
+
+    #subscriptionExpired .phone {
+      font-size:28px;
+      color:#00eaff;
+      font-weight:bold;
     }
 
     /* سیستم‌ها */
@@ -194,12 +150,12 @@
 
     .card {
       background:#1e1e1e;
-      padding:25px;
+      padding:20px;
       border-radius:15px;
       box-shadow:0 0 15px rgba(0,255,255,0.15);
       transition:0.3s;
       cursor:pointer;
-      font-size:24px;
+      font-size:20px;
       border:1px solid #00eaff33;
     }
 
@@ -219,64 +175,7 @@
     .card h2 {
       margin:0 0 10px 0;
       color:#00eaff;
-      font-size:30px;
-    }
-
-    /* کارت‌های اشتراک خریدنی */
-    #subscriptionSlider {
-      margin-top:25px;
-      background:#1e1e1e;
-      padding:30px;
-      border-radius:20px;
-      box-shadow:0 0 15px #000;
-      overflow-x:auto;
-      white-space:nowrap;
-    }
-
-    .subCardWrap {
-      display:inline-block;
-      width:240px;
-      height:160px;
-      margin-right:25px;
-      perspective:1000px;
-    }
-
-    .subCardFlip {
-      width:100%;
-      height:100%;
-      position:relative;
-      transition:transform 0.8s;
-      transform-style:preserve-3d;
-      cursor:pointer;
-    }
-
-    .subCardFlip.flipped {
-      transform:rotateY(180deg);
-    }
-
-    .subFront, .subBack {
-      position:absolute;
-      width:100%;
-      height:100%;
-      backface-visibility:hidden;
-      border-radius:20px;
-      padding:20px;
-      box-shadow:0 0 15px #00eaff;
-      font-size:22px;
-    }
-
-    .subFront {
-      background:linear-gradient(135deg,#00eaff,#006eff);
-      color:#000;
-      font-weight:bold;
-    }
-
-    .subBack {
-      background:#252525;
-      color:#eaeaea;
-      transform:rotateY(180deg);
-      font-size:20px;
-      line-height:1.6;
+      font-size:26px;
     }
 
     /* مودال */
@@ -288,73 +187,31 @@
       padding:20px;
       overflow-y:auto;
       z-index:999999;
-      animation:fadeIn 0.4s ease;
     }
 
     #modalContent {
       background:#222;
-      padding:30px;
+      padding:25px;
       border-radius:20px;
       color:#fff;
-      font-size:28px;
+      font-size:22px;
       line-height:1.8;
-      animation:scaleIn 0.4s ease;
     }
 
     #closeModal {
       margin-top:20px;
-      padding:15px 30px;
-      font-size:26px;
-      background:#ff4444;
+      padding:12px 25px;
+      font-size:20px;
+      background: #ff4444;
       color:#fff;
       border:none;
       border-radius:10px;
     }
 
-    /* نسخه موبایل — فونت بزرگ‌تر */
-    @media (max-width:1200px) {
-
-      #dashboard {
-        grid-template-columns:1fr;
-      }
-
+    /* نسخه موبایل */
+    @media (max-width: 1200px) {
       #systems {
         grid-template-columns: repeat(2,1fr);
-      }
-
-      #panelUsername {
-        font-size:40px;
-      }
-
-      #lastUpdate {
-        font-size:32px;
-      }
-
-      #subscriptionInfo {
-        font-size:30px;
-      }
-
-      .card {
-        font-size:30px;
-        padding:30px;
-      }
-
-      .card h2 {
-        font-size:36px;
-      }
-
-      .quickStatItem {
-        font-size:24px;
-      }
-
-      #rankBadge {
-        font-size:26px;
-      }
-
-      #avatar {
-        width:110px;
-        height:110px;
-        font-size:60px;
       }
     }
   </style>
@@ -380,88 +237,28 @@
 
 <div id="container">
 
-  <div id="dashboard">
+<div id="dashboard">
 
-    <!-- پنل سمت چپ -->
-    <div id="leftPanel">
-      <div id="avatar">😎</div>
-      <div id="rankBadge">Rank: Bronze</div>
+  <div id="panelUsername"></div>
+  <div id="lastUpdate"></div>
 
-      <div id="progressLabel">پیشرفت اشتراک</div>
-      <div id="progressBarOuter">
-        <div id="progressBarInner"></div>
-      </div>
-
-      <div id="quickStats">
-        <div class="quickStatItem">
-          <span>فعال</span>
-          <span id="qsActive">0</span>
-        </div>
-        <div class="quickStatItem">
-          <span>آزاد</span>
-          <span id="qsFree">0</span>
-        </div>
-        <div class="quickStatItem">
-          <span>هزینه</span>
-          <span id="qsTotalCost">0</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- پنل اصلی -->
-    <div>
-
-      <div id="panelUsername"></div>
-      <div id="lastUpdate"></div>
-
-      <div id="subscriptionInfo">
-        <p id="subExpire"></p>
-        <p id="subDaysLeft"></p>
-      </div>
-
-      <div id="subscriptionExpired">
-        <h2>اشتراک شما فعال نیست</h2>
-        <p>برای استفاده از پنل باید اشتراک تهیه کنید.</p>
-        <p class="phone">09187343793</p>
-      </div>
-
-      <div id="systems"></div>
-
-      <div id="subscriptionSlider">
-
-        <div class="subCardWrap">
-          <div class="subCardFlip">
-            <div class="subFront">۱ ماهه<br>150,000</div>
-            <div class="subBack">پشتیبانی پایه<br>دسترسی کامل</div>
-          </div>
-        </div>
-
-        <div class="subCardWrap">
-          <div class="subCardFlip">
-            <div class="subFront">۳ ماهه<br>350,000</div>
-            <div class="subBack">صرفه‌جویی<br>پشتیبانی استاندارد</div>
-          </div>
-        </div>
-
-        <div class="subCardWrap">
-          <div class="subCardFlip">
-            <div class="subFront">۶ ماهه<br>600,000</div>
-            <div class="subBack">پشتیبانی پیشرفته</div>
-          </div>
-        </div>
-
-        <div class="subCardWrap">
-          <div class="subCardFlip">
-            <div class="subFront">۱۲ ماهه<br>1,000,000</div>
-            <div class="subBack">پشتیبانی ویژه</div>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-
+  <!-- اشتراک فعلی -->
+  <div id="subscriptionInfo">
+    <p id="subExpire"></p>
+    <p id="subDaysLeft"></p>
   </div>
+
+  <!-- اشتراک منقضی شده -->
+  <div id="subscriptionExpired">
+    <h2>اشتراک شما فعال نیست</h2>
+    <p>برای استفاده از پنل باید اشتراک تهیه کنید.</p>
+    <p class="phone">09187343793</p>
+  </div>
+
+  <!-- سیستم‌ها -->
+  <div id="systems"></div>
+
+</div>
 
 </div>
 
@@ -481,13 +278,6 @@ document.getElementById("menuButton").onclick = () => {
   menu.style.display = menu.style.display === "block" ? "none" : "block";
 };
 
-/* Flip کارت‌های اشتراک */
-document.querySelectorAll(".subCardFlip").forEach(card => {
-  card.addEventListener("click", () => {
-    card.classList.toggle("flipped");
-  });
-});
-
 /* محاسبه روزهای مانده */
 function calcDaysLeft(expireDate) {
   const today = new Date();
@@ -496,7 +286,7 @@ function calcDaysLeft(expireDate) {
   return Math.ceil(diff / (1000 * 60 * 60 * 24));
 }
 
-/* اطلاعات اشتراک */
+/* اطلاعات اشتراک — نسخه سالم قبلی */
 async function loadSubscriptionInfo() {
   const res = await fetch(`${BASE_URL}/subscription/${username}`);
   const data = await res.json();
@@ -519,15 +309,9 @@ async function loadSubscriptionInfo() {
     data.active
       ? `مانده: ${daysLeft} روز`
       : `غیرفعال`;
-
-  /* Progress Bar */
-  let totalDays = 90;
-  let used = totalDays - daysLeft;
-  let percent = Math.max(0, Math.min(100, (used / totalDays) * 100));
-  document.getElementById("progressBarInner").style.width = percent + "%";
 }
 
-/* چک اشتراک */
+/* چک اشتراک — نسخه سالم قبلی */
 async function checkSubscription(username) {
   const res = await fetch(`${BASE_URL}/subscription/${username}`);
   const data = await res.json();
@@ -545,25 +329,14 @@ function renderSystems(systemsObj) {
   const systemsDiv = document.getElementById("systems");
   systemsDiv.innerHTML = "";
 
-  let activeCount = 0;
-  let freeCount = 0;
-  let totalCost = 0;
-
   Object.keys(systemsObj).forEach(key => {
     const sys = systemsObj[key];
 
     const card = document.createElement("div");
     card.className = "card";
 
-    if (sys.active === 1 || sys.active === 2) {
-      card.classList.add("active");
-      activeCount++;
-    } else {
-      card.classList.add("free");
-      freeCount++;
-    }
-
-    totalCost += Number(sys.final_total || 0);
+    if (sys.active === 1 || sys.active === 2) card.classList.add("active");
+    else card.classList.add("free");
 
     card.innerHTML = `
       <h2>${sys.name}</h2>
@@ -581,16 +354,116 @@ function renderSystems(systemsObj) {
 
     systemsDiv.appendChild(card);
   });
+}
 
-  document.getElementById("qsActive").innerText = activeCount;
-  document.getElementById("qsFree").innerText = freeCount;
-  document.getElementById("qsTotalCost").innerText = safeNum(totalCost);
+/* مودال */
+function openModal(sys) {
+  const modal = document.getElementById("modal");
+  const content = document.getElementById("modalContent");
 
-  /* رنک گیمینگ */
-  let score = activeCount * 20 + freeCount * 5 + totalCost / 10000;
+  content.innerHTML = `
+    <h2>${sys.name}</h2>
+    <div class="customer-box">وضعیت: ${
+      sys.active === 1 ? "فعال" :
+      sys.active === 2 ? "مکث" :
+      "آزاد"
+    }</div>
 
-  let rank = "Bronze";
-  if (score >= 100 && score < 250) rank = "Silver";
-  else if (score >= 250 && score < 500) rank = "Gold";
-  else if (score >= 500 && score < 1000) rank = "Platinum";
-  else if (score >= 1000 && score < 2000) rank
+    <div class="customer-box">زمان سپری‌شده: ${sys.elapsed}</div>
+    <div class="customer-box">هزینه زمان: ${safeNum(sys.time_cost)} تومان</div>
+
+    <h3>خوراکی‌ها:</h3>
+  `;
+
+  const snacksDiv = document.createElement("div");
+
+  if (sys.snacks && sys.snacks.length > 0) {
+    sys.snacks.forEach(item => {
+      const div = document.createElement("div");
+      div.className = "snack-item";
+      div.innerHTML = `
+        <span>${item.name} × ${item.qty}</span>
+        <span>${safeNum(item.price)} تومان</span>
+      `;
+      snacksDiv.appendChild(div);
+    });
+  } else {
+    snacksDiv.innerHTML = "<div>خوراکی ثبت نشده</div>";
+  }
+
+  content.appendChild(snacksDiv);
+
+  content.innerHTML += `
+    <div class="customer-box">جمع خوراکی‌ها: ${safeNum(sys.snacks_total)} تومان</div>
+    <div class="customer-box">جمع نهایی: ${safeNum(sys.final_total)} تومان</div>
+  `;
+
+  const customerDiv = document.createElement("div");
+
+  if (sys.customer) {
+    customerDiv.innerHTML = `
+      <div class="customer-box">
+        <div>نام مشتری: ${sys.customer.name}</div>
+        <div>کد: ${sys.customer.code}</div>
+        <div>اعتبار: ${safeNum(sys.customer.balance)} تومان</div>
+      </div>
+    `;
+  } else {
+    customerDiv.innerHTML = "<div class='customer-box'>مشتری ثبت نشده</div>";
+  }
+
+  content.appendChild(customerDiv);
+
+  content.innerHTML += `
+    <div class="customer-box">${sys.note || "—"}</div>
+  `;
+
+  modal.style.display = "block";
+}
+
+document.getElementById("closeModal").onclick = () => {
+  document.getElementById("modal").style.display = "none";
+};
+
+/* اجرای اولیه + رفرش */
+(async () => {
+  const active = await checkSubscription(username);
+
+  loadSubscriptionInfo();
+
+  if (!active) {
+    document.getElementById("subscriptionExpired").style.display = "block";
+    document.getElementById("systems").innerHTML = "";
+    return;
+  }
+
+  async function refresh() {
+    const data = await loadStatus();
+    if (!data) return;
+
+    document.getElementById("panelUsername").innerText = `گیم‌نت: ${username}`;
+    document.getElementById("lastUpdate").innerText =
+      `آخرین بروزرسانی: ${data.lastUpdate}`;
+
+    renderSystems(data.systems);
+  }
+
+  refresh();
+  setInterval(refresh, 5000);
+})();
+
+/* خروج */
+function logout() {
+  localStorage.removeItem("username");
+  localStorage.removeItem("password");
+  window.location.href = "login.html";
+}
+
+/* تابع امن عدد */
+function safeNum(n) {
+  return Number(n || 0).toLocaleString("fa-IR");
+}
+</script>
+
+</body>
+</html>
