@@ -259,5 +259,14 @@ async function startAutoRefresh() {
         loadStatus();
     }, 5000);
 }
+// اسلایدر خودکار کارت‌های اشتراک
+setInterval(() => {
+    const slider = document.getElementById("subscriptionSlider");
+    slider.scrollLeft += 350;
+
+    if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth) {
+        slider.scrollLeft = 0;
+    }
+}, 4000);
 
 startAutoRefresh();
