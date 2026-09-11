@@ -93,11 +93,32 @@ body {
   margin-bottom:20px;
 }
 
+/* ====== Progress ====== */
+#progressLabel {
+  font-size:20px;
+  margin-bottom:10px;
+}
+
+#progressBarOuter {
+  width:100%;
+  height:14px;
+  background:#333;
+  border-radius:999px;
+  overflow:hidden;
+  margin-bottom:20px;
+}
+
+#progressBarInner {
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,#00eaff,#ff00ff);
+}
+
 /* ====== سیستم‌ها ====== */
 #systems {
   display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap:15px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap:20px;
 }
 
 .card {
@@ -106,6 +127,12 @@ body {
   border-radius:15px;
   border:1px solid #00eaff33;
   font-size:24px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.card:hover {
+  transform:translateY(-5px);
 }
 
 .active {
@@ -167,28 +194,99 @@ body {
   transform:rotateY(180deg);
 }
 
+/* ====== مودال ====== */
+#modal {
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.85);
+  backdrop-filter:blur(4px);
+  z-index:999999;
+  padding:40px 20px;
+  overflow-y:auto;
+}
+
+#modalContent {
+  background:#1e1e1e;
+  padding:30px;
+  border-radius:20px;
+  max-width:700px;
+  margin:auto;
+  box-shadow:0 0 25px #000;
+  font-size:26px;
+  line-height:1.8;
+}
+
+#closeModal {
+  display:block;
+  margin:25px auto 0 auto;
+  padding:15px 40px;
+  font-size:24px;
+  background:#ff4444;
+  border:none;
+  border-radius:12px;
+  color:#fff;
+  cursor:pointer;
+  box-shadow:0 0 10px #000;
+}
+
+/* ====== باکس خوراکی ====== */
+.snack-item {
+  background:#252525;
+  padding:15px 20px;
+  border-radius:12px;
+  margin-bottom:12px;
+  display:flex;
+  justify-content:space-between;
+  font-size:24px;
+  border:1px solid #333;
+}
+
+/* ====== باکس جمع ====== */
+.total-box {
+  background:#2a2a2a;
+  padding:20px;
+  border-radius:15px;
+  margin:25px 0;
+  font-size:28px;
+  border:1px solid #444;
+  box-shadow:0 0 10px #000;
+}
+
+/* ====== باکس مشتری ====== */
+.customer-box {
+  background:#252525;
+  padding:20px;
+  border-radius:15px;
+  margin-top:20px;
+  border:1px solid #333;
+  font-size:24px;
+}
+
 /* ====== موبایل ====== */
-@media (max-width:1200px) {
-  #dashboard {
-    grid-template-columns: 1fr;
+@media (max-width:600px) {
+  #modalContent {
+    font-size:32px;
+    padding:35px;
   }
 
-  #systems {
-    grid-template-columns: repeat(1,1fr);
+  .snack-item {
+    font-size:30px;
+    padding:20px;
+  }
+
+  .total-box {
+    font-size:34px;
+    padding:25px;
+  }
+
+  .customer-box {
+    font-size:30px;
+    padding:25px;
   }
 
   .card {
-    font-size:28px;
-    padding:30px;
-  }
-
-  #subscriptionSlider {
-    padding:20px;
-    gap:15px;
-  }
-
-  .subCardWrap {
-    width:200px;
-    height:140px;
+    font-size:32px;
+    padding:35px;
   }
 }
