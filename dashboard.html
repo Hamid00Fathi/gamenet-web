@@ -11,8 +11,7 @@
   <title>داشبورد گیم‌نت</title>
 
   <!-- نسخه جدید CSS -->
-  <link rel="stylesheet" href="style.css">
-<script src="app.js"></script>
+  <link rel="stylesheet" href="style.css?v=999999">
 </head>
 
 <body>
@@ -145,26 +144,6 @@ function logout() {
   window.location.href = "login.html";
 }
 </script>
-
-
-<script>
-  (function () {
-    const ts = Date.now();
-
-    // ضدکش برای CSS
-    const link = document.querySelector('link[href^="style.css"]');
-    if (link) {
-      link.href = "style.css?v=" + ts;
-    }
-
-    // ضدکش برای JS
-    const script = document.querySelector('script[src^="app.js"]');
-    if (script) {
-      script.src = "app.js?v=" + ts;
-    }
-  })();
-</script>
-
 
 </body>
 </html>
