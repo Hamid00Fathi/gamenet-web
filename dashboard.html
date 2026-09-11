@@ -102,17 +102,17 @@
 
     #subscriptionExpired h2 {
       color: #ff4444;
-      font-size: 40px;
+      font-size: 32px;
       margin-bottom: 15px;
     }
 
     #subscriptionExpired p {
-      font-size: 28px;
+      font-size: 22px;
       margin: 10px 0;
     }
 
     #subscriptionExpired .phone {
-      font-size: 35px;
+      font-size: 28px;
       color: #00eaff;
       font-weight: bold;
     }
@@ -133,7 +133,7 @@
       box-shadow: 0 0 10px rgba(0,0,0,0.4);
       transition: transform 0.25s;
       cursor: pointer;
-      font-size: 20px;
+      font-size: 18px;
     }
 
     .card:hover {
@@ -142,17 +142,17 @@
     }
 
     .active {
-      border-right: 16px solid #00ff6a;
+      border-right: 12px solid #00ff6a;
     }
 
     .free {
-      border-right: 16px solid #ff3b3b;
+      border-right: 12px solid #ff3b3b;
     }
 
     .card h2 {
       margin: 0 0 10px 0;
       color: #00eaff;
-      font-size: 24px;
+      font-size: 22px;
     }
 
     /* ============================
@@ -163,44 +163,122 @@
       position: fixed;
       inset: 0;
       background: rgba(0,0,0,0.8);
-      padding: 40px;
+      padding: 20px;
       overflow-y: auto;
       z-index: 999999;
     }
 
     #modalContent {
       background: #222;
-      padding: 40px;
-      border-radius: 25px;
+      padding: 25px;
+      border-radius: 20px;
       color: #fff;
-      font-size: 40px;
+      font-size: 22px;
       line-height: 1.8;
     }
 
     #closeModal {
-      margin-top: 30px;
-      padding: 20px 40px;
-      font-size: 40px;
+      margin-top: 20px;
+      padding: 12px 25px;
+      font-size: 20px;
       background: #ff4444;
       color: #fff;
       border: none;
-      border-radius: 15px;
+      border-radius: 10px;
     }
 
     .customer-box {
       background: #333;
-      padding: 25px;
-      border-radius: 15px;
-      margin-top: 20px;
-      font-size: 40px;
+      padding: 18px;
+      border-radius: 12px;
+      margin-top: 15px;
+      font-size: 20px;
     }
 
     .snack-item {
       display: flex;
       justify-content: space-between;
-      font-size: 40px;
+      font-size: 20px;
       margin: 10px 0;
     }
+
+    /* ============================
+       نسخه موبایل
+    ============================ */
+    @media (max-width: 900px) {
+
+      #menuButton {
+        font-size: 45px;
+        padding: 18px 24px;
+      }
+
+      #menuDropdown {
+        width: 85%;
+        right: 7%;
+        top: 110px;
+      }
+
+      .menuItem {
+        font-size: 32px;
+        padding: 25px;
+      }
+
+      #panelUsername {
+        font-size: 32px;
+        padding: 18px;
+      }
+
+      #lastUpdate {
+        font-size: 28px;
+        padding: 15px;
+      }
+
+      #systems {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+      }
+
+      .card {
+        font-size: 32px;
+        padding: 25px;
+      }
+
+      .card h2 {
+        font-size: 40px;
+      }
+
+      #subscriptionExpired h2 {
+        font-size: 40px;
+      }
+
+      #subscriptionExpired p {
+        font-size: 32px;
+      }
+
+      #subscriptionExpired .phone {
+        font-size: 40px;
+      }
+
+      #modalContent {
+        font-size: 32px;
+        padding: 35px;
+      }
+
+      #closeModal {
+        font-size: 32px;
+        padding: 20px 40px;
+      }
+
+      .customer-box {
+        font-size: 32px;
+        padding: 25px;
+      }
+
+      .snack-item {
+        font-size: 32px;
+      }
+    }
+
   </style>
 </head>
 
@@ -234,9 +312,9 @@
 
     <hr>
 
-    <h3 style="font-size:32px; margin-bottom:15px;">لیست اشتراک‌ها:</h3>
+    <h3 style="font-size:28px; margin-bottom:15px;">لیست اشتراک‌ها:</h3>
 
-    <div style="font-size:26px; line-height:1.8;">
+    <div style="font-size:22px; line-height:1.8;">
       • اشتراک ۱ ماهه — 150,000 تومان<br>
       • اشتراک ۳ ماهه — 350,000 تومان<br>
       • اشتراک ۶ ماهه — 600,000 تومان<br>
