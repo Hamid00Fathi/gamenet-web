@@ -146,5 +146,25 @@ function logout() {
 }
 </script>
 
+
+<script>
+  (function () {
+    const ts = Date.now();
+
+    // ضدکش برای CSS
+    const link = document.querySelector('link[href^="style.css"]');
+    if (link) {
+      link.href = "style.css?v=" + ts;
+    }
+
+    // ضدکش برای JS
+    const script = document.querySelector('script[src^="app.js"]');
+    if (script) {
+      script.src = "app.js?v=" + ts;
+    }
+  })();
+</script>
+
+
 </body>
 </html>
