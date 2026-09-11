@@ -1,277 +1,207 @@
 <!DOCTYPE html>
 <html lang="fa">
 <head>
-    <meta charset="UTF-8">
-    <title>داشبورد گیم‌نت</title>
+  <meta charset="UTF-8">
+  <title>داشبورد گیم‌نت</title>
 
-    <style>
-        body {
-            font-family: B Nazanin, sans-serif;
-            background: #121212;
-            color: #eaeaea;
-            margin: 0;
-            padding: 15px;
-            direction: rtl;
-            font-size: 16px;
-        }
+  <style>
+    body {
+      font-family: B Nazanin, sans-serif;
+      background: #121212;
+      color: #eaeaea;
+      margin: 0;
+      padding: 15px;
+      direction: rtl;
+    }
 
-        /* ============================
-           منوی سه‌خط سمت راست
-        ============================ */
-        #menuButton {
-            position: fixed;
-            top: 15px;
-            right: 15px;
-            background: #1e1e1e;
-            color: #00eaff;
-            font-size: 32px;
-            padding: 8px 14px;
-            border-radius: 10px;
-            cursor: pointer;
-            z-index: 999999;
-            box-shadow: 0 0 10px #000;
-        }
+    /* ============================
+       منوی سه‌خط
+    ============================ */
+    #menuButton {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      background: #1e1e1e;
+      color: #00eaff;
+      font-size: 32px;
+      padding: 10px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      z-index: 999999;
+      box-shadow: 0 0 10px #000;
+    }
 
-        #menuDropdown {
-            position: fixed;
-            top: 65px;
-            right: 15px;
-            background: #1e1e1e;
-            width: 260px;
-            border-radius: 12px;
-            padding: 10px;
-            display: none;
-            z-index: 999999;
-            box-shadow: 0 0 15px #000;
-        }
+    #menuDropdown {
+      position: fixed;
+      top: 70px;
+      right: 15px;
+      background: #1e1e1e;
+      width: 260px;
+      border-radius: 12px;
+      padding: 10px;
+      display: none;
+      z-index: 999999;
+      box-shadow: 0 0 15px #000;
+    }
 
-        .menuItem {
-            padding: 14px;
-            font-size: 18px;
-            color: #eaeaea;
-            cursor: pointer;
-            border-bottom: 1px solid #333;
-        }
+    .menuItem {
+      padding: 14px;
+      font-size: 18px;
+      color: #eaeaea;
+      cursor: pointer;
+      border-bottom: 1px solid #333;
+    }
 
-        .menuItem:hover {
-            background: #00eaff;
-            color: black;
-        }
+    .menuItem:hover {
+      background: #00eaff;
+      color: black;
+    }
 
-        #menuDropdown hr {
-            border: none;
-            border-bottom: 1px solid #444;
-            margin: 10px 0;
-        }
+    /* ============================
+       داشبورد
+    ============================ */
+    #dashboard {
+      margin-top: 20px;
+    }
 
-        /* ============================
-           حالت موبایل
-        ============================ */
-        @media (max-width: 1200px) {
-            #menuButton {
-                font-size: 70px;
-                padding: 25px 35px;
-                top: 25px;
-                right: 25px;
-            }
+    #panelUsername {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #00eaff;
+      background: #1e1e1e;
+      padding: 12px;
+      border-radius: 10px;
+      display: inline-block;
+      box-shadow: 0 0 10px #000;
+    }
 
-            #menuDropdown {
-                top: 130px;
-                right: 25px;
-                width: 480px;
-                padding: 30px;
-            }
+    #lastUpdate {
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: #cccccc;
+      background: #1e1e1e;
+      padding: 10px;
+      border-radius: 10px;
+      display: inline-block;
+      box-shadow: 0 0 10px #000;
+    }
 
-            .menuItem {
-                font-size: 45px;
-                padding: 30px;
-            }
-        }
+    /* ============================
+       اشتراک منقضی شده
+    ============================ */
+    #subscriptionExpired {
+      display: none;
+      background: #1e1e1e;
+      padding: 35px;
+      border-radius: 15px;
+      margin-bottom: 25px;
+      text-align: center;
+      box-shadow: 0 0 15px #000;
+    }
 
-        /* ============================
-           داشبورد اصلی
-        ============================ */
-        #dashboard {
-            margin-top: 20px;
-        }
+    #subscriptionExpired h2 {
+      color: #ff4444;
+      font-size: 40px;
+      margin-bottom: 15px;
+    }
 
-        @media (max-width: 1200px) {
-            #dashboard {
-                margin-top: 60px;
-            }
-        }
+    #subscriptionExpired p {
+      font-size: 28px;
+      margin: 10px 0;
+    }
 
-        #panelUsername {
-            font-size: 22px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #00eaff;
-            background: #1e1e1e;
-            padding: 12px;
-            border-radius: 10px;
-            display: inline-block;
-            box-shadow: 0 0 10px #000;
-        }
+    #subscriptionExpired .phone {
+      font-size: 35px;
+      color: #00eaff;
+      font-weight: bold;
+    }
 
-        #lastUpdate {
-            font-size: 18px;
-            margin-bottom: 20px;
-            color: #cccccc;
-            background: #1e1e1e;
-            padding: 10px;
-            border-radius: 10px;
-            display: inline-block;
-            box-shadow: 0 0 10px #000;
-        }
+    /* ============================
+       سیستم‌ها
+    ============================ */
+    #systems {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
 
-        @media (max-width: 1200px) {
-            #panelUsername {
-                font-size: 60px;
-                margin-bottom: 20px;
-            }
+    .card {
+      background: linear-gradient(135deg, #1e1e1e, #252525);
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+      transition: transform 0.25s;
+      cursor: pointer;
+      font-size: 20px;
+    }
 
-            #lastUpdate {
-                font-size: 45px;
-            }
-        }
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #000;
+    }
 
-        /* ============================
-           صفحه اشتراک منقضی شده
-        ============================ */
-        #subscriptionExpired {
-            display: none;
-            background: #1e1e1e;
-            padding: 35px;
-            border-radius: 15px;
-            margin-bottom: 25px;
-            text-align: center;
-            box-shadow: 0 0 15px #000;
-        }
+    .active {
+      border-right: 16px solid #00ff6a;
+    }
 
-        #subscriptionExpired h2 {
-            color: #ff4444;
-            font-size: 40px;
-            margin-bottom: 15px;
-        }
+    .free {
+      border-right: 16px solid #ff3b3b;
+    }
 
-        #subscriptionExpired p {
-            font-size: 28px;
-            margin: 10px 0;
-        }
+    .card h2 {
+      margin: 0 0 10px 0;
+      color: #00eaff;
+      font-size: 24px;
+    }
 
-        #subscriptionExpired .phone {
-            font-size: 35px;
-            color: #00eaff;
-            font-weight: bold;
-        }
+    /* ============================
+       مودال
+    ============================ */
+    #modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      padding: 40px;
+      overflow-y: auto;
+      z-index: 999999;
+    }
 
-        /* ============================
-           سیستم‌ها
-        ============================ */
-        #systems {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-        }
+    #modalContent {
+      background: #222;
+      padding: 40px;
+      border-radius: 25px;
+      color: #fff;
+      font-size: 40px;
+      line-height: 1.8;
+    }
 
-        .card {
-            background: linear-gradient(135deg, #1e1e1e, #252525);
-            padding: 15px;
-            border-radius: 12px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.4);
-            transition: transform 0.25s;
-            cursor: pointer;
-            font-size: 20px;
-        }
+    #closeModal {
+      margin-top: 30px;
+      padding: 20px 40px;
+      font-size: 40px;
+      background: #ff4444;
+      color: #fff;
+      border: none;
+      border-radius: 15px;
+    }
 
-        .card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px #000;
-        }
+    .customer-box {
+      background: #333;
+      padding: 25px;
+      border-radius: 15px;
+      margin-top: 20px;
+      font-size: 40px;
+    }
 
-        .active {
-            border-right: 16px solid #00ff6a;
-        }
-
-        .free {
-            border-right: 16px solid #ff3b3b;
-        }
-
-        .card h2 {
-            margin: 0 0 10px 0;
-            color: #00eaff;
-            font-size: 24px;
-        }
-
-        @media (max-width: 1200px) {
-            #systems {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .card {
-                font-size: 40px;
-                padding: 25px;
-            }
-
-            .card h2 {
-                font-size: 55px;
-            }
-        }
-
-        #loading {
-            text-align: center;
-            margin-top: 80px;
-            font-size: 22px;
-            color: #00eaff;
-        }
-
-        /* ============================
-           مودال
-        ============================ */
-        #modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.8);
-            padding: 40px;
-            overflow-y: auto;
-            z-index: 999999;
-        }
-
-        #modalContent {
-            background: #222;
-            padding: 40px;
-            border-radius: 25px;
-            color: #fff;
-            font-size: 40px;
-            line-height: 1.8;
-        }
-
-        #closeModal {
-            margin-top: 30px;
-            padding: 20px 40px;
-            font-size: 40px;
-            background: #ff4444;
-            color: #fff;
-            border: none;
-            border-radius: 15px;
-        }
-
-        .customer-box {
-            background: #333;
-            padding: 25px;
-            border-radius: 15px;
-            margin-top: 20px;
-            font-size: 40px;
-        }
-
-        .snack-item {
-            display: flex;
-            justify-content: space-between;
-            font-size: 40px;
-            margin: 10px 0;
-        }
-    </style>
+    .snack-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 40px;
+      margin: 10px 0;
+    }
+  </style>
 </head>
 
 <body>
@@ -281,48 +211,48 @@
 
 <!-- منوی مخفی -->
 <div id="menuDropdown">
-    <div class="menuItem" onclick="openCustomers()">مشتری‌ها</div>
-    <div class="menuItem" onclick="openSnacks()">خوراکی‌ها</div>
-    <div class="menuItem" onclick="openReports()">گزارش‌ها</div>
-    <div class="menuItem" onclick="openSettings()">تنظیمات</div>
-    <hr>
-    <div class="menuItem" onclick="logout()">خروج</div>
+  <div class="menuItem">مشتری‌ها</div>
+  <div class="menuItem">خوراکی‌ها</div>
+  <div class="menuItem">گزارش‌ها</div>
+  <div class="menuItem">تنظیمات</div>
+  <hr>
+  <div class="menuItem" onclick="logout()">خروج</div>
 </div>
 
 <!-- داشبورد -->
 <div id="dashboard">
 
-    <div id="panelUsername"></div>
-    <div id="lastUpdate"></div>
+  <div id="panelUsername"></div>
+  <div id="lastUpdate"></div>
 
-    <!-- اشتراک منقضی شده -->
-    <div id="subscriptionExpired">
-        <h2>اشتراک شما فعال نیست</h2>
-        <p>برای استفاده از پنل باید اشتراک تهیه کنید.</p>
-        <p>برای خرید اشتراک با پشتیبانی تماس بگیرید:</p>
-        <p class="phone">09187343793</p>
+  <!-- اشتراک منقضی شده -->
+  <div id="subscriptionExpired">
+    <h2>اشتراک شما فعال نیست</h2>
+    <p>برای استفاده از پنل باید اشتراک تهیه کنید.</p>
+    <p>برای خرید اشتراک با پشتیبانی تماس بگیرید:</p>
+    <p class="phone">09187343793</p>
 
-        <hr>
+    <hr>
 
-        <h3 style="font-size:32px; margin-bottom:15px;">لیست اشتراک‌ها:</h3>
+    <h3 style="font-size:32px; margin-bottom:15px;">لیست اشتراک‌ها:</h3>
 
-        <div style="font-size:26px; line-height:1.8;">
-            • اشتراک ۱ ماهه — 150,000 تومان<br>
-            • اشتراک ۳ ماهه — 350,000 تومان<br>
-            • اشتراک ۶ ماهه — 600,000 تومان<br>
-            • اشتراک ۱۲ ماهه — 1,000,000 تومان<br>
-        </div>
+    <div style="font-size:26px; line-height:1.8;">
+      • اشتراک ۱ ماهه — 150,000 تومان<br>
+      • اشتراک ۳ ماهه — 350,000 تومان<br>
+      • اشتراک ۶ ماهه — 600,000 تومان<br>
+      • اشتراک ۱۲ ماهه — 1,000,000 تومان<br>
     </div>
+  </div>
 
-    <!-- سیستم‌ها -->
-    <div id="systems"></div>
+  <!-- سیستم‌ها -->
+  <div id="systems"></div>
 
 </div>
 
 <!-- مودال -->
 <div id="modal">
-    <div id="modalContent"></div>
-    <button id="closeModal">بستن</button>
+  <div id="modalContent"></div>
+  <button id="closeModal">بستن</button>
 </div>
 
 <script>
@@ -333,193 +263,173 @@ const username = localStorage.getItem("username");
    منوی سه‌خط
 ============================ */
 document.getElementById("menuButton").onclick = () => {
-    const menu = document.getElementById("menuDropdown");
-    menu.style.display = menu.style.display === "block" ? "none" : "block";
+  const menu = document.getElementById("menuDropdown");
+  menu.style.display = menu.style.display === "block" ? "none" : "block";
 };
 
 /* ============================
    چک اشتراک
 ============================ */
 async function checkSubscription(username) {
-    const res = await fetch(`${BASE_URL}/subscription/${username}`);
-    const data = await res.json();
-    return data.active;
+  const res = await fetch(`${BASE_URL}/subscription/${username}`);
+  const data = await res.json();
+  return data.active;
 }
 
 /* ============================
    گرفتن وضعیت
 ============================ */
 async function loadStatus() {
-    const res = await fetch(`${BASE_URL}/status/${username}`);
-    return await res.json();
+  const res = await fetch(`${BASE_URL}/status/${username}`);
+  return await res.json();
 }
 
 /* ============================
    رندر سیستم‌ها
 ============================ */
 function renderSystems(systemsObj) {
-    const systemsDiv = document.getElementById("systems");
-    systemsDiv.innerHTML = "";
+  const systemsDiv = document.getElementById("systems");
+  systemsDiv.innerHTML = "";
 
-    Object.keys(systemsObj).forEach(key => {
-        const sys = systemsObj[key];
+  Object.keys(systemsObj).forEach(key => {
+    const sys = systemsObj[key];
 
-        const card = document.createElement("div");
-        card.className = "card";
+    const card = document.createElement("div");
+    card.className = "card";
 
-        if (sys.active === 1 || sys.active === 2) card.classList.add("active");
-        else card.classList.add("free");
+    if (sys.active === 1 || sys.active === 2) card.classList.add("active");
+    else card.classList.add("free");
 
-        card.innerHTML = `
-            <h2>${sys.name}</h2>
-            <p>وضعیت: ${
-                sys.active === 1 ? "فعال" :
-                sys.active === 2 ? "مکث" :
-                "آزاد"
-            }</p>
-            <p>زمان: ${sys.elapsed}</p>
-            <p>هزینه نهایی: ${safeNum(sys.final_total)} تومان</p>
-            <p>یادداشت: ${sys.note || "—"}</p>
-        `;
+    card.innerHTML = `
+      <h2>${sys.name}</h2>
+      <p>وضعیت: ${
+        sys.active === 1 ? "فعال" :
+        sys.active === 2 ? "مکث" :
+        "آزاد"
+      }</p>
+      <p>زمان: ${sys.elapsed}</p>
+      <p>هزینه نهایی: ${safeNum(sys.final_total)} تومان</p>
+      <p>یادداشت: ${sys.note || "—"}</p>
+    `;
 
-        card.onclick = () => openModal(sys);
+    card.onclick = () => openModal(sys);
 
-        systemsDiv.appendChild(card);
-    });
+    systemsDiv.appendChild(card);
+  });
 }
 
 /* ============================
    مودال
 ============================ */
 function openModal(sys) {
-    const modal = document.getElementById("modal");
-    const content = document.getElementById("modalContent");
+  const modal = document.getElementById("modal");
+  const content = document.getElementById("modalContent");
 
-    content.innerHTML = `
-        <h2>${sys.name}</h2>
-        <div class="customer-box">وضعیت: ${
-            sys.active === 1 ? "فعال" :
-            sys.active === 2 ? "مکث" :
-            "آزاد"
-        }</div>
+  content.innerHTML = `
+    <h2>${sys.name}</h2>
+    <div class="customer-box">وضعیت: ${
+      sys.active === 1 ? "فعال" :
+      sys.active === 2 ? "مکث" :
+      "آزاد"
+    }</div>
 
-        <div class="customer-box">زمان سپری‌شده: ${sys.elapsed}</div>
-        <div class="customer-box">هزینه زمان: ${safeNum(sys.time_cost)} تومان</div>
+    <div class="customer-box">زمان سپری‌شده: ${sys.elapsed}</div>
+    <div class="customer-box">هزینه زمان: ${safeNum(sys.time_cost)} تومان</div>
 
-        <h3>خوراکی‌ها:</h3>
+    <h3>خوراکی‌ها:</h3>
+  `;
+
+  const snacksDiv = document.createElement("div");
+
+  if (sys.snacks.length > 0) {
+    sys.snacks.forEach(item => {
+      const div = document.createElement("div");
+      div.className = "snack-item";
+      div.innerHTML = `
+        <span>${item.name} × ${item.qty}</span>
+        <span>${safeNum(item.price)} تومان</span>
+      `;
+      snacksDiv.appendChild(div);
+    });
+  } else {
+    snacksDiv.innerHTML = "<div>خوراکی ثبت نشده</div>";
+  }
+
+  content.appendChild(snacksDiv);
+
+  content.innerHTML += `
+    <div class="customer-box">جمع خوراکی‌ها: ${safeNum(sys.snacks_total)} تومان</div>
+    <div class="customer-box">جمع نهایی: ${safeNum(sys.final_total)} تومان</div>
+  `;
+
+  const customerDiv = document.createElement("div");
+
+  if (sys.customer) {
+    customerDiv.innerHTML = `
+      <div class="customer-box">
+        <div>نام مشتری: ${sys.customer.name}</div>
+        <div>کد: ${sys.customer.code}</div>
+        <div>اعتبار: ${safeNum(sys.customer.balance)} تومان</div>
+      </div>
     `;
+  } else {
+    customerDiv.innerHTML = "<div class='customer-box'>مشتری ثبت نشده</div>";
+  }
 
-    const snacksDiv = document.createElement("div");
+  content.appendChild(customerDiv);
 
-    if (sys.snacks.length > 0) {
-        sys.snacks.forEach(item => {
-            const div = document.createElement("div");
-            div.className = "snack-item";
-            div.innerHTML = `
-                <span>${item.name} × ${item.qty}</span>
-                <span>${safeNum(item.price)} تومان</span>
-            `;
-            snacksDiv.appendChild(div);
-        });
-    } else {
-        snacksDiv.innerHTML = "<div>خوراکی ثبت نشده</div>";
-    }
+  content.innerHTML += `
+    <div class="customer-box">${sys.note || "—"}</div>
+  `;
 
-    content.appendChild(snacksDiv);
-
-    content.innerHTML += `
-        <div class="customer-box">جمع خوراکی‌ها: ${safeNum(sys.snacks_total)} تومان</div>
-        <div class="customer-box">جمع نهایی: ${safeNum(sys.final_total)} تومان</div>
-    `;
-
-    const customerDiv = document.createElement("div");
-
-    if (sys.customer) {
-        customerDiv.innerHTML = `
-            <div class="customer-box">
-                <div>نام مشتری: ${sys.customer.name}</div>
-                <div>کد: ${sys.customer.code}</div>
-                <div>اعتبار: ${safeNum(sys.customer.balance)} تومان</div>
-            </div>
-        `;
-    } else {
-        customerDiv.innerHTML = "<div class='customer-box'>مشتری ثبت نشده</div>";
-    }
-
-    content.appendChild(customerDiv);
-
-    content.innerHTML += `
-        <div class="customer-box">${sys.note || "—"}</div>
-    `;
-
-    modal.style.display = "block";
+  modal.style.display = "block";
 }
 
 document.getElementById("closeModal").onclick = () => {
-    document.getElementById("modal").style.display = "none";
+  document.getElementById("modal").style.display = "none";
 };
 
 /* ============================
    اجرای اولیه + رفرش
 ============================ */
 (async () => {
-    const active = await checkSubscription(username);
+  const active = await checkSubscription(username);
 
-    if (!active) {
-        document.getElementById("subscriptionExpired").style.display = "block";
-        document.getElementById("systems").innerHTML = "";
-        document.getElementById("loading").style.display = "none";
-        document.getElementById("dashboard").style.display = "block";
-        return;
-    }
+  if (!active) {
+    document.getElementById("subscriptionExpired").style.display = "block";
+    document.getElementById("systems").innerHTML = "";
+    return;
+  }
 
-    async function refresh() {
-        const data = await loadStatus();
-        if (!data) return;
+  async function refresh() {
+    const data = await loadStatus();
+    if (!data) return;
 
-        document.getElementById("panelUsername").innerText = `گیم‌نت: ${username}`;
-        document.getElementById("lastUpdate").innerText =
-            `آخرین بروزرسانی: ${data.lastUpdate}`;
+    document.getElementById("panelUsername").innerText = `گیم‌نت: ${username}`;
+    document.getElementById("lastUpdate").innerText =
+      `آخرین بروزرسانی: ${data.lastUpdate}`;
 
-        renderSystems(data.systems);
+    renderSystems(data.systems);
+  }
 
-        document.getElementById("loading").style.display = "none";
-        document.getElementById("dashboard").style.display = "block";
-    }
-
-    refresh();
-    setInterval(refresh, 5000);
+  refresh();
+  setInterval(refresh, 5000);
 })();
 
 /* ============================
-   دکمه‌های منو
+   خروج
 ============================ */
-function openSettings() {
-    alert("بخش تنظیمات به‌زودی اضافه می‌شود");
-}
-
-function openReports() {
-    alert("بخش گزارش‌ها به‌زودی اضافه می‌شود");
-}
-
-function openCustomers() {
-    alert("بخش مدیریت مشتری‌ها به‌زودی اضافه می‌شود");
-}
-
-function openSnacks() {
-    alert("بخش مدیریت خوراکی‌ها به‌زودی اضافه می‌شود");
-}
-
 function logout() {
-    localStorage.removeItem("username");
-    window.location.href = "login.html";
+  localStorage.removeItem("username");
+  localStorage.removeItem("password");
+  window.location.href = "login.html";
 }
 
 /* ============================
    تابع امن عدد
 ============================ */
 function safeNum(n) {
-    return Number(n || 0).toLocaleString("fa-IR");
+  return Number(n || 0).toLocaleString("fa-IR");
 }
 </script>
 
