@@ -29,6 +29,12 @@ body {
   transition: 0.2s;
 }
 
+#menuButton:hover {
+  background: #00eaff;
+  color: #000;
+  transform: scale(1.05);
+}
+
 #menuDropdown {
   position: fixed;
   top: 80px;
@@ -47,9 +53,15 @@ body {
   color: #eaeaea;
   cursor: pointer;
   border-bottom: 1px solid #333;
+  transition: 0.2s;
 }
 
-/* ====== داشبورد ====== */
+.menuItem:hover {
+  background: #00eaff33;
+  border-radius: 8px;
+}
+
+/* ====== داشبورد دسکتاپ ====== */
 #dashboard {
   margin-top: 90px;
   display: grid;
@@ -57,7 +69,7 @@ body {
   gap: 20px;
 }
 
-/* ====== پنل چپ ====== */
+/* پنل سمت چپ دسکتاپ */
 #leftPanel {
   background:#1e1e1e;
   border-radius:15px;
@@ -108,7 +120,7 @@ body {
   background:linear-gradient(90deg,#00eaff,#ff00ff);
 }
 
-/* ====== سیستم‌ها ====== */
+/* ====== سیستم‌ها دسکتاپ ====== */
 #systems {
   display:grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -130,6 +142,11 @@ body {
   margin-bottom:8px;
 }
 
+.card:hover {
+  transform:translateY(-4px);
+}
+
+/* ⭐ تغییر 1: هدلایت 15px */
 .active {
   border-right:15px solid #00ff6a;
 }
@@ -138,7 +155,15 @@ body {
   border-right:15px solid #ff3b3b;
 }
 
-/* ====== اسلایدر اشتراک ====== */
+/* ====== اطلاعات بالا دسکتاپ ====== */
+#panelUsername,
+#lastUpdate,
+#subscriptionInfo {
+  font-size:20px;
+  margin-bottom:8px;
+}
+
+/* ====== اسلایدر اشتراک دسکتاپ ====== */
 #subscriptionSlider {
   margin-top:20px;
   background:#1e1e1e;
@@ -170,6 +195,10 @@ body {
   transition:transform 0.8s;
   transform-style:preserve-3d;
   cursor:pointer;
+}
+
+.subCardFlip.flipped {
+  transform:rotateY(180deg);
 }
 
 .subFront, .subBack {
@@ -219,7 +248,7 @@ body {
   position:relative;
 }
 
-/* دکمه بستن بالا سمت چپ */
+/* ⭐ تغییر 2: دکمه بستن بالا سمت چپ */
 #closeModalTop {
   position:absolute;
   top:20px;
@@ -227,19 +256,20 @@ body {
   background:#ff4444;
   color:#fff;
   border:none;
-  font-size:26px;
+  font-size:24px;
   padding:10px 18px;
   border-radius:12px;
   cursor:pointer;
 }
 
-/* کادرهای مودال */
+/* کادرهای جدا داخل مودال */
 .modalSection {
   background:#1f1f1f;
   border:2px solid #00eaff88;
   padding:22px;
   border-radius:16px;
   margin-bottom:25px;
+  box-shadow:0 0 12px #000;
 }
 
 .modalSection h3 {
@@ -277,17 +307,142 @@ body {
   text-align:center;
 }
 
-/* ====== نسخه موبایل ====== */
+/* =========================
+   نسخهٔ کاملاً جدا برای گوشی
+   ========================= */
 @media (max-width: 1200px) {
 
+  #container {
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  #dashboard {
+    margin-top: 70px;
+    display: block;
+  }
+
+  #leftPanel {
+    margin-bottom: 20px;
+    padding: 32px;
+    font-size:40px;
+    border-radius:22px;
+  }
+
+  #avatar {
+    width:150px;
+    height:150px;
+    font-size:90px;
+    margin-bottom:20px;
+  }
+
+  #rankBadge {
+    font-size:40px;
+    padding:18px 30px;
+    margin-bottom:25px;
+  }
+
+  #progressLabel {
+    font-size:38px;
+    margin-bottom:14px;
+  }
+
+  #progressBarOuter {
+    height:20px;
+    margin-bottom:25px;
+  }
+
+  #panelUsername,
+  #lastUpdate,
+  #subscriptionInfo {
+    font-size:42px;
+    margin-bottom:12px;
+  }
+
   #systems {
+    display:grid;
     grid-template-columns: repeat(2, 1fr);
     gap:26px;
   }
 
-  /* فقط بزرگ‌تر کردن کارت‌های اشتراک */
+  .card {
+    padding:45px;
+    border-radius:26px;
+    font-size:40px;
+  }
+
+  .card h2 {
+    font-size:48px;
+    margin-bottom:20px;
+  }
+
+  #subscriptionSlider {
+    margin-top:30px;
+    padding:26px;
+    border-radius:26px;
+    display:flex;
+    overflow-x:auto;
+    gap:22px;
+  }
+
+  /* ⭐ تغییر 3: کارت‌های اشتراک بزرگ‌تر */
   .subCardWrap {
-    min-width:350px;
-    height:240px;
+    min-width:420px;
+    height:300px;
+    padding:26px;
+  }
+
+  .subFront, .subBack {
+    font-size:38px;
+    padding:34px;
+    border-radius:26px;
+  }
+
+  #modalContent {
+    max-width:95%;
+    font-size:40px;
+    padding:34px;
+    border-radius:26px;
+  }
+
+  .modalSection {
+    padding:34px;
+    border-radius:26px;
+    margin-bottom:30px;
+  }
+
+  .modalSection h3 {
+    font-size:42px;
+    margin-bottom:20px;
+    padding-bottom:12px;
+  }
+
+  .modalSection p {
+    font-size:38px;
+    margin:12px 0;
+  }
+
+  #closeModalTop {
+    font-size:38px;
+    padding:20px 44px;
+    border-radius:20px;
+    top:30px;
+    left:30px;
+  }
+
+  #menuButton {
+    font-size:50px;
+    padding:16px 24px;
+  }
+
+  #menuDropdown {
+    width: 90%;
+    right: 5%;
+    font-size:38px;
+  }
+
+  .menuItem {
+    font-size:38px;
+    padding:22px;
   }
 }
