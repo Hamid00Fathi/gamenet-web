@@ -54,12 +54,16 @@ async function loadSubscription() {
       const percent = Math.min(100, Math.max(0, (daysLeft / 30) * 100));
       document.getElementById("progressBarInner").style.width =
         percent + "%";
-    } else {
-      document.getElementById("subDaysLeft").innerText = "اشتراک فعال نیست";
-      document.getElementById("menuSubDaysLeft").innerText = "غیرفعال";
-      document.getElementById("subscriptionExpired").style.display = "block";
-      document.getElementById("progressBarInner").style.width = "0%";
-    }
+    } } else {
+  // مخفی کردن متن‌های اضافی
+  document.getElementById("subDaysLeft").innerText = "";
+  document.getElementById("menuSubDaysLeft").innerText = "";
+
+  // فقط پیام اصلی نمایش داده شود
+  document.getElementById("subscriptionExpired").style.display = "block";
+
+  document.getElementById("progressBarInner").style.width = "0%";
+}
   } catch (err) {
     console.log("خطا در اشتراک:", err);
   }
