@@ -237,6 +237,7 @@ function openModalFull(sys) {
       <h3>هزینه‌ها</h3>
       <p>هزینه زمان: ${formatPrice(sys.time_cost)} تومان</p>
       <p>جمع خوراکی‌ها: ${formatPrice(sys.snacks_total)} تومان</p>
+      <p>هزینه سیستم قبلی: ${formatPrice(sys.transfer_cost || 0)} تومان</p>
       <div class="finalTotal">
         هزینه نهایی: ${formatPrice(sys.final_total)} تومان
       </div>
