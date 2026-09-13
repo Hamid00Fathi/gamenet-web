@@ -306,6 +306,21 @@ body {
   border:2px solid #00ff6a55;
   text-align:center;
 }
+/* ====== متن اشتراک منقضی شده — دسکتاپ ====== */
+#subscriptionExpired h2 {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+#subscriptionExpired p {
+  font-size: 20px;
+}
+
+#subscriptionExpired .phone {
+  font-size: 24px;
+  font-weight: bold;
+  color: #00eaff;
+}
 
 /* =========================
    نسخهٔ کاملاً جدا برای گوشی
@@ -474,4 +489,20 @@ body {
     font-size:38px;
     padding:22px;
   }
+  /* ====== متن اشتراک منقضی شده — موبایل ====== */
+  #subscriptionExpired h2 {
+    font-size: 42px;
+    font-weight: bold;
+  }
+
+  #subscriptionExpired p {
+    font-size: 34px;
+  }
+
+  #subscriptionExpired .phone {
+    font-size: 46px;
+    font-weight: bold;
+    color: #00eaff;
+  }
+}
 }
