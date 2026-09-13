@@ -32,6 +32,9 @@ async function loadSubscription() {
     const expire = data.expireDate || "—";
     const active = data.active;
 
+    // 🔥 ذخیره وضعیت اشتراک برای loadStatus
+    window.subscriptionActive = active;
+
     document.getElementById("subExpire").innerText = "تاریخ پایان: " + expire;
 
     let daysLeft = calcDaysLeft(expire);
@@ -75,6 +78,13 @@ async function loadStatus() {
 
   if (!username) {
     lastUpdateEl.innerText = "یوزرنیم تنظیم نشده";
+    return;
+  }
+
+  // 🔥 اگر اشتراک فعال نیست → سیستم‌ها را نمایش نده
+  if (!window.subscriptionActive) {
+    lastUpdateEl.innerText = "اشتراک فعال نیست";
+    document.getElementById("systems").innerHTML = "";
     return;
   }
 
