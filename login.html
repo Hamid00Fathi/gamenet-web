@@ -206,7 +206,7 @@
         localStorage.setItem("password", password);
 
         // ورود به داشبورد
-        window.location.href = "dashboard.html";
+        window.location.href = `dashboard.html?user=${username}`;
 
       } catch {
         hideLoading();
