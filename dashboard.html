@@ -123,6 +123,13 @@
   </div>
 </div>
 
+<script>
+  const usernameFromURL = new URLSearchParams(window.location.search).get("user");
+  if (usernameFromURL) {
+    localStorage.setItem("username", usernameFromURL);
+  }
+</script>
+
 <script src="app.js?v=1000002"></script>
 
 <script>
