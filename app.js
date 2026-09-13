@@ -23,9 +23,9 @@ async function loadSubscription() {
   if (!username) return;
 
   // جلوگیری از نمایش اشتباه اشتراک قبل از لود
-document.getElementById("subscriptionExpired").style.display = "none";
-document.getElementById("subDaysLeft").innerText = "";
-document.getElementById("menuSubDaysLeft").innerText = "";
+  document.getElementById("subscriptionExpired").style.display = "none";
+  document.getElementById("subDaysLeft").innerText = "";
+  document.getElementById("menuSubDaysLeft").innerText = "";
 
   try {
     const res = await fetch(
@@ -37,7 +37,6 @@ document.getElementById("menuSubDaysLeft").innerText = "";
     const expire = data.expireDate || "—";
     const active = data.active;
 
-    // ذخیره وضعیت اشتراک برای loadStatus
     window.subscriptionActive = active;
 
     document.getElementById("subExpire").innerText = "تاریخ پایان: " + expire;
@@ -46,7 +45,6 @@ document.getElementById("menuSubDaysLeft").innerText = "";
     if (daysLeft < 0 && active) daysLeft = 1;
 
     if (active) {
-      // اشتراک فعال
       document.getElementById("subDaysLeft").innerText =
         "روزهای مانده: " + daysLeft;
 
@@ -60,7 +58,6 @@ document.getElementById("menuSubDaysLeft").innerText = "";
       document.getElementById("progressBarInner").style.width = percent + "%";
 
     } else {
-      // اشتراک غیرفعال
       document.getElementById("subDaysLeft").innerText = "";
       document.getElementById("menuSubDaysLeft").innerText = "";
 
@@ -73,7 +70,6 @@ document.getElementById("menuSubDaysLeft").innerText = "";
     console.log("خطا در اشتراک:", err);
   }
 }
-
 // ===============================
 //  دریافت وضعیت سیستم‌ها
 // ===============================
