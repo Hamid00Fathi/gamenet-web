@@ -24,7 +24,7 @@ async function loadSubscription() {
 
   try {
     const res = await fetch(
-      `https://gamenet-server-mongo.onrender.com/subscription/${username}?t=${Date.now()}`,
+      `https://gamenet-server-mongo-production.up.railway.app/subscription/${username}?t=${Date.now()}`,
       { cache: "no-store" }
     );
     const data = await res.json();
@@ -80,7 +80,7 @@ async function loadStatus() {
 
   try {
     const res = await fetch(
-      `https://gamenet-server-mongo.onrender.com/status/${username}?t=${Date.now()}`,
+      `https://gamenet-server-mongo-production.up.railway.app/status/${username}?t=${Date.now()}`,
       { cache: "no-store" }
     );
 
@@ -213,7 +213,7 @@ function renderCustomer(c) {
 }
 
 // ===============================
-//  مودال کامل سیستم (ترتیب قبلی + دکمه خروج)
+//  مودال کامل سیستم
 // ===============================
 function openModalFull(sys) {
   const modal = document.getElementById("modal");
