@@ -245,7 +245,7 @@ body {
   box-shadow:0 0 25px #000;
   font-size:22px;
   line-height:1.8;
-  position:relative; /* ⭐ لازم بود */
+  position:relative;
 }
 
 /* ⭐ تغییر 2: دکمه بستن بالا سمت چپ */
@@ -306,20 +306,42 @@ body {
   border:2px solid #00ff6a55;
   text-align:center;
 }
-/* ====== متن اشتراک منقضی شده — دسکتاپ ====== */
+
+/* ====== باکس اشتراک منقضی شده — دسکتاپ ====== */
+#subscriptionExpired {
+  background: linear-gradient(135deg, #1e1e1e, #252525);
+  border: 2px solid #ff3b3b;
+  padding: 25px;
+  border-radius: 18px;
+  margin-top: 20px;
+  text-align: center;
+  box-shadow: 0 0 25px rgba(255, 60, 60, 0.25);
+  animation: subPulse 2.5s infinite ease-in-out;
+}
+
 #subscriptionExpired h2 {
-  font-size: 28px;
+  font-size: 32px;
   font-weight: bold;
+  color: #ff3b3b;
+  margin-bottom: 12px;
 }
 
 #subscriptionExpired p {
-  font-size: 20px;
+  font-size: 22px;
+  margin: 8px 0;
 }
 
 #subscriptionExpired .phone {
-  font-size: 24px;
+  font-size: 26px;
   font-weight: bold;
   color: #00eaff;
+  margin-top: 12px;
+}
+
+@keyframes subPulse {
+  0% { box-shadow: 0 0 20px rgba(255, 60, 60, 0.25); }
+  50% { box-shadow: 0 0 35px rgba(255, 60, 60, 0.45); }
+  100% { box-shadow: 0 0 20px rgba(255, 60, 60, 0.25); }
 }
 
 /* =========================
@@ -400,7 +422,6 @@ body {
     gap:22px;
   }
 
-  /* ⭐ تغییر 3: کارت‌های اشتراک بزرگ‌تر */
   .subCardWrap {
     min-width:500px;
     height:400px;
@@ -458,7 +479,7 @@ body {
     background: #262626;
     border-radius: 12px;
     border: 1px solid #00eaff33;
- ‌ }
+  }
 
   #closeModalTop {
     position:absolute;
@@ -489,20 +510,30 @@ body {
     font-size:38px;
     padding:22px;
   }
-  /* ====== متن اشتراک منقضی شده — موبایل ====== */
+
+  /* ====== باکس اشتراک منقضی شده — موبایل ====== */
+  #subscriptionExpired {
+    padding: 40px;
+    border-radius: 30px;
+    border: 3px solid #ff3b3b;
+    box-shadow: 0 0 45px rgba(255, 60, 60, 0.45);
+  }
+
   #subscriptionExpired h2 {
-    font-size: 42px;
+    font-size: 55px;
     font-weight: bold;
+    color: #ff3b3b;
   }
 
   #subscriptionExpired p {
-    font-size: 34px;
+    font-size: 42px;
+    margin: 18px 0;
   }
 
   #subscriptionExpired .phone {
-    font-size: 46px;
+    font-size: 50px;
     font-weight: bold;
     color: #00eaff;
+    margin-top: 20px;
   }
-}
 }
