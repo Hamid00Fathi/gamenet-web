@@ -22,6 +22,11 @@ async function loadSubscription() {
   const username = localStorage.getItem("username");
   if (!username) return;
 
+  // جلوگیری از نمایش اشتباه اشتراک قبل از لود
+document.getElementById("subscriptionExpired").style.display = "none";
+document.getElementById("subDaysLeft").innerText = "";
+document.getElementById("menuSubDaysLeft").innerText = "";
+
   try {
     const res = await fetch(
       `https://gamenet-server-mongo-production.up.railway.app/subscription/${username}?t=${Date.now()}`,
