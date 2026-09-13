@@ -32,16 +32,16 @@ async function loadSubscription() {
     const expire = data.expireDate || "—";
     const active = data.active;
 
-    // 🔥 ذخیره وضعیت اشتراک برای loadStatus
+    // ذخیره وضعیت اشتراک برای loadStatus
     window.subscriptionActive = active;
 
     document.getElementById("subExpire").innerText = "تاریخ پایان: " + expire;
 
     let daysLeft = calcDaysLeft(expire);
-
     if (daysLeft < 0 && active) daysLeft = 1;
 
     if (active) {
+      // اشتراک فعال
       document.getElementById("subDaysLeft").innerText =
         "روزهای مانده: " + daysLeft;
 
@@ -52,18 +52,18 @@ async function loadSubscription() {
       document.getElementById("subscriptionExpired").style.display = "none";
 
       const percent = Math.min(100, Math.max(0, (daysLeft / 30) * 100));
-      document.getElementById("progressBarInner").style.width =
-        percent + "%";
-    } } else {
-  // مخفی کردن متن‌های اضافی
-  document.getElementById("subDaysLeft").innerText = "";
-  document.getElementById("menuSubDaysLeft").innerText = "";
+      document.getElementById("progressBarInner").style.width = percent + "%";
 
-  // فقط پیام اصلی نمایش داده شود
-  document.getElementById("subscriptionExpired").style.display = "block";
+    } else {
+      // اشتراک غیرفعال
+      document.getElementById("subDaysLeft").innerText = "";
+      document.getElementById("menuSubDaysLeft").innerText = "";
 
-  document.getElementById("progressBarInner").style.width = "0%";
-}
+      document.getElementById("subscriptionExpired").style.display = "block";
+
+      document.getElementById("progressBarInner").style.width = "0%";
+    }
+
   } catch (err) {
     console.log("خطا در اشتراک:", err);
   }
@@ -85,7 +85,7 @@ async function loadStatus() {
     return;
   }
 
-  // 🔥 اگر اشتراک فعال نیست → سیستم‌ها را نمایش نده
+  // اگر اشتراک فعال نیست → سیستم‌ها را نمایش نده
   if (!window.subscriptionActive) {
     lastUpdateEl.innerText = "اشتراک فعال نیست";
     document.getElementById("systems").innerHTML = "";
@@ -113,6 +113,7 @@ async function loadStatus() {
     }
 
     renderSystems(data.systems);
+
   } catch (err) {
     console.log("خطا در ارتباط با سرور:", err);
     lastUpdateEl.innerText = "خطا در ارتباط با سرور";
