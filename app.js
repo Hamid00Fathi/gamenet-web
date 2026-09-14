@@ -18,14 +18,12 @@ function calcDaysLeft(expireDate) {
 // ===============================
 //  دریافت اشتراک
 // ===============================
+// ===============================
+//  دریافت اشتراک (نسخه اصلاح‌شده)
+// ===============================
 async function loadSubscription() {
   const username = localStorage.getItem("username");
   if (!username) return;
-
-  // جلوگیری از نمایش اشتباه اشتراک قبل از لود
-  document.getElementById("subscriptionExpired").style.display = "none";
-  document.getElementById("subDaysLeft").innerText = "";
-  document.getElementById("menuSubDaysLeft").innerText = "";
 
   try {
     const res = await fetch(
@@ -39,6 +37,15 @@ async function loadSubscription() {
 
     window.subscriptionActive = active;
 
+    // پاک‌سازی قبل از نوشتن
+    document.getElementById("subExpire").innerText = "";
+    document.getElementById("subDaysLeft").innerText = "";
+    document.getElementById("menuSubExpire").innerText = "";
+    document.getElementById("menuSubDaysLeft").innerText = "";
+    document.getElementById("progressBarInner").style.width = "0%";
+    document.getElementById("subscriptionExpired").style.display = "none";
+
+    // نوشتن مقدار جدید
     document.getElementById("subExpire").innerText = "تاریخ پایان: " + expire;
 
     let daysLeft = calcDaysLeft(expire);
@@ -52,24 +59,19 @@ async function loadSubscription() {
       document.getElementById("menuSubDaysLeft").innerText =
         "مانده: " + daysLeft + " روز";
 
-      document.getElementById("subscriptionExpired").style.display = "none";
-
       const percent = Math.min(100, Math.max(0, (daysLeft / 30) * 100));
       document.getElementById("progressBarInner").style.width = percent + "%";
 
     } else {
-      document.getElementById("subDaysLeft").innerText = "";
-      document.getElementById("menuSubDaysLeft").innerText = "";
-
+      // اگر اشتراک ندارد
       document.getElementById("subscriptionExpired").style.display = "block";
-
-      document.getElementById("progressBarInner").style.width = "0%";
     }
 
   } catch (err) {
     console.log("خطا در اشتراک:", err);
   }
 }
+
 // ===============================
 //  دریافت وضعیت سیستم‌ها
 // ===============================
